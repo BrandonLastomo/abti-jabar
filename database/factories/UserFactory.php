@@ -21,14 +21,39 @@ class UserFactory extends Factory
      *
      * @return array<string, mixed>
      */
+
+    public function admin(): static
+    {
+        return $this->state(fn () => [
+            'name' => 'admin',
+            'email' => 'admin@abti.com',
+            'role' => 'admin',
+            'password' => Hash::make('admin123'),
+        ]);
+    }
+
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
+            // 'name' => fake()->name(),
+            // 'email' => fake()->unique()->safeEmail(),
+            // 'email_verified_at' => now(),
+            // 'password' => static::$password ??= Hash::make('password'),
+            // 'remember_token' => Str::random(10),
+            'name' => $this->faker->name,
+            'email' => $this->faker->unique()->safeEmail,
+            'password' => Hash::make('password'),
+            'role' => $this->faker->randomElement([
+                'athlete',
+                'coach',
+                'GK coach',
+                'technical director',
+                'management team',
+                'referee',
+                'technical delegates',
+                'volunteer',
+            ]),
+            'club_id' => rand(1, 3),
         ];
     }
 

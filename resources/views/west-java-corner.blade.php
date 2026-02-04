@@ -11,6 +11,40 @@
             </p>
         </div>
     </header>
+<!-- ================= PODCAST TERBARU ================= -->
+<section class="podcast" id="podcastSection">
+    <div class="podcast__container">
+        <header class="podcast__head">
+            <h2 class="podcast__title">Podcast Terbaru</h2>
+            <p class="podcast__sub">Dengarkan diskusi mendalam seputar dunia bola tangan Jawa Barat.</p>
+        </header>
+        <div class="podcast__carousel-container">
+            <div class="podcast__carousel-wrapper">
+                <div class="podcast__carousel" id="podcastCarousel">
+                    <div class="podcast__track" id="podcastTrack" aria-live="polite">
+                        <!-- Podcast items will be dynamically loaded here -->
+                    </div>
+                </div>
+                <button class="podcast__nav podcast__nav--prev" id="podcastPrev" type="button" aria-label="Previous podcast">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+                    </svg>
+                </button>
+                <button class="podcast__nav podcast__nav--next" id="podcastNext" type="button" aria-label="Next podcast">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="podcast__indicators" id="podcastIndicators" aria-label="Podcast navigation dots"></div>
+        </div>
+        <footer class="podcast__footer">
+            <a class="podcast__link" href="https://www.youtube.com/@CHANNEL_KAMU/podcasts" target="_blank" rel="noopener">
+                Lihat semua podcast di YouTube
+            </a>
+        </footer>
+    </div>
+</section>
     <section class="enterprise-news-video" id="newsVideoSection">
         <div class="env-container">
             <div class="env-grid">
@@ -50,6 +84,7 @@
             </div>
         </div>
     </section>
+
     <!-- ================= BERITA LAINNYA (GRID CARDS) ================= -->
     <section class="moreNews" id="moreNews">
         <div class="moreNews__container">

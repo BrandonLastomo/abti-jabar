@@ -23,8 +23,8 @@
             West Java Corner <span class="caret" aria-hidden="true"></span>
           </button>
           <div class="ddPanel" role="menu">
-            <a class="ddLink" href="{{ route('west-java-corner') }}#newsVideoSection" data-scroll role="menuitem">Berita
-              Terbaru</a>
+            <a class="ddLink" href="{{ route('west-java-corner') }}#podcastSection" data-scroll role="menuitem">Podcast</a>
+            <a class="ddLink" href="{{ route('west-java-corner') }}#newsVideoSection" data-scroll role="menuitem">Berita Terbaru</a>
             <a class="ddLink" href="{{ route('west-java-corner') }}#envReels" data-scroll role="menuitem">Cuplikan</a>
           </div>
         </li>
@@ -85,6 +85,7 @@
             West Java Corner <span class="caret" aria-hidden="true"></span>
           </button>
           <div class="mPanel">
+            <a class="mSublink" href="{{ route('west-java-corner') }}#podcastSection" data-scroll data-close>Podcast</a>
             <a class="mSublink" href="{{ route('west-java-corner') }}#newsVideoSection" data-scroll data-close>Berita Terbaru</a>
             <a class="mSublink" href="{{ route('west-java-corner') }}#envReels" data-scroll data-close>Cuplikan</a>
           </div>

@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->enum('role',['admin', 'athlete', 'coach', 'GK coach', 'technical director', 'management team', 'referee', 'technical delegates', 'volunteer']);
+            $table->foreignId('club_id')->nullable()->constrained();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

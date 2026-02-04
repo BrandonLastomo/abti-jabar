@@ -2780,6 +2780,233 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     })();
 })();
+// Podcast data - replace with your actual YouTube video IDs
+const podcastVideos = [
+    {
+        link: "https://www.youtube.com/embed/NvNsGD7W7WQ",
+    },
+    {
+        link: "https://www.youtube.com/embed/NvNsGD7W7WQ",
+    },
+    {
+        link: "https://www.youtube.com/embed/NvNsGD7W7WQ",
+    },
+    {
+        link: "https://www.youtube.com/embed/NvNsGD7W7WQ",
+    },
+    {
+        link: "https://www.youtube.com/embed/NvNsGD7W7WQ",
+    },
+];
+
+// Podcast Carousel Controller
+class PodcastCarousel {
+    constructor() {
+        this.currentIndex = 0;
+        this.autoSlideInterval = null;
+        this.autoSlideDelay = 8000; // 8 seconds
+        this.isTransitioning = false;
+
+        this.track = document.getElementById("podcastTrack");
+        this.prevBtn = document.getElementById("podcastPrev");
+        this.nextBtn = document.getElementById("podcastNext");
+        this.indicatorsContainer = document.getElementById("podcastIndicators");
+
+        if (!this.track) return;
+
+        this.init();
+    }
+
+    init() {
+        this.renderPodcasts();
+        this.renderIndicators();
+        this.attachEventListeners();
+        this.startAutoSlide();
+        this.updateCarousel();
+    }
+
+    renderPodcasts() {
+        this.track.innerHTML = podcastVideos
+            .map(
+                (podcast, index) => `
+            <article class="podcast__slide">
+                <div class="podcast__iframe-wrapper">
+                    <iframe 
+                        id="podcastIframe${index}"
+                        class="podcast__iframe"
+                        src="${podcast.link}"
+                        title="Podcast ${index + 1}"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen
+                        loading="lazy">
+                    </iframe>
+                </div>
+            </article>
+        `,
+            )
+            .join("");
+    }
+
+    renderIndicators() {
+        this.indicatorsContainer.innerHTML = podcastVideos
+            .map(
+                (_, index) => `
+            <button class="podcast__dot ${index === 0 ? "podcast__dot--active" : ""}" 
+                    data-index="${index}" 
+                    type="button"
+                    aria-label="Go to podcast ${index + 1}"></button>
+        `,
+            )
+            .join("");
+    }
+
+    attachEventListeners() {
+        // Previous button
+        this.prevBtn?.addEventListener("click", () => {
+            this.stopAutoSlide();
+            this.prev();
+            this.startAutoSlide();
+        });
+
+        // Next button
+        this.nextBtn?.addEventListener("click", () => {
+            this.stopAutoSlide();
+            this.next();
+            this.startAutoSlide();
+        });
+
+        // Indicator dots
+        this.indicatorsContainer?.addEventListener("click", (e) => {
+            if (e.target.classList.contains("podcast__dot")) {
+                this.stopAutoSlide();
+                const index = parseInt(e.target.dataset.index);
+                this.goToSlide(index);
+                this.startAutoSlide();
+            }
+        });
+
+        // Pause auto-slide when user interacts with carousel
+        const carouselWrapper = document.querySelector(
+            ".podcast__carousel-wrapper",
+        );
+        carouselWrapper?.addEventListener("mouseenter", () =>
+            this.stopAutoSlide(),
+        );
+        carouselWrapper?.addEventListener("mouseleave", () =>
+            this.startAutoSlide(),
+        );
+
+        // Touch events for mobile swipe
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        this.track?.addEventListener("touchstart", (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+            this.stopAutoSlide();
+        });
+
+        this.track?.addEventListener("touchend", (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            this.handleSwipe();
+            this.startAutoSlide();
+        });
+
+        const handleSwipe = () => {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    this.next();
+                } else {
+                    this.prev();
+                }
+            }
+        };
+
+        this.handleSwipe = handleSwipe;
+    }
+
+    updateCarousel() {
+        if (this.isTransitioning) return;
+
+        this.isTransitioning = true;
+
+        // Single slide at a time (full container width)
+        const offset = -(this.currentIndex * 100);
+
+        this.track.style.transform = `translateX(${offset}%)`;
+
+        // Update indicators
+        const dots =
+            this.indicatorsContainer?.querySelectorAll(".podcast__dot");
+        dots?.forEach((dot, index) => {
+            dot.classList.toggle(
+                "podcast__dot--active",
+                index === this.currentIndex,
+            );
+        });
+
+        // Update button visibility
+        this.prevBtn?.classList.toggle(
+            "podcast__nav--hidden",
+            this.currentIndex === 0,
+        );
+        this.nextBtn?.classList.toggle(
+            "podcast__nav--hidden",
+            this.currentIndex >= podcastVideos.length - 1,
+        );
+
+        setTimeout(() => {
+            this.isTransitioning = false;
+        }, 500);
+    }
+
+    next() {
+        if (this.currentIndex < podcastVideos.length - 1) {
+            this.currentIndex++;
+        } else {
+            this.currentIndex = 0; // Loop back to start
+        }
+
+        this.updateCarousel();
+    }
+
+    prev() {
+        if (this.currentIndex > 0) {
+            this.currentIndex--;
+        } else {
+            this.currentIndex = podcastVideos.length - 1; // Loop to end
+        }
+
+        this.updateCarousel();
+    }
+
+    goToSlide(index) {
+        this.currentIndex = index;
+        this.updateCarousel();
+    }
+
+    startAutoSlide() {
+        this.stopAutoSlide();
+        this.autoSlideInterval = setInterval(() => {
+            this.next();
+        }, this.autoSlideDelay);
+    }
+
+    stopAutoSlide() {
+        if (this.autoSlideInterval) {
+            clearInterval(this.autoSlideInterval);
+            this.autoSlideInterval = null;
+        }
+    }
+}
+
+// Initialize carousel when DOM is ready
+document.addEventListener("DOMContentLoaded", () => {
+    new PodcastCarousel();
+});
 
 /* ========================= BERITA LAINNYA (GRID CARDS) ========================= */
 (() => {

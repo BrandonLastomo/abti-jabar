@@ -26,6 +26,57 @@
         </div>
       </div>
     </section>
+
+<section class="livestream-section">
+    <h2 class="section-heading">PAST LIVESTREAMS</h2>
+
+    <div class="marquee-container" id="marqueeContainer">
+        <div class="marquee-track" id="marqueeTrack">
+
+            <a href="#" class="card-link">
+                <div class="image-wrapper">
+                    <img src="https://i.ytimg.com/vi/3yWd2qK4k7k/maxresdefault.jpg" alt="Beach Handball">
+                    <div class="overlay-title">BEACH HANDBALL: WHEN THE SAND RULES</div>
+                </div>
+                <div class="card-sub-title">Rangkuman Momen Tak Terduga di Beach Handball</div>
+            </a>
+
+            <a href="#" class="card-link">
+                <div class="image-wrapper">
+                    <img src="https://www.ihf.info/sites/default/files/2019-07/Nycke%20Groot_0.jpg" alt="Nycke Groot">
+                    <div class="overlay-title">NYCKE GROOT HER BEST ACTIONS</div>
+                </div>
+                <div class="card-sub-title">NYCKE GROOT dan Perspektif Handball</div>
+            </a>
+
+            <a href="#" class="card-link">
+                <div class="image-wrapper">
+                    <img src="https://editorial01.shutterstock.com/wm-preview-1500/13978383a/63622158/shutterstock_editorial_13978383a.jpg" alt="Top Assists">
+                    <div class="overlay-title">TOP ASSISTS FROM NORA MORK</div>
+                </div>
+                <div class="card-sub-title">Nora Mørk: Assist Terbaik</div>
+            </a>
+
+            <a href="#" class="card-link">
+                <div class="image-wrapper">
+                    <img src="https://i.ytimg.com/vi/7_V_w6k2w-0/maxresdefault.jpg" alt="Spain vs Germany">
+                    <div class="overlay-title">SPAIN VS GERMANY PENALTY SHOOT-OUT!</div>
+                </div>
+                <div class="card-sub-title">Spanyol vs Jerman: Adu Penalti</div>
+            </a>
+
+             <a href="#" class="card-link">
+                <div class="image-wrapper">
+                    <img src="https://www.ihf.info/sites/default/files/styles/news_main/public/2024-08/DEN_2569.jpg?itok=zQ74Wj4_" alt="World Games">
+                    <div class="overlay-title">THE WORLD GAMES 2025</div>
+                </div>
+                <div class="card-sub-title">Handball | The World Games 2025</div>
+            </a>
+
+        </div>
+    </div>
+</section>
+
     <!-- ===================== YOUTUBE ===================== -->
     <section class="ytStrip" id="highlights">
       <div class="ytHead">

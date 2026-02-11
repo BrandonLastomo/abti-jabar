@@ -230,6 +230,123 @@ console.log("[script] loaded", new Date().toLocaleTimeString());
         }
     });
 })();
+
+document.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById('marqueeContainer');
+    const track = document.getElementById('marqueeTrack');
+
+    if (!container || !track) return; // Guard clause in case elements aren't loaded
+
+    let currentOffset = 0;
+    let isDragging = false;
+    let startX = 0;
+    let lastX = 0;
+    let animationFrameId;
+    
+    // Config
+    const autoSpeed = 0.5; // Positive for moving Right
+
+    function checkBoundaryAndLoop() {
+        const containerRect = container.getBoundingClientRect();
+        
+        // 1. Check Left Gap (for moving RIGHT)
+        // If the track moves right, items fall off the right side and a gap appears on the left.
+        // We detect if the first item's left edge is > container's left edge.
+        const firstItem = track.firstElementChild;
+        if (firstItem) {
+            const firstRect = firstItem.getBoundingClientRect();
+            // If the start of the content is visible (or pushed right), we need to fill the left side
+            if (firstRect.left > containerRect.left) {
+                const lastItem = track.lastElementChild;
+                const lastRect = lastItem.getBoundingClientRect();
+                const style = window.getComputedStyle(lastItem);
+                const margin = parseFloat(style.marginRight) || 0;
+                const width = lastRect.width + margin; // 15px is the gap defined in CSS
+
+                // Move last item to front
+                track.prepend(lastItem);
+                
+                // Adjust offset to prevent visual jump
+                currentOffset -= width; 
+                track.style.transform = `translateX(${currentOffset}px)`;
+            }
+        }
+
+        // 2. Check Right Gap (for dragging LEFT)
+        // If user drags left manually, we might run out of items on the right.
+        const lastItem = track.lastElementChild;
+        if (lastItem) {
+            const lastRect = lastItem.getBoundingClientRect();
+            if (lastRect.right < containerRect.right) {
+                const firstItem = track.firstElementChild;
+                const firstRect = firstItem.getBoundingClientRect();
+                const style = window.getComputedStyle(firstItem);
+                const margin = parseFloat(style.marginRight) || 0;
+                const width = firstRect.width + margin;
+
+                // Move first item to end
+                track.appendChild(firstItem);
+                
+                // Adjust offset
+                currentOffset += width;
+                track.style.transform = `translateX(${currentOffset}px)`;
+            }
+        }
+    }
+
+    function animate() {
+        if (!isDragging) {
+            currentOffset += autoSpeed; // Move Right
+            track.style.transform = `translateX(${currentOffset}px)`;
+            checkBoundaryAndLoop();
+        }
+        animationFrameId = requestAnimationFrame(animate);
+    }
+
+    // --- Drag Logic ---
+    
+    function onPointerDown(e) {
+        isDragging = true;
+        startX = e.pageX || e.touches[0].pageX;
+        lastX = startX;
+        cancelAnimationFrame(animationFrameId);
+    }
+
+    function onPointerMove(e) {
+        if (!isDragging) return;
+        e.preventDefault(); // Stop text selection
+
+        const clientX = e.pageX || e.touches[0].pageX;
+        const deltaX = clientX - lastX;
+        lastX = clientX;
+
+        currentOffset += deltaX;
+        track.style.transform = `translateX(${currentOffset}px)`;
+        
+        // Check boundaries continuously while dragging
+        checkBoundaryAndLoop();
+    }
+
+    function onPointerUp() {
+        if (!isDragging) return;
+        isDragging = false;
+        animate(); // Resume loop
+    }
+
+    // Events
+    container.addEventListener('mousedown', onPointerDown);
+    container.addEventListener('touchstart', onPointerDown);
+
+    window.addEventListener('mousemove', onPointerMove);
+    window.addEventListener('touchmove', onPointerMove);
+
+    window.addEventListener('mouseup', onPointerUp);
+    window.addEventListener('touchend', onPointerUp);
+    
+    // Start
+    animate();
+});
+
 // =========================// YT STRIP: Google Sheets (GVIZ)// =========================
 (function () {
     const track = document.querySelector("[data-yt-track]");

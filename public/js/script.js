@@ -231,49 +231,416 @@ console.log("[script] loaded", new Date().toLocaleTimeString());
     });
 })();
 
-document.addEventListener('DOMContentLoaded', () => {
-    const container = document.getElementById('marqueeContainer');
-    const track = document.getElementById('marqueeTrack');
+// =========================
+// LIVESTREAM SECTION
+// =========================
+(function () {
+    // Configuration for livestream
+    const LIVESTREAM_CONFIG = {
+        isLive: false, // Change to true when there's a live stream
 
-    if (!container || !track) return; // Guard clause in case elements aren't loaded
+        videoId: "dQw4w9WgXcQ", // dummy
+
+        // Stream infos
+        title: "PERTANDINGAN BOLA TANGAN JAWA BARAT",
+        subtitle: "Saksikan pertandingan secara langsung",
+        info: "Streaming dimulai sesuai jadwal yang telah ditentukan",
+    };
+
+    function initLivestream() {
+        const section = document.getElementById("livestream");
+        if (!section) return;
+
+        // Check if livestream should be shown
+        if (!LIVESTREAM_CONFIG.isLive) {
+            section.style.display = "none";
+            return;
+        }
+
+        // Show the livestream section
+        section.style.display = "block";
+        section.classList.add("is-live");
+
+        // Set content
+        const titleEl = document.getElementById("livestreamTitle");
+        const subtitleEl = document.getElementById("livestreamSubtitle");
+        const infoEl = document.getElementById("livestreamInfo");
+        const iframeEl = document.getElementById("livestreamIframe");
+
+        if (titleEl) titleEl.textContent = LIVESTREAM_CONFIG.title;
+        if (subtitleEl) subtitleEl.textContent = LIVESTREAM_CONFIG.subtitle;
+        if (infoEl) infoEl.textContent = LIVESTREAM_CONFIG.info;
+
+        // Set iframe source
+        if (iframeEl) {
+            const embedUrl = getYouTubeEmbedUrl(LIVESTREAM_CONFIG.videoId);
+            iframeEl.src = embedUrl;
+        }
+    }
+
+    function getYouTubeEmbedUrl(input) {
+        // If it's already an embed URL, return it
+        if (input.includes("youtube.com/embed/")) {
+            return input;
+        }
+
+        // Extract video ID if it's a full URL
+        let videoId = input;
+
+        // Handle various YouTube URL formats
+        const patterns = [
+            /(?:youtube\.com\/watch\?v=)([a-zA-Z0-9_-]+)/,
+            /(?:youtu\.be\/)([a-zA-Z0-9_-]+)/,
+            /(?:youtube\.com\/embed\/)([a-zA-Z0-9_-]+)/,
+            /(?:youtube\.com\/shorts\/)([a-zA-Z0-9_-]+)/,
+        ];
+
+        for (const pattern of patterns) {
+            const match = input.match(pattern);
+            if (match) {
+                videoId = match[1];
+                break;
+            }
+        }
+
+        // Return embed URL with autoplay for livestream
+        return `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0`;
+    }
+
+    // Initialize on page load
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initLivestream);
+    } else {
+        initLivestream();
+    }
+
+    // Check livestream status periodically (every 5 minutes)
+    setInterval(
+        () => {
+            // checkLivestreamStatus();
+        },
+        5 * 60 * 1000,
+    );
+})();
+
+// =========================
+// EXTENDED HIGHLIGHTS WITH BADGES
+// =========================
+(function () {
+    const track = document.querySelector("[data-yt-track]");
+    if (!track) return;
+
+    const SHEET_ID = "1PNHq5tj_xQFeia2UQMZ1OpUa7NFEKBUtjoG9Hf-d4IA";
+    const GID = 0;
+    const MAX_VIDEOS = 8;
+
+    // Fallback videos with badges
+    const FALLBACK = [
+        { url: "https://www.youtube.com/watch?v=0cnF0wRv8Uc", badge: "klub" },
+        { url: "https://www.youtube.com/watch?v=0cnF0wRv8Uc", badge: "indoor" },
+        { url: "https://www.youtube.com/watch?v=0cnF0wRv8Uc", badge: "beach" },
+        { url: "https://www.youtube.com/watch?v=0cnF0wRv8Uc", badge: "klub" },
+        { url: "https://www.youtube.com/watch?v=0cnF0wRv8Uc", badge: "indoor" },
+        { url: "https://www.youtube.com/watch?v=0cnF0wRv8Uc", badge: "beach" },
+        { url: "https://www.youtube.com/watch?v=0cnF0wRv8Uc", badge: "klub" },
+        { url: "https://www.youtube.com/watch?v=0cnF0wRv8Uc", badge: "indoor" },
+    ];
+
+    const TQ = "select B, C, D";
+    const GVIZ_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?gid=${GID}&tqx=out:json&tq=${encodeURIComponent(TQ)}`;
+
+    function getYouTubeId(url) {
+        try {
+            const u = new URL(url);
+            if (u.searchParams.get("v")) return u.searchParams.get("v");
+            if (u.hostname.includes("youtu.be"))
+                return u.pathname.replace("/", "");
+            const m = u.pathname.match(/\/(shorts|embed)\/([^/]+)/);
+            if (m) return m[2];
+        } catch (e) {}
+        return null;
+    }
+
+    function getBadgeHTML(badge) {
+        if (!badge) return "";
+
+        const badgeType = String(badge).toLowerCase().trim();
+        const badgeClasses = {
+            klub: "ytBadge ytBadge--klub",
+            indoor: "ytBadge ytBadge--indoor",
+            "tim indoor": "ytBadge ytBadge--indoor",
+            beach: "ytBadge ytBadge--beach",
+            "tim beach": "ytBadge ytBadge--beach",
+        };
+
+        const badgeLabels = {
+            klub: "KLUB",
+            indoor: "TIM INDOOR",
+            "tim indoor": "TIM INDOOR",
+            beach: "TIM BEACH",
+            "tim beach": "TIM BEACH",
+        };
+
+        const className = badgeClasses[badgeType] || "ytBadge ytBadge--klub";
+        const label = badgeLabels[badgeType] || badge.toUpperCase();
+
+        return `<span class="${className}">${label}</span>`;
+    }
+
+    function cardHTML(url, title, badge, idx) {
+        const id = getYouTubeId(url);
+        if (!id) return "";
+
+        const thumb = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+        const safeTitle =
+            title && String(title).trim()
+                ? String(title).trim()
+                : `Video ${idx + 1}`;
+
+        const badgeHTML = getBadgeHTML(badge);
+
+        return `
+            <a class="ytCard" href="${url}" target="_blank" rel="noopener">
+                <div class="ytThumb">
+                    ${badgeHTML}
+                    <img src="${thumb}" alt="YouTube video thumbnail ${idx + 1}" loading="lazy">
+                </div>
+                <div class="ytCap">${safeTitle}</div>
+            </a>
+        `;
+    }
+
+    function extractYouTubeUrl(input) {
+        const s = String(input || "").trim();
+        let m = s.match(
+            /https?:\/\/(?:www\.)?youtube\.com\/watch\?v=([\w-]{6,})/i,
+        );
+        if (m) return `https://www.youtube.com/watch?v=${m[1]}`;
+
+        m = s.match(/https?:\/\/(?:www\.)?youtu\.be\/([\w-]{6,})/i);
+        if (m) return `https://www.youtube.com/watch?v=${m[1]}`;
+
+        m = s.match(
+            /https?:\/\/(?:www\.)?youtube\.com\/(?:shorts|embed)\/([\w-]{6,})/i,
+        );
+        if (m) return `https://www.youtube.com/watch?v=${m[1]}`;
+
+        return null;
+    }
+
+    function parseGViz(text) {
+        const start = text.indexOf("setResponse(");
+        if (start === -1) throw new Error("Bad GVIZ response");
+
+        const jsonStart = text.indexOf("{", start);
+        const jsonEnd = text.lastIndexOf("}");
+        if (jsonStart === -1 || jsonEnd === -1)
+            throw new Error("No JSON found");
+
+        const jsonStr = text.slice(jsonStart, jsonEnd + 1);
+        return JSON.parse(jsonStr);
+    }
+
+    function render(items) {
+        const picked = (items || []).slice(0, MAX_VIDEOS);
+
+        const htmlOne = picked
+            .map((it, i) => cardHTML(it.url, it.cap, it.badge, i))
+            .join("");
+
+        const fallbackOne = FALLBACK.map((item, i) =>
+            cardHTML(
+                item.url,
+                `Extended Highlights • Video ${i + 1}`,
+                item.badge,
+                i,
+            ),
+        ).join("");
+
+        const oneSet = htmlOne.trim() ? htmlOne : fallbackOne;
+        track.innerHTML = oneSet + oneSet;
+
+        requestAnimationFrame(() => {
+            initYTLoop();
+        });
+    }
+
+    async function load() {
+        try {
+            const res = await fetch(`${GVIZ_URL}&_cb=${Date.now()}`, {
+                cache: "no-store",
+            });
+            if (!res.ok) throw new Error("Fetch failed");
+
+            const text = await res.text();
+            const data = parseGViz(text);
+            const rows = data.table && data.table.rows ? data.table.rows : [];
+
+            const items = rows
+                .map((r) => {
+                    const b = r.c && r.c[0] ? r.c[0] : null;
+                    const c = r.c && r.c[1] ? r.c[1] : null;
+                    const d = r.c && r.c[2] ? r.c[2] : null;
+
+                    const rawUrl = b ? (b.v ?? b.f ?? "") : "";
+                    const rawCap = c ? (c.v ?? c.f ?? "") : "";
+                    const rawBadge = d ? (d.v ?? d.f ?? "") : "";
+
+                    return {
+                        url: extractYouTubeUrl(rawUrl),
+                        cap: String(rawCap || "").trim(),
+                        badge: String(rawBadge || "").trim(),
+                    };
+                })
+                .filter((x) => x.url);
+
+            render(items);
+        } catch (e) {
+            console.error("Error loading YouTube data:", e);
+            render(
+                FALLBACK.map((item) => ({
+                    url: item.url,
+                    cap: "",
+                    badge: item.badge,
+                })),
+            );
+        }
+    }
+
+    load();
+
+    function initYTLoop() {
+        const marquee = document.querySelector(".ytMarquee");
+        const track = document.querySelector("[data-yt-track]");
+        if (!marquee || !track) return;
+        if (marquee.dataset.ytLoopInited === "1") return;
+
+        marquee.dataset.ytLoopInited = "1";
+
+        const SPEED = 18;
+        const RESUME_AFTER = 800;
+        let lastTs = 0;
+        let interactingUntil = 0;
+        let isDown = false;
+        let startX = 0;
+        let startScrollLeft = 0;
+        let dragged = false;
+
+        const now = () => performance.now();
+        const setInteracting = () => {
+            interactingUntil = now() + RESUME_AFTER;
+        };
+
+        marquee.addEventListener(
+            "pointerdown",
+            (e) => {
+                isDown = true;
+                dragged = false;
+                startX = e.clientX;
+                startScrollLeft = marquee.scrollLeft;
+                setInteracting();
+                e.preventDefault();
+                marquee.setPointerCapture?.(e.pointerId);
+            },
+            { passive: false },
+        );
+
+        marquee.addEventListener("pointermove", (e) => {
+            if (!isDown) return;
+            const dx = e.clientX - startX;
+            if (Math.abs(dx) > 6) dragged = true;
+            marquee.scrollLeft = startScrollLeft - dx;
+            setInteracting();
+        });
+
+        marquee.addEventListener("pointerup", () => {
+            isDown = false;
+            setInteracting();
+        });
+
+        marquee.addEventListener("pointercancel", () => {
+            isDown = false;
+            setInteracting();
+        });
+
+        track.addEventListener(
+            "click",
+            (e) => {
+                if (dragged) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    dragged = false;
+                }
+            },
+            true,
+        );
+
+        marquee.addEventListener("touchstart", setInteracting, {
+            passive: true,
+        });
+        marquee.addEventListener("touchmove", setInteracting, {
+            passive: true,
+        });
+
+        function loop(ts) {
+            if (!lastTs) lastTs = ts;
+            const dt = (ts - lastTs) / 1000;
+            lastTs = ts;
+
+            const half = track.scrollWidth / 2;
+            if (now() > interactingUntil && !isDown) {
+                marquee.scrollLeft += SPEED * dt;
+            }
+
+            if (marquee.scrollLeft >= half) marquee.scrollLeft -= half;
+            if (marquee.scrollLeft < 0) marquee.scrollLeft += half;
+
+            requestAnimationFrame(loop);
+        }
+
+        requestAnimationFrame(loop);
+    }
+})();
+
+// Past Stream Marquee
+document.addEventListener("DOMContentLoaded", () => {
+    const container = document.getElementById("marqueeContainer");
+    const track = document.getElementById("marqueeTrack");
+
+    if (!container || !track) return;
 
     let currentOffset = 0;
     let isDragging = false;
     let startX = 0;
     let lastX = 0;
     let animationFrameId;
-    
-    // Config
-    const autoSpeed = 0.5; // Positive for moving Right
+
+    // move right
+    const autoSpeed = 0.5;
 
     function checkBoundaryAndLoop() {
         const containerRect = container.getBoundingClientRect();
-        
-        // 1. Check Left Gap (for moving RIGHT)
-        // If the track moves right, items fall off the right side and a gap appears on the left.
-        // We detect if the first item's left edge is > container's left edge.
+
         const firstItem = track.firstElementChild;
         if (firstItem) {
             const firstRect = firstItem.getBoundingClientRect();
-            // If the start of the content is visible (or pushed right), we need to fill the left side
+
             if (firstRect.left > containerRect.left) {
                 const lastItem = track.lastElementChild;
                 const lastRect = lastItem.getBoundingClientRect();
                 const style = window.getComputedStyle(lastItem);
                 const margin = parseFloat(style.marginRight) || 0;
-                const width = lastRect.width + margin; // 15px is the gap defined in CSS
+                const width = lastRect.width + margin;
 
                 // Move last item to front
                 track.prepend(lastItem);
-                
+
                 // Adjust offset to prevent visual jump
-                currentOffset -= width; 
+                currentOffset -= width;
                 track.style.transform = `translateX(${currentOffset}px)`;
             }
         }
 
-        // 2. Check Right Gap (for dragging LEFT)
-        // If user drags left manually, we might run out of items on the right.
         const lastItem = track.lastElementChild;
         if (lastItem) {
             const lastRect = lastItem.getBoundingClientRect();
@@ -286,7 +653,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Move first item to end
                 track.appendChild(firstItem);
-                
+
                 // Adjust offset
                 currentOffset += width;
                 track.style.transform = `translateX(${currentOffset}px)`;
@@ -304,7 +671,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Drag Logic ---
-    
     function onPointerDown(e) {
         isDragging = true;
         startX = e.pageX || e.touches[0].pageX;
@@ -322,7 +688,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         currentOffset += deltaX;
         track.style.transform = `translateX(${currentOffset}px)`;
-        
+
         // Check boundaries continuously while dragging
         checkBoundaryAndLoop();
     }
@@ -334,15 +700,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Events
-    container.addEventListener('mousedown', onPointerDown);
-    container.addEventListener('touchstart', onPointerDown);
+    container.addEventListener("mousedown", onPointerDown);
+    container.addEventListener("touchstart", onPointerDown);
 
-    window.addEventListener('mousemove', onPointerMove);
-    window.addEventListener('touchmove', onPointerMove);
+    window.addEventListener("mousemove", onPointerMove);
+    window.addEventListener("touchmove", onPointerMove);
 
-    window.addEventListener('mouseup', onPointerUp);
-    window.addEventListener('touchend', onPointerUp);
-    
+    window.addEventListener("mouseup", onPointerUp);
+    window.addEventListener("touchend", onPointerUp);
+
     // Start
     animate();
 });

@@ -27,6 +27,38 @@
       </div>
     </section>
 
+<!-- ========================= LIVESTREAM SECTION ========================= -->
+    <section class="livestream" id="livestream" style="display: none;">
+      <div class="livestream__container">
+        <div class="livestream__header">
+          <div class="livestream__badge">
+            <span class="livestream__badge-dot"></span>
+            <span class="livestream__badge-text">LIVE NOW</span>
+          </div>
+          <h2 class="livestream__title" id="livestreamTitle">Pertandingan Bola Tangan</h2>
+          <p class="livestream__subtitle" id="livestreamSubtitle">Saksikan pertandingan secara langsung</p>
+        </div>
+        
+        <div class="livestream__video-wrapper">
+          <div class="livestream__video-container">
+            <iframe 
+              id="livestreamIframe"
+              class="livestream__iframe"
+              src=""
+              title="Live Stream"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
+        </div>
+        
+        <div class="livestream__footer">
+          <p class="livestream__info" id="livestreamInfo">Streaming dimulai pada waktu yang telah dijadwalkan</p>
+        </div>
+      </div>
+    </section>
+
 <section class="livestream-section">
     <h2 class="section-heading">PAST LIVESTREAMS</h2>
 
@@ -87,6 +119,7 @@
         </div>
       </div>
     </section>
+    
     <!-- ===================== BERITA TERBARU (BIG SLIDER) ===================== -->
     <div class="bigNewsSectionBg">
       <section class="bigNews">

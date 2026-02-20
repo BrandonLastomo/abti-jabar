@@ -11,11 +11,11 @@
             Tentang Kami <span class="caret" aria-hidden="true"></span>
           </button>
           <div class="ddPanel" role="menu">
-            <a class="ddLink" href="{{ route('about') }}#aboutShell" data-scroll role="menuitem">Sejarah</a>
-            <a class="ddLink" href="{{ route('about') }}#aboutShell" data-scroll role="menuitem">Visi &amp; Misi</a>
-            <a class="ddLink" href="{{ route('about') }}#aboutShell" data-scroll role="menuitem">Organisasi</a>
-            <a class="ddLink" href="{{ route('about') }}#members" data-scroll role="menuitem">Member ABTI</a>
-            <a class="ddLink" href="{{ route('about') }}#program-kerja" data-scroll role="menuitem">Program Kerja</a>
+            <a class="ddLink" href="{{ route('about-us') }}#aboutShell" data-scroll role="menuitem">Sejarah</a>
+            <a class="ddLink" href="{{ route('about-us') }}#aboutShell" data-scroll role="menuitem">Visi &amp; Misi</a>
+            <a class="ddLink" href="{{ route('about-us') }}#aboutShell" data-scroll role="menuitem">Organisasi</a>
+            <a class="ddLink" href="{{ route('about-us') }}#members" data-scroll role="menuitem">Member ABTI</a>
+            <a class="ddLink" href="{{ route('about-us') }}#program-kerja" data-scroll role="menuitem">Program Kerja</a>
           </div>
         </li>
         <li class="item dd" data-dd>
@@ -73,11 +73,11 @@
             Tentang Kami <span class="caret" aria-hidden="true"></span>
           </button>
           <div class="mPanel">
-            <a class="mSublink" href="{{ route('about') }}#aboutShell" data-scroll data-close>Sejarah</a>
-            <a class="mSublink" href="{{ route('about') }}#aboutShell" data-scroll data-close>Visi &amp; Misi</a>
-            <a class="mSublink" href="{{ route('about') }}#aboutShell" data-scroll data-close>Organisasi</a>
-            <a class="mSublink" href="{{ route('about') }}#members" data-scroll data-close>Member ABTI</a>
-            <a class="mSublink" href="{{ route('about') }}#program-kerja" data-scroll data-close>Program Kerja</a>
+            <a class="mSublink" href="{{ route('about-us') }}#aboutShell" data-scroll data-close>Sejarah</a>
+            <a class="mSublink" href="{{ route('about-us') }}#aboutShell" data-scroll data-close>Visi &amp; Misi</a>
+            <a class="mSublink" href="{{ route('about-us') }}#aboutShell" data-scroll data-close>Organisasi</a>
+            <a class="mSublink" href="{{ route('about-us') }}#members" data-scroll data-close>Member ABTI</a>
+            <a class="mSublink" href="{{ route('about-us') }}#program-kerja" data-scroll data-close>Program Kerja</a>
           </div>
         </div>
         <div class="mGroup" data-mdd>

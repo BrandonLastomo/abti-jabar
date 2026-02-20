@@ -22,14 +22,14 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        Club::factory()->count(3)->create();
+        // Club::factory()->count(3)->create();
 
-        User::factory()->admin()->create();
-        User::factory()->count(3)->create();
+        // User::factory()->admin()->create();
+        // User::factory()->count(3)->create();
 
-        Event::factory()->count(3)->create();
-        BallMatch::factory()->count(3)->create();
-        Highlight::factory()->count(3)->create();
-        Livestream::factory()->count(3)->create();
+        // Event::factory()->count(3)->create();
+        // BallMatch::factory()->count(3)->create();
+        // Highlight::factory()->count(3)->create();
+        // Livestream::factory()->count(3)->create();
     }
 }

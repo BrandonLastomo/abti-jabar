@@ -14,12 +14,14 @@ class Club extends Model
     protected $fillable = [
         'name',
         'city',
+        'director_club',
+        'administrator',
+        'technical_director',
+        'training_venue',
+        'email',
+        'contact_person',
+        'website',
         'founded_year',
         'status',
     ];
-
-    public function users(): HasMany
-    {
-        return $this->hasMany(User::class);
-    }
 }

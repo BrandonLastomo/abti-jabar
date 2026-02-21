@@ -15,7 +15,7 @@ class ProgramKerjaController extends Controller
     {
         $programKerja = ProgramKerja::latest()->paginate(10);
 
-        return view('program_kerja.index', [
+        return view('cms.program_kerja.index', [
             'programKerja' => $programKerja,
             'page' => 'program-kerja'
         ]);
@@ -26,7 +26,7 @@ class ProgramKerjaController extends Controller
      */
     public function create()
     {
-        return view('program_kerja.add', [
+        return view('cms.program_kerja.add', [
             'page' => 'program-kerja'
         ]);
     }
@@ -81,7 +81,7 @@ class ProgramKerjaController extends Controller
      */
     public function show(ProgramKerja $programKerja)
     {
-        return view('program_kerja.show', [
+        return view('cms.program_kerja.show', [
             'programKerja' => $programKerja,
             'page' => 'show program kerja'
         ]);
@@ -92,7 +92,7 @@ class ProgramKerjaController extends Controller
      */
     public function edit(ProgramKerja $programKerja)
     {
-        return view('program_kerja.edit', [
+        return view('cms.program_kerja.edit', [
             'programKerja' => $programKerja,
             'page' => 'edit program kerja'
         ]);
@@ -124,7 +124,7 @@ class ProgramKerjaController extends Controller
             $slug .= '-' . time();
         }
 
-        $imagePath = null;
+        $imagePath = $programKerja->image;
 
         if ($request->hasFile('image')) {
 
@@ -136,7 +136,7 @@ class ProgramKerjaController extends Controller
                 ->store('program_kerja', 'public');
         }
 
-        ProgramKerja::create([
+        $programKerja->update([
             'title'   => $request->title,
             'slug'    => $slug,
             'hero_meta'   => $request->hero_meta,

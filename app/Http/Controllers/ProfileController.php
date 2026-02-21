@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Club;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -12,78 +13,89 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $data = collect();
+        $clubs = Club::latest()->paginate(10);
 
-        // dummy data
-        for ($i = 1; $i <= 35; $i++) {
-            $data->push([
-                'title' => 'Big News ' . $i,
-                'link' => 'https://example.com/news-' . $i,
-                'image' => $i % 2 == 0 ? 'image.jpg' : null,
-            ]);
-        }
-
-        $perPage = 10;
-        $currentPage = LengthAwarePaginator::resolveCurrentPage();
-        $currentItems = $data->slice(($currentPage - 1) * $perPage, $perPage)->values();
-
-        $bignews = new LengthAwarePaginator(
-            $currentItems,
-            $data->count(),
-            $perPage,
-            $currentPage,
-            ['path' => request()->url()]
-        );
-
-  
-        return view('profile', ['bignews' => $bignews, 'page' => 'profile']);
+        return view('cms.club.index', [
+            'clubs' => $clubs,
+            'page' => 'club'
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('cms.club.add-club', [
+            'page' => 'club'
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'city' => 'required|string|max:255',
+            'director_club' => 'required|string|max:255',
+            'administrator' => 'required|string|max:255',
+            'technical_director' => 'required|string|max:255',
+            'training_venue' => 'required|string|max:255',
+            'email' => 'nullable|email|max:255',
+            'contact_person' => 'nullable|string|max:255',
+            'website' => 'nullable|url|max:255',
+            'founded_year' => 'nullable|digits:4',
+            'status' => 'required|in:member,guest',
+        ]);
+
+        Club::create($request->all());
+
+        return redirect()
+            ->route('club.index')
+            ->with('success', 'Club created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show(Club $club)
     {
-        //
+        return view('cms.club.show-club', [
+            'club' => $club,
+            'page' => 'club'
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function edit(Club $club)
     {
-        //
+        return view('cms.club.edit-club', [
+            'club' => $club,
+            'page' => 'club'
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Club $club)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'city' => 'required|string|max:255',
+            'director_club' => 'required|string|max:255',
+            'administrator' => 'required|string|max:255',
+            'technical_director' => 'required|string|max:255',
+            'training_venue' => 'required|string|max:255',
+            'email' => 'nullable|email|max:255',
+            'contact_person' => 'nullable|string|max:255',
+            'website' => 'nullable|url|max:255',
+            'founded_year' => 'nullable|digits:4',
+            'status' => 'required|in:member,guest',
+        ]);
+
+        $club->update($request->all());
+
+        return redirect()
+            ->route('club.index')
+            ->with('success', 'Club updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy(Club $club)
     {
-        //
+        $club->delete();
+
+        return redirect()
+            ->route('club.index')
+            ->with('success', 'Club deleted successfully.');
     }
 }

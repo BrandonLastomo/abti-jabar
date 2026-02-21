@@ -49,13 +49,13 @@
       <span class="navMeta"><span class="pill">News + Shorts</span></span>
     </a>
 
-    <a href="{{ route('event.index') }}" class="navBtn <?= $page === 'event' ? 'active' : '' ?>">
+    <a href="{{ route('events.index') }}" class="navBtn <?= $page === 'event' ? 'active' : '' ?>">
       <span>Event</span>
       <span class="navMeta"><span class="pill">Events + Header</span></span>
     </a>
 
 
-    <a href="{{ route('profile.index') }}" class="navBtn <?= $page === 'profile' ? 'active' : '' ?>">
+    <a href="{{ route('club.index') }}" class="navBtn <?= $page === 'profile' ? 'active' : '' ?>">
       <span>Profile</span>
       <span class="navMeta"><span class="pill">Header + Slider + Clubs</span></span>
     </a>
@@ -65,7 +65,7 @@
       <span class="navMeta"><span class="pill">10 items × 10 photos</span></span>
     </a>
 
-    <a href="{{ route('archives.index') }}" class="navBtn <?= $page === 'archives' ? 'active' : '' ?>">
+    <a href="{{ route('archive.index') }}" class="navBtn <?= $page === 'archive' ? 'active' : '' ?>">
       <span>Archives</span>
       <span class="navMeta"><span class="pill">Accordion + PDF links</span></span>
     </a>

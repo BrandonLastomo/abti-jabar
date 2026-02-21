@@ -6,9 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Gallery extends Model
 {
-    protected $fillable = [
-        'black_title',
-        'red_title',
-        'header',
-    ];
+    protected $fillable = ['title', 'season'];
+
+    public function photos()
+    {
+        return $this->hasMany(GalleryPhoto::class);
+    }
 }

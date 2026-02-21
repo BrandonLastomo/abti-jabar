@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('cms.layouts.master')
 
 @section('title', 'Program Kerja')
 
@@ -28,9 +28,9 @@
 								<th>Title</th>
 								<th>Hero Meta</th>
 								<th>Category</th>
+								<th>Image</th>
 								<th>Year</th>
 								<th>Desc</th>
-								<th>Image</th>
 							</tr>
 						</thead>
 						<tbody>

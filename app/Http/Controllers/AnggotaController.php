@@ -13,7 +13,7 @@ class AnggotaController extends Controller
     {
         $anggota = Anggota::latest()->paginate(10);
 
-        return view('anggota.anggota', [
+        return view('cms.anggota.anggota', [
             'anggota' => $anggota,
             'page' => 'anggota'
         ]);
@@ -21,7 +21,7 @@ class AnggotaController extends Controller
 
     public function create()
     {
-        return view('anggota.add-anggota', [
+        return view('cms.anggota.add-anggota', [
             'page' => 'anggota'
         ]);
     }
@@ -67,14 +67,14 @@ class AnggotaController extends Controller
     $anggota = Anggota::where('slug', $slug)->firstOrFail();
 
     // 2. Kembalikan ke view dengan membawa data anggota dan variabel page
-    return view('anggota.view-anggota', [
+    return view('cms.anggota.view-anggota', [
         'anggota' => $anggota,
         'page'    => 'anggota'
     ]);
 }
     public function edit(Anggota $anggota)
     {
-        return view('anggota.edit-anggota', [
+        return view('cms.anggota.edit-anggota', [
             'anggota' => $anggota,
             'page' => 'anggota'
         ]);

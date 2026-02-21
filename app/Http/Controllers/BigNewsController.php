@@ -13,7 +13,7 @@ class BigNewsController extends Controller
     {
          $bignews = BigNews::latest()->paginate(10);
 
-    return view('bignews.big_news', [
+    return view('cms.bignews.big_news', [
         'bignews' => $bignews,
         'page' => 'big-news'
     ]);
@@ -21,7 +21,7 @@ class BigNewsController extends Controller
 
     public function create()
     {
-        return view('bignews.add-bignews', [
+        return view('cms.bignews.add-bignews', [
         'page' => 'big-news'
     ]);
     }
@@ -65,7 +65,7 @@ class BigNewsController extends Controller
     // ======================
     public function show(BigNews $big_news)
     {
-         return view('bignews.view-bignews', [
+         return view('cms.bignews.view-bignews', [
         'bignews' => $big_news,
         'page' => 'big-news'
     ]);
@@ -76,7 +76,7 @@ class BigNewsController extends Controller
     // ======================
     public function edit(BigNews $big_news)
     {
-         return view('bignews.edit-bignews', [
+         return view('cms.bignews.edit-bignews', [
         'bignews' => $big_news,
         'page' => 'big-news'
     ]);

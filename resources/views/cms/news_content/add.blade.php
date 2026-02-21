@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('cms.layouts.master')
 
 @section('title', 'News Content')
 
@@ -18,8 +18,6 @@
             <form class="" action="{{ route('news-content.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="">
-
-
                     <div class="field">
                         <label>Category</label>
                         <input type="text" name="category"

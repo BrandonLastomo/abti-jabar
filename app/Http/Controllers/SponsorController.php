@@ -11,7 +11,7 @@ class SponsorController extends Controller
     public function index()
     {
         $sponsors = Sponsor::latest()->paginate(10);
-        return view('sponsor.sponsor', [
+        return view('cms.sponsor.sponsor', [
             'page' => 'sponsor',
             'sponsors' => $sponsors
         ]);
@@ -20,7 +20,7 @@ class SponsorController extends Controller
     // --- PASTIKAN METHOD INI ADA ---
     public function create()
     {
-        return view('sponsor.add-sponsor', [
+        return view('cms.sponsor.add-sponsor', [
             'page' => 'sponsor'
         ]);
     }
@@ -59,7 +59,7 @@ class SponsorController extends Controller
     // Menampilkan halaman edit
 public function edit(Sponsor $sponsor)
 {
-    return view('sponsor.edit-sponsor', [
+    return view('cms.sponsor.edit-sponsor', [
         'page' => 'sponsor',
         'sponsor' => $sponsor
     ]);
@@ -94,7 +94,7 @@ public function update(Request $request, Sponsor $sponsor)
 }
 public function show(Sponsor $sponsor)
 {
-    return view('sponsor.view-sponsor', [
+    return view('cms.sponsor.view-sponsor', [
         'page' => 'sponsor',
         'sponsor' => $sponsor
     ]);

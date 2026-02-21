@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('cms.layouts.master')
 
 @section('title', 'News Content')
 
@@ -108,5 +108,10 @@
 
 <div class="actions">
 	<button id="saveBtn" class="btn primary" type="submit">Save Changes</button>
+</div>
+
+
+<div class="actions">
+	<a href="{{ route('news-content.create') }}" id="saveBtn" class="btn primary" type="submit">Add News Content</a>
 </div>
 @endsection

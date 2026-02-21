@@ -17,11 +17,11 @@ return new class extends Migration
             $table->string('name');
             $table->string('category')->nullable();
             $table->string('loc')->nullable();
-            $table->text('athletes')->nullable();
-            $table->text('coaches')->nullable();
-            $table->text('teams')->nullable();
-            $table->text('management')->nullable();
-            $table->text('audience_offline')->nullable();
+            $table->integer('athletes')->nullable();
+            $table->integer('coaches')->nullable();
+            $table->integer('teams')->nullable();
+            $table->integer('management')->nullable();
+            $table->integer('audience_offline')->nullable();
             $table->string('website')->nullable();
             $table->string('administrator')->nullable();
             $table->string('logo')->nullable();

@@ -11,13 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('clubs', function (Blueprint $table) {
+        Schema::create('gallery_photos', function (Blueprint $table) {
             $table->id();
+
+            // Foreign key to galleries table
+            $table->foreignId('gallery_id')
+                  ->constrained()
+                  ->onDelete('cascade');
+
+            $table->string('photo'); // store image path
+
             $table->timestamps();
-            $table->string('name');
-            $table->string('city');
-            $table->year('founded_year');
-            $table->enum('status', ['member', 'guest']);
         });
     }
 
@@ -26,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('clubs');
+        Schema::dropIfExists('gallery_photos');
     }
 };

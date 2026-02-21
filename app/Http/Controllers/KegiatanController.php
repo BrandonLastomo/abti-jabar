@@ -13,7 +13,7 @@ class KegiatanController extends Controller
     {
         $kegiatan = Kegiatan::latest()->paginate(10);
 
-    return view('kegiatan.kegiatan', [
+    return view('cms.kegiatan.kegiatan', [
         'kegiatan' => $kegiatan,
         'page' => 'kegiatan'
     ]);
@@ -21,7 +21,7 @@ class KegiatanController extends Controller
 
     public function create()
     {
-        return view('kegiatan.add-kegiatan', [
+        return view('cms.kegiatan.add-kegiatan', [
         'page' => 'kegiatan'
     ]);
     }
@@ -76,7 +76,7 @@ class KegiatanController extends Controller
 {
     $kegiatan = Kegiatan::where('slug', $slug)->firstOrFail();
 
-    return view('kegiatan.view-kegiatan', [
+    return view('cms.kegiatan.view-kegiatan', [
         'kegiatan' => $kegiatan,
         'page' => 'kegiatan'
     ]);
@@ -84,7 +84,7 @@ class KegiatanController extends Controller
 
     public function edit(Kegiatan $kegiatan)
     {
-       return view('kegiatan.edit-kegiatan', [
+       return view('cms.kegiatan.edit-kegiatan', [
         'kegiatan' => $kegiatan,
         'page' => 'kegiatan'
     ]);

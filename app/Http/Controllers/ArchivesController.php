@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Archive;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Storage;
 
 class ArchivesController extends Controller
 {
@@ -12,31 +13,10 @@ class ArchivesController extends Controller
      */
     public function index()
     {
-        $data = collect();
+        $archives = Archive::latest()->paginate(10);
 
-        // dummy data
-        for ($i = 1; $i <= 35; $i++) {
-            $data->push([
-                'title' => 'Big News ' . $i,
-                'link' => 'https://example.com/news-' . $i,
-                'image' => $i % 2 == 0 ? 'image.jpg' : null,
-            ]);
-        }
-
-        $perPage = 10;
-        $currentPage = LengthAwarePaginator::resolveCurrentPage();
-        $currentItems = $data->slice(($currentPage - 1) * $perPage, $perPage)->values();
-
-        $bignews = new LengthAwarePaginator(
-            $currentItems,
-            $data->count(),
-            $perPage,
-            $currentPage,
-            ['path' => request()->url()]
-        );
-
-        return view('archives', [
-            'bignews' => $bignews,
+        return view('cms.archive.index', [
+            'archives' => $archives,
             'page' => 'archives'
         ]);
     }
@@ -46,7 +26,9 @@ class ArchivesController extends Controller
      */
     public function create()
     {
-        //
+        return view('cms.archive.add-archive', [
+            'page' => 'archives'
+        ]);
     }
 
     /**
@@ -54,38 +36,88 @@ class ArchivesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'category' => 'required|in:Mutation Regulation,Club Regulation,Event Regulation,Sanction Regulation,Statues & Regulation',
+            'file' => 'required|mimes:pdf',
+        ]);
+
+        if ($request->hasFile('file')) {
+            $validated['file'] = $request->file('file')
+                ->store('archives', 'public');
+        }
+
+        Archive::create($validated);
+
+        return redirect()
+            ->route('archive.index')
+            ->with('success', 'Archive created successfully.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Archive $archive)
     {
-        //
+        return view('cms.archive.show-archive', [
+            'archive' => $archive,
+            'page' => 'archives'
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Archive $archive)
     {
-        //
+        return view('cms.archive.edit-archive', [
+            'archive' => $archive,
+            'page' => 'archives'
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Archive $archive)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'category' => 'required|in:Mutation Regulation,Club Regulation,Event Regulation,Sanction Regulation,Statues & Regulation',
+            'file' => 'nullable|mimes:pdf|max:2048',
+        ]);
+
+        if ($request->hasFile('file')) {
+
+            // delete old file
+            if ($archive->file && Storage::disk('public')->exists($archive->file)) {
+                Storage::disk('public')->delete($archive->file);
+            }
+
+            $validated['file'] = $request->file('file')
+                ->store('archives', 'public');
+        }
+
+        $archive->update($validated);
+
+        return redirect()
+            ->route('archive.index')
+            ->with('success', 'Archive updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Archive $archive)
     {
-        //
+        if ($archive->file && Storage::disk('public')->exists($archive->file)) {
+            Storage::disk('public')->delete($archive->file);
+        }
+
+        $archive->delete();
+
+        return redirect()
+            ->route('archive.index')
+            ->with('success', 'Archive deleted successfully.');
     }
 }

@@ -48,25 +48,31 @@ Route::get('/cms', function () {
         'page' => 'home'
     ]);
 });
+
+
 Route::get('/cms', [HeroController::class, 'index']); 
 
+Route::resource('/cms/hero', HeroController::class)->only(['index', 'store']);
 
-Route::resource('hero', HeroController::class)->only(['index', 'store']);
-
-Route::resource('about', AboutController::class);
-Route::resource('anggota', AnggotaController::class)
+Route::resource('/cms/about', AboutController::class);
+Route::resource('/cms/anggota', AnggotaController::class)
     ->parameters([
         'anggota' => 'anggota'
     ]);
-Route::get('/cms/archives', [ArchivesController::class, 'index'])->name('archives.index');
+Route::resource('/cms/archive', ArchivesController::class);
 Route::get('/cms/big-news', [BigNewsController::class, 'index'])->name('big_news.index');
 Route::resource('big_news', BigNewsController::class);
-Route::get('/cms/event', [EventController::class, 'index'])->name('event.index');
-Route::get('/cms/gallery', [GalleryController::class, 'index'])->name('gallery.index');
+Route::resource('/cms/events', EventController::class);
+Route::resource('/cms/gallery', GalleryController::class);
+Route::delete('/gallery-photo/{photo}', [GalleryController::class, 'deletePhoto'])
+    ->name('gallery.photo.delete');
 Route::get('/cms/hero', [HeroController::class, 'index'])->name('hero.index');
-Route::get('/cms/profile', [ProfileController::class, 'index'])->name('profile.index');
-Route::resource('program-kerja', ProgramKerjaController::class);
-Route::resource('news-content', NewsContentController::class);
-Route::resource('sponsor', SponsorController::class);
+Route::resource('/cms/club', ProfileController::class);
+Route::resource('/cms/program-kerja', ProgramKerjaController::class);
+Route::resource('/cms/news-content', NewsContentController::class)
+    ->parameters([
+        'news-content' => 'news'
+    ]);;
+Route::resource('/cms/sponsor', SponsorController::class);
 Route::get('/cms/viewBignews', [ViewBigNewsController::class, 'index'])->name('viewBignews.index');
-Route::resource('kegiatan', KegiatanController::class);
+Route::resource('/cms/kegiatan', KegiatanController::class);

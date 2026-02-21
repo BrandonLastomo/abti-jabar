@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('cms.layouts.master')
 
 @section('title', 'Program Kerja')
 
@@ -13,8 +13,9 @@
         </div>
 
         <div class="sectionBody">
-            <form action="{{ route('program-kerja.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('program-kerja.update', $programKerja) }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                @method('PUT')
                 <div class="">
                     <div class="field">
                         <label>Title</label>

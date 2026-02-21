@@ -19,7 +19,7 @@ class AboutController extends Controller
             'organisasi' => Organisasi::first(),
         ];
 
-        return view('about.about', [
+        return view('cms.about.about', [
             'page' => 'about',
             'aboutData' => $aboutData
         ]);
@@ -72,7 +72,9 @@ class AboutController extends Controller
         
         $history->save();
 
-        return back()->with('success', 'Sejarah updated');
+        return redirect()
+            ->route('about.index')
+            ->with('success', 'Sejarah Updated');
     }
 
     /* ================= VISI ================= */

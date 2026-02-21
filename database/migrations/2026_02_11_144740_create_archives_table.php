@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('archives', function (Blueprint $table) {
             $table->id();
-            $table->string('doc_name');
-            $table->string('doc');
+            $table->string('title');
+            $table->enum('category', ['Mutation Regulation', 'Club Regulation', 'Event Regulation', 'Sanction Regulation', 'Statues & Regulation']);
+            $table->string('file');
             $table->timestamps();
         });
     }

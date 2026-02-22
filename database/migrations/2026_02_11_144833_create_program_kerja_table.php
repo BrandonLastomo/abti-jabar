@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->string('hero_meta')->nullable();
-            $table->string('category')->nullable();
+            $table->enum('category', ['indoor', 'beach', 'wheelchair'])->nullable();
             $table->year('year')->nullable();
             $table->string('doc')->nullable();
             $table->text('desc')->nullable();

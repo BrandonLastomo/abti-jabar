@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+@php use Illuminate\Support\Str; @endphp
 <main class="page">
     <header class="page-header">
         <div class="page-header__inner">
@@ -21,8 +22,30 @@
         <div class="podcast__carousel-container">
             <div class="podcast__carousel-wrapper">
                 <div class="podcast__carousel" id="podcastCarousel">
-                    <div class="podcast__track" id="podcastTrack" aria-live="polite">
-                        <!-- Podcast items will be dynamically loaded here -->
+                    <div class="podcast__track" aria-live="polite">
+                        @forelse($podcasts as $podcast)
+                            <div class="podcast__item">
+                                <iframe 
+                                    width="100%" 
+                                    height="250"
+                                    src="{{ str_replace('watch?v=', 'embed/', $podcast->link) }}"
+                                    frameborder="0"
+                                    allowfullscreen>
+                                </iframe>
+                            </div>
+                        @empty
+                            <div class="podcast__empty">
+                                <div class="podcast__empty-icon">
+                                    🎙️
+                                </div>
+                                <h3 class="podcast__empty-title">
+                                    Belum Ada Podcast
+                                </h3>
+                                <p class="podcast__empty-text">
+                                    Podcast terbaru akan segera hadir di sini.
+                                </p>
+                            </div>
+                        @endforelse
                     </div>
                 </div>
                 <button class="podcast__nav podcast__nav--prev" id="podcastPrev" type="button" aria-label="Previous podcast">
@@ -54,15 +77,31 @@
                         <p class="env-subtitle">Pembaruan ringkas dan formal untuk menjaga Anda tetap terinformasi.
                         </p>
                     </header>
-                    <div class="env-news__list" id="envNewsList" aria-live="polite"></div>
+                    
+                    <div class="env-news__list" aria-live="polite">
+                        @forelse($latestNews as $item)
+                            <article class="env-news__item">
+                                <h3>{{ $item->title }}</h3>
+                                <p>{{ Str::limit(strip_tags($item->content), 120) }}</p>
+
+                                @if($item->youtube_url)
+                                    <a href="{{ $item->youtube_url }}" target="_blank">
+                                        Tonton di YouTube
+                                    </a>
+                                @endif
+                            </article>
+                        @empty
+                            <p>Belum ada berita tersedia.</p>
+                        @endforelse
+                    </div>
+                    
                     <footer class="env-card__footer env-news__footer">
                         <a class="env-link" href="https://www.youtube.com/@CHANNEL_KAMU" target="_blank"
                             rel="noopener">
                             Lihat semua update di YouTube
                         </a>
-                        <div class="env-news__pager" aria-label="Navigasi berita">
-                            <button id="envNewsPrev" class="env-pagerbtn" type="button">Prev</button>
-                            <button id="envNewsNext" class="env-pagerbtn" type="button">Next</button>
+                        <div class="env-news__pager">
+                            {{ $latestNews->links() }}
                         </div>
                     </footer>
                 </article>
@@ -72,7 +111,21 @@
                         <p class="env-subtitle">Cuplikan singkat: highlight utama dalam format YouTube Shorts.</p>
                     </header>
                     <div class="env-video__frame">
-                        <div id="envReels" class="env-reels" aria-label="YouTube Shorts Feed" tabindex="0"></div>
+                        <div class="env-reels" aria-label="YouTube Shorts Feed" tabindex="0">
+                            @forelse($shorts as $short)
+                                <div class="short-item">
+                                    <iframe 
+                                        width="100%" 
+                                        height="450"
+                                        src="{{ str_replace('shorts/', 'embed/', $short->link) }}"
+                                        frameborder="0"
+                                        allowfullscreen>
+                                    </iframe>
+                                </div>
+                            @empty
+                                <p>Tidak ada Shorts tersedia.</p>
+                            @endforelse
+                        </div>
                     </div>
                     <footer class="env-card__footer env-video__footer">
                         <a id="envShortCta" class="env-btn env-btn--ghost"
@@ -92,7 +145,31 @@
                 <h2 class="moreNews__title">Berita Lainnya</h2>
                 <p class="moreNews__sub">Kumpulan berita pilihan dalam format kartu.</p>
             </header>
-            <div class="moreNewsGrid" id="moreNewsGrid" aria-label="Berita lainnya">
+
+            <div class="moreNewsGrid">
+                @forelse($moreNews as $item)
+                    <article class="moreNewsCard">
+                        <h3 class="moreNewsCard__title">
+                            {{ $item->title }}
+                        </h3>
+
+                        <p class="moreNewsCard__excerpt">
+                            {{ Str::limit(strip_tags($item->content), 100) }}
+                        </p>
+
+                        @if($item->youtube_url)
+                            <a href="{{ $item->youtube_url }}" 
+                            target="_blank"
+                            class="moreNewsCard__link">
+                            Tonton
+                            </a>
+                        @endif
+                    </article>
+                @empty
+                    <p>Tidak ada berita lainnya.</p>
+                @endforelse
+            </div>
+
             </div>
         </div>
     </section>

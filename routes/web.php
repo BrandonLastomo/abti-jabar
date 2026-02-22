@@ -1,47 +1,42 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AboutController;
-use App\Http\Controllers\AnggotaController;
-use App\Http\Controllers\ArchivesController;
-use App\Http\Controllers\BigNewsController;
-use App\Http\Controllers\EventController;
-use App\Http\Controllers\GalleryController;
-use App\Http\Controllers\HeroController;
-use App\Http\Controllers\KegiatanController;
-use App\Http\Controllers\NewsContentController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ViewBigNewsController;
-use App\Http\Controllers\ProgramKerjaController;
-use App\Http\Controllers\SponsorController;
+use App\Http\Controllers\AboutPublicController;
+use App\Http\Controllers\ArchivePublicController;
+use App\Http\Controllers\CMSController\AboutController;
+use App\Http\Controllers\CMSController\AnggotaController;
+use App\Http\Controllers\CMSController\ArchivesController;
+use App\Http\Controllers\CMSController\BigNewsController;
+use App\Http\Controllers\CMSController\EventController;
+use App\Http\Controllers\CMSController\GalleryController;
+use App\Http\Controllers\CMSController\HeroController;
+use App\Http\Controllers\CMSController\KegiatanController;
+use App\Http\Controllers\CMSController\NewsContentController;
+use App\Http\Controllers\CMSController\ProfileController;
+use App\Http\Controllers\CMSController\ProgramKerjaController;
+use App\Http\Controllers\CMSController\SponsorController;
+use App\Http\Controllers\CMSController\ViewBigNewsController;
+use App\Http\Controllers\CMSController\WestJavaVideoController;
+use App\Http\Controllers\CMSController\HighlightController;
 use App\Http\Controllers\EditBigNewsController;
+use App\Http\Controllers\EventPublicController;
+use App\Http\Controllers\GalleryPublicController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProfilePublicController;
+use App\Http\Controllers\WestJavaCornerController;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', function () {
-    return view('index');
-})->name('home');
-Route::get('/about-us', function () {
-    return view('tentang-kami');
-})->name('about-us');
-Route::get('/west-java-corner', function () {
-    return view('west-java-corner');
-})->name('west-java-corner');
-Route::get('/event', function () {
-    return view('event');
-})->name('event');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/about-us', [AboutPublicController::class, 'index'])->name('about-us');
+Route::get('/west-java-corner', [WestJavaCornerController::class, 'index'])->name('west-java-corner');
+Route::get('/event', [EventPublicController::class, 'index'])->name('event');
 Route::get('/database', function () {
     return view('database');
 })->name('database');
-Route::get('/profile', function () {
-    return view('profile');
-})->name('profile');
-Route::get('/gallery', function () {
-    return view('gallery');
-})->name('gallery');
-Route::get('/archives', function () {
-    return view('archives');
-})->name('archives');
+Route::get('/profile', [ProfilePublicController::class, 'index'])->name('profile');
+Route::get('/gallery', [GalleryPublicController::class, 'index'])->name('gallery');
+Route::get('/archives', [ArchivePublicController::class, 'index'])->name('archives');
 
 Route::get('/cms', function () {
     return view('/cms/hero', [
@@ -53,7 +48,7 @@ Route::get('/cms', function () {
 Route::get('/cms', [HeroController::class, 'index']); 
 
 Route::resource('/cms/hero', HeroController::class)->only(['index', 'store']);
-
+Route::resource('/cms/highlight', HighlightController::class);
 Route::resource('/cms/about', AboutController::class);
 Route::resource('/cms/anggota', AnggotaController::class)
     ->parameters([
@@ -73,6 +68,7 @@ Route::resource('/cms/news-content', NewsContentController::class)
     ->parameters([
         'news-content' => 'news'
     ]);;
+Route::resource('/cms/west-java-videos', WestJavaVideoController::class);
 Route::resource('/cms/sponsor', SponsorController::class);
-Route::get('/cms/viewBignews', [ViewBigNewsController::class, 'index'])->name('viewBignews.index');
+// Route::get('/cms/viewBignews', [ViewBigNewsController::class, 'index'])->name('viewBignews.index');
 Route::resource('/cms/kegiatan', KegiatanController::class);

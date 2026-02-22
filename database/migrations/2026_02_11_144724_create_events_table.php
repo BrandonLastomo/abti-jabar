@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('event_id')->nullable();
             $table->string('name');
-            $table->string('category')->nullable();
+            $table->enum('category', ['indoor', 'beach', 'wheelchair'])->nullable();
             $table->string('loc')->nullable();
             $table->integer('athletes')->nullable();
             $table->integer('coaches')->nullable();

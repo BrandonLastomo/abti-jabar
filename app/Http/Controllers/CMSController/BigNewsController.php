@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\CMSController;
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Models\BigNews;
-use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class BigNewsController extends Controller
 {

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\CMSController;
 
+use App\Http\Controllers\Controller;
 use App\Models\Hero;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;

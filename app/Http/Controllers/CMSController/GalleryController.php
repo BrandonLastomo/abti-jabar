@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\CMSController;
 
+use App\Http\Controllers\Controller;
 use App\Models\Gallery;
 use App\Models\GalleryPhoto;
 use Illuminate\Http\Request;

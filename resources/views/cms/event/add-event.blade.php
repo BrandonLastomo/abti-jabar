@@ -25,7 +25,12 @@
             <div class="grid2">
                 <div class="field">
                     <label>Category</label>
-                    <input type="text" name="category" value="{{ old('category') }}">
+                    <select name="category">
+                        <option value="">Select Category</option>
+                        <option value="indoor" {{ old('category')=='indoor'?'selected':'' }}>Indoor</option>
+                        <option value="beach" {{ old('category')=='beach'?'selected':'' }}>Beach</option>
+                        <option value="wheelchair" {{ old('category')=='wheelchair'?'selected':'' }}>Wheelchair</option>
+                    </select>
                 </div>
 
                 <div class="field">

@@ -14,6 +14,11 @@
       <span class="navMeta"><span class="pill">Text + Image</span></span>
     </a>
 
+    <a href="{{ route('highlight.index') }}" class="navBtn <?= $page === 'highlight' ? 'active' : '' ?>">
+      <span>Highlight</span>
+      <span class="navMeta"><span class="pill">Highlight</span></span>
+    </a>
+
     <a href="{{ route('big_news.index') }}" class="navBtn <?= $page === 'big-news' ? 'active' : '' ?>">
       <span>Big News</span>
       <span class="navMeta"><span class="pill">3 items</span></span>
@@ -46,7 +51,12 @@
 
     <a href="{{ route('news-content.index') }}" class="navBtn <?= $page === 'news-content' ? 'active' : '' ?>">
       <span>News Content</span>
-      <span class="navMeta"><span class="pill">News + Shorts</span></span>
+      <span class="navMeta"><span class="pill">News</span></span>
+    </a>
+
+    <a href="{{ route('west-java-videos.index') }}" class="navBtn <?= $page === 'west-java-videos' ? 'active' : '' ?>">
+      <span>West Java Videos</span>
+      <span class="navMeta"><span class="pill">West Java Videos</span></span>
     </a>
 
     <a href="{{ route('events.index') }}" class="navBtn <?= $page === 'event' ? 'active' : '' ?>">

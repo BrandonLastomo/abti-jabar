@@ -34,9 +34,21 @@
 
                         <div class="field">
                             <label>Category</label>
-                            <input type="text" name="category"
-                                value="{{ $programKerja->category ?? old('category') }}"
-                                placeholder="Pembinaan / Kompetisi / SDM">
+                            <select name="category">
+                                <option value="">Select Category</option>
+                                <option value="indoor"
+                                    {{ old('category', $event->category) == 'indoor' ? 'selected' : '' }}>
+                                    Indoor
+                                </option>
+                                <option value="beach"
+                                    {{ old('category', $event->category) == 'beach' ? 'selected' : '' }}>
+                                    Beach
+                                </option>
+                                <option value="wheelchair"
+                                    {{ old('category', $event->category) == 'wheelchair' ? 'selected' : '' }}>
+                                    Wheelchair
+                                </option>
+                            </select>
                         </div>
 
                         <div class="field">

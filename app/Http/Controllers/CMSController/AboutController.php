@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\CMSController;
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Models\History;
-use App\Models\Visi;
 use App\Models\Organisasi;
+use App\Models\Visi;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class AboutController extends Controller

@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+@php use Illuminate\Support\Str; @endphp
   <main class="page">
     <!-- ========================= HERO ========================= -->
     <section class="hero" id="beranda">
@@ -115,18 +116,74 @@
         <h2 class="ytTitle">EXTENDED HIGHLIGHTS</h2>
       </div>
       <div class="ytMarquee" aria-label="YouTube highlights">
-        <div class="ytTrack" data-yt-track>
+        
+        <div class="ytTrack">
+            @forelse($highlights as $highlight)
+
+                @php
+                    preg_match('/(?:youtu\.be\/|youtube\.com\/watch\?v=)([^&]+)/', $highlight->link, $matches);
+                    $videoId = $matches[1] ?? null;
+                @endphp
+
+                @if($videoId)
+                <a href="{{ $highlight->link }}" target="_blank" class="ytCard">
+                    <div class="ytThumb">
+                        <img src="https://img.youtube.com/vi/{{ $videoId }}/maxresdefault.jpg"
+                            alt="{{ $highlight->title }}">
+                    </div>
+                    <div class="ytMeta">
+                        <h4 class="ytTitleCard">{{ $highlight->title }}</h4>
+                        <span class="ytCategory">{{ strtoupper($highlight->category) }}</span>
+                    </div>
+                </a>
+                @endif
+
+            @empty
+                <div class="noDataMessage">
+                    <h4>Belum Ada Extended Highlights</h4>
+                    <p>Video highlight akan ditampilkan setelah tersedia.</p>
+                </div>
+            @endforelse
         </div>
+        
       </div>
     </section>
     
     <!-- ===================== BERITA TERBARU (BIG SLIDER) ===================== -->
     <div class="bigNewsSectionBg">
       <section class="bigNews">
-        <div class="bigNewsViewport" id="bigNewsViewport">
-          <div class="bigNewsTrack" id="bigNewsTrack"></div>
+        <div class="bigNewsViewport" id="bigNews-Viewport">
+          
+          <div class="bigNewsTrack" id="bigNews-Track">
+              @forelse($bigNews as $news)
+                  <article class="bigNewsItem">
+                      <div class="bigNewsImage">
+                          <img src="{{ asset('storage/'.$news->image) }}"
+                              alt="{{ $news->title }}">
+                      </div>
+                      <div class="bigNewsContent">
+                          <h3 class="bigNewsTitle">{{ $news->title }}</h3>
+                          <p class="bigNewsExcerpt">
+                              {{ Str::limit($news->content, 150) }}
+                          </p>
+                          <a href="{{ route('news.show', $news->slug) }}"
+                            class="bigNewsBtn">
+                              Baca Selengkapnya →
+                          </a>
+                      </div>
+                  </article>
+              @empty
+                  <div class="bigNewsEmpty">
+                      <div class="bigNewsEmptyInner">
+                          <h3>Belum Ada Berita Terbaru</h3>
+                          <p>Informasi dan kegiatan terbaru akan segera ditampilkan di sini.</p>
+                      </div>
+                  </div>
+              @endforelse
+          </div>
+          
         </div>
-        <div class="bigNewsDots" id="bigNewsDots" aria-hidden="true"></div>
+        <div class="bigNewsDots" id="bigNews-Dots" aria-hidden="true"></div>
       </section>
       <section class="actStrip">
         <div class="actHead">
@@ -136,7 +193,32 @@
           <button class="actArrow left" type="button" id="actPrev" aria-label="Prev">‹</button>
           <button class="actArrow right" type="button" id="actNext" aria-label="Next">›</button>
           <div class="actViewport" id="actViewport">
-            <div class="actTrack" id="actTrack"></div>
+            
+            <div class="actTrack" id="act-Track">
+                @forelse($activities as $news)
+                    <article class="actCard">
+                        <div class="actImage">
+                            <img src="{{ asset('storage/'.$news->image) }}"
+                                alt="{{ $news->title }}">
+                        </div>
+                        <div class="actContent">
+                            <h4 class="actCardTitle">
+                                {{ Str::limit($news->title, 60) }}
+                            </h4>
+                            <a href="{{ route('news.show', $news->slug) }}"
+                              class="actCardLink">
+                                Selengkapnya →
+                            </a>
+                        </div>
+                    </article>
+                @empty
+                    <div class="actEmpty">
+                        <h4>Belum Ada Kegiatan</h4>
+                        <p>Informasi kegiatan terbaru akan segera ditampilkan.</p>
+                    </div>
+                @endforelse
+            </div>
+
           </div>
         </div>
       </section>
@@ -239,78 +321,48 @@
       <h2 class="sponsor-headline">Sponsor & Mitra Strategis</h2>
       <p class="sponsor-subheadline">Dukungan sponsor dan mitra turut memperkuat pembinaan serta prestasi atlet bola
         tangan Jawa Barat.</p>
-      <div class="marquee marquee-right" data-marquee>
-        <div class="marquee-track">
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-        </div>
-      </div>
-      <div class="marquee marquee-left" data-marquee>
-        <div class="marquee-track">
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-          <div class="logo-card"><img src="{{ asset('img/logo1.png') }}" alt=""></div>
-        </div>
-      </div>
+      @if($sponsors->count())
+          <div class="marquee marquee-right" data-marquee>
+              <div class="marquee-track">
+                  @foreach($sponsors as $sponsor)
+                      <div class="logo-card">
+                          <img src="{{ asset('storage/'.$sponsor->logo) }}"
+                              alt="{{ $sponsor->name }}">
+                      </div>
+                  @endforeach
+
+                  @foreach($sponsors as $sponsor)
+                      <div class="logo-card">
+                          <img src="{{ asset('storage/'.$sponsor->logo) }}"
+                              alt="{{ $sponsor->name }}">
+                      </div>
+                  @endforeach
+              </div>
+          </div>
+
+          <div class="marquee marquee-left" data-marquee>
+              <div class="marquee-track">
+                  @foreach($sponsors as $sponsor)
+                      <div class="logo-card">
+                          <img src="{{ asset('storage/'.$sponsor->logo) }}"
+                              alt="{{ $sponsor->name }}">
+                      </div>
+                  @endforeach
+
+                  @foreach($sponsors as $sponsor)
+                      <div class="logo-card">
+                          <img src="{{ asset('storage/'.$sponsor->logo) }}"
+                              alt="{{ $sponsor->name }}">
+                      </div>
+                  @endforeach
+              </div>
+          </div>
+      @else
+          <div class="sponsorEmpty">
+              <h3>Belum Ada Sponsor</h3>
+              <p>Informasi sponsor dan mitra strategis akan segera diperbarui.</p>
+          </div>
+      @endif
     </section>
   </main>
 @endsection

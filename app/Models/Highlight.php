@@ -12,8 +12,8 @@ class Highlight extends Model
     
     protected $fillable = [
         'title',
-        'match_id',
-        'video_url',
+        'category',
+        'link',
     ];
 
     public function match(): HasOne

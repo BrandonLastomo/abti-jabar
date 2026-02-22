@@ -26,7 +26,27 @@
             </div>
             <div class="hero" data-hero="indoor" aria-label="Indoor team hero slider">
               <div class="hero__viewport">
-                <div class="hero__track" data-hero-track></div>
+                
+              <div class="hero__track">
+                @forelse($indoorPrograms as $program)
+                    <div class="hero__slide">
+                        @if($program->image)
+                            <img src="{{ asset('storage/'.$program->image) }}" 
+                                alt="{{ $program->title }}">
+                        @endif
+
+                        <div class="hero__meta">
+                            <h4>{{ $program->title }}</h4>
+                            <p>{{ $program->year }}</p>
+                        </div>
+                    </div>
+                @empty
+                    <div class="hero__empty">
+                        <p>Belum ada program indoor.</p>
+                    </div>
+                @endforelse
+            </div>
+
               </div>
               <div class="hero__ui">
                 <div class="hero__dots" data-hero-dots aria-label="Hero pagination"></div>
@@ -43,7 +63,27 @@
             </div>
             <div class="hero" data-hero="beach" aria-label="Beach team hero slider">
               <div class="hero__viewport">
-                <div class="hero__track" data-hero-track></div>
+                
+                <div class="hero__track">
+                  @forelse($beachPrograms as $program)
+                      <div class="hero__slide">
+                          @if($program->image)
+                              <img src="{{ asset('storage/'.$program->image) }}" 
+                                  alt="{{ $program->title }}">
+                          @endif
+
+                          <div class="hero__meta">
+                              <h4>{{ $program->title }}</h4>
+                              <p>{{ $program->year }}</p>
+                          </div>
+                      </div>
+                  @empty
+                      <div class="hero__empty">
+                          <p>Belum ada program beach.</p>
+                      </div>
+                  @endforelse
+              </div>
+
               </div>
               <div class="hero__ui">
                 <div class="hero__dots" data-hero-dots aria-label="Hero pagination"></div>
@@ -67,16 +107,46 @@
                     <span class="cselect__label" data-city-label>Semua kota/kab.</span>
                     <span class="cselect__chev" aria-hidden="true">▾</span>
                   </button>
-                  <div class="cselect__panel" data-city-panel role="listbox" aria-label="Filter kota/kab.">
-                  </div>
+                  <div class="cselect__panel">
+                    <a href="{{ route('profile') }}" class="cselect__item">
+                        Semua kota/kab.
+                    </a>
+
+                    @foreach($cities as $city)
+                        <a href="{{ route('profile', ['city' => $city]) }}"
+                          class="cselect__item">
+                            {{ $city }}
+                        </a>
+                    @endforeach
+                </div>
                 </div>
               </div>
             </div>
-            <div class="clubsGrid" data-clubs-grid></div>
-            <nav class="pager" aria-label="Clubs pagination" data-clubs-pager>
-              <button class="pager__btn" type="button" data-page-prev aria-label="Previous page">‹</button>
-              <div class="pager__nums" data-page-nums></div>
-              <button class="pager__btn" type="button" data-page-next aria-label="Next page">›</button>
+            
+            <div class="clubsGrid">
+              @forelse($clubs as $club)
+                  <article class="clubCard">
+                      <div class="clubCard__body">
+                          <h4 class="clubCard__name">{{ $club->name }}</h4>
+                          <p class="clubCard__city">{{ $club->city }}</p>
+                      </div>
+
+                      <div class="clubCard__footer">
+                          <a href="{{ route('club.show', $club->id) }}" 
+                            class="clubCard__btn">
+                              Detail
+                          </a>
+                      </div>
+                  </article>
+              @empty
+                  <div class="clubsEmpty">
+                      <p>Belum ada klub terdaftar.</p>
+                  </div>
+              @endforelse
+          </div>
+
+            <nav class="pager">
+              {{ $clubs->links() }}
             </nav>
             <div class="drawer" data-drawer aria-hidden="true">
               <div class="drawer__backdrop" data-drawer-close></div>

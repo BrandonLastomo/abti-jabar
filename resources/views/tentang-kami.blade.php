@@ -62,7 +62,42 @@
                 <h3 id="aboutTitle">Perjalanan ABTI Jawa Barat</h3>
               </div>
             </div>
-            <div class="aboutXContent" id="aboutContent">
+            <div class="aboutXContent">
+            {{-- HISTORY --}}
+            <div class="about-content-item is-active" id="about-history">
+                <h4>{{ $history->kicker ?? 'HISTORY' }}</h4>
+                <h3>{{ $history->title ?? '-' }}</h3>
+
+                <p>{{ $history->desc ?? '-' }}</p>
+
+                @if($history && $history->timeline)
+                    <div class="timeline">
+                        {{ $history->timeline }}
+                    </div>
+                @endif
+            </div>
+
+            {{-- VISION --}}
+            <div class="about-content-item" id="about-vision">
+                <h4>{{ $visi->kicker ?? 'VISION & MISSION' }}</h4>
+                <h3>{{ $visi->title ?? '-' }}</h3>
+
+                <h5>Visi</h5>
+                <p>{{ $visi->visi ?? '-' }}</p>
+
+                <h5>Misi</h5>
+                <p>{{ $visi->misi ?? '-' }}</p>
+            </div>
+
+            {{-- ORGANISASI --}}
+            <div class="about-content-item" id="about-org">
+                <h4>{{ $organisasi->kicker ?? 'ORGANIZATION' }}</h4>
+                <h3>{{ $organisasi->title ?? '-' }}</h3>
+
+                <p>{{ $organisasi->desc ?? '-' }}</p>
+            </div>
+
+        </div>
             </div>
           </div>
         </div>
@@ -113,18 +148,80 @@
           <div class="abti-list" aria-label="Members list">
             <div class="abti-list-head">
               <div class="abti-count">
-                <span class="abti-badge" id="abtiCount">0</span>
+                <span class="abti-badge">
+                    {{ $clubs->total() }}
+                </span>
                 <span class="abti-muted">entries</span>
               </div>
               <div class="abti-muted abti-hint">
                 Klik “Detail” untuk melihat kontak lengkap
               </div>
             </div>
-            <div class="abti-rows" id="abtiRows"></div>
+            
+            <div class="abti-rows">
+              @if($clubs->count())
+
+                  @foreach($clubs as $club)
+                      <div class="abti-row">
+
+                          <div class="abti-row-main">
+                              <h4 class="abti-row-title">
+                                  {{ $club->city }}
+                              </h4>
+
+                              <p class="abti-row-sub">
+                                  {{ $club->name }}
+                              </p>
+                          </div>
+
+                          <div class="abti-row-meta">
+                              <span>Direktur: {{ $club->director_club }}</span>
+                          </div>
+
+                          <div class="abti-row-actions">
+                              <button type="button"
+                                      class="abti-btn abti-btn--primary"
+                                      data-bs-toggle="collapse"
+                                      data-bs-target="#club-{{ $club->id }}">
+                                  Detail
+                              </button>
+                          </div>
+
+                      </div>
+
+                      <div class="abti-detail collapse" id="club-{{ $club->id }}">
+                          <div class="abti-detail-card">
+                              <p><strong>Administrator:</strong> {{ $club->administrator }}</p>
+                              <p><strong>Direktur Teknik:</strong> {{ $club->technical_director }}</p>
+                              <p><strong>Venue:</strong> {{ $club->training_venue }}</p>
+                              <p><strong>Email:</strong> {{ $club->email ?? '-' }}</p>
+                              <p><strong>Kontak:</strong> {{ $club->contact_person ?? '-' }}</p>
+                              <p><strong>Website:</strong> 
+                                  @if($club->website)
+                                      <a href="{{ $club->website }}" target="_blank">
+                                          {{ $club->website }}
+                                      </a>
+                                  @else
+                                      -
+                                  @endif
+                              </p>
+                              <p><strong>Tahun Berdiri:</strong> {{ $club->founded_year ?? '-' }}</p>
+                              <p><strong>Status:</strong> {{ ucfirst($club->status) }}</p>
+                          </div>
+                      </div>
+                  @endforeach
+              @else
+                  <div class="abti-empty">
+                      <div class="abti-empty-icon">🏟️</div>
+                      <h4>Belum Ada Anggota</h4>
+                      <p>Data anggota ABTI akan segera diperbarui.</p>
+                  </div>
+              @endif
+              </div>
             <div class="abti-pagination" aria-label="Pagination">
-              <button class="abti-btn abti-btn-ghost" id="abtiPrev" type="button">Prev</button>
-              <div class="abti-pageinfo" id="abtiPageInfo">Page 1/1</div>
-              <button class="abti-btn abti-btn-ghost" id="abtiNext" type="button">Next</button>
+              <div class="abti-pagination">
+                  {{ $clubs->links() }}
+              </div>
             </div>
           </div>
         </div>
@@ -188,7 +285,11 @@
             <div>
               <h3 class="pk-h3">Daftar Program Kerja</h3>
               <p class="pk-muted">
-                Menampilkan <span id="pk-visible-count">0</span> dari <span id="pk-total-count">0</span> program.
+                Menampilkan 
+                <span>{{ $programKerja->count() }}</span> 
+                dari 
+                <span>{{ $programKerja->count() }}</span> 
+                program.
               </p>
             </div>
             <div class="pk-tools">
@@ -198,14 +299,90 @@
               </label>
             </div>
           </header>
-          <div id="pk-grid" class="pk-grid" aria-live="polite"></div>
-          <nav class="pk-pagination" aria-label="Pagination Program Kerja">
-            <button id="pk-prev" class="pk-btn pk-btn--ghost" type="button">Prev</button>
-            <div class="pk-pageinfo"><span id="pk-page-label">Page 1/1</span></div>
-            <button id="pk-next" class="pk-btn pk-btn--ghost" type="button">Next</button>
-          </nav>
+          
+          <div id="pk-grid" class="pk-grid">
+          @if($programKerja->count())
+
+              @foreach($programKerja as $pk)
+                  <article class="pk-card">
+
+                      <div class="pk-card__image">
+                          @if($pk->image)
+                              <img src="{{ asset('storage/' . $pk->image) }}"
+                                  alt="{{ $pk->title }}">
+                          @else
+                              <div class="pk-card__placeholder">
+                                  {{ $pk->thumbnail_text ?? 'ABTI' }}
+                              </div>
+                          @endif
+                      </div>
+
+                      <div class="pk-card__body">
+                          <p class="pk-card__meta">
+                              {{ $pk->hero_meta ?? 'PROGRAM KERJA' }}
+                              @if($pk->year)
+                                  • {{ $pk->year }}
+                              @endif
+                          </p>
+
+                          <h4 class="pk-card__title">
+                              {{ $pk->title }}
+                          </h4>
+
+                          <p class="pk-card__desc">
+                              {{ Str::limit($pk->desc, 120) }}
+                          </p>
+
+                          <div class="pk-card__actions">
+                              @if($pk->doc)
+                                  <a href="{{ asset('storage/' . $pk->doc) }}"
+                                    target="_blank"
+                                    class="pk-btn pk-btn--primary">
+                                      Unduh Dokumen
+                                  </a>
+                              @endif
+                          </div>
+                      </div>
+
+                  </article>
+              @endforeach
+
+          @else
+
+              <div class="pk-empty">
+                  <div class="pk-empty__icon">📄</div>
+                  <h4>Belum Ada Program Kerja</h4>
+                  <p>Program kerja akan segera diperbarui.</p>
+              </div>
+
+          @endif
+          </div>
+
+          </div> {{-- END pk-grid --}}
+
+          <div class="pk-pagination">
+              {{ $programKerja->links() }}
+          </div>
         </div>
       </div>
     </section>
   </main>
+  <script>
+document.querySelectorAll('[data-about]').forEach(btn => {
+    btn.addEventListener('click', function(){
+
+        document.querySelectorAll('.aboutXCard')
+            .forEach(el => el.classList.remove('is-active'));
+
+        this.classList.add('is-active');
+
+        document.querySelectorAll('.about-content-item')
+            .forEach(el => el.classList.remove('is-active'));
+
+        document
+            .getElementById('about-' + this.dataset.about)
+            .classList.add('is-active');
+    });
+});
+</script>
 @endsection

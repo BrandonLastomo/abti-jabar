@@ -1,39 +1,66 @@
+@php
+    $footer = \App\Models\FooterContent::getAll();
+
+    $logoSrc = optional($footer->get('logo'))->value;
+    if ($logoSrc && str_starts_with($logoSrc, 'footer/')) {
+        $logoSrc = asset('storage/' . $logoSrc);
+    } elseif ($logoSrc) {
+        $logoSrc = asset($logoSrc);
+    } else {
+        $logoSrc = asset('img/mainlogo.avif');
+    }
+
+    $orgName = optional($footer->get('org_name'))->value ?? 'ABTI Jawa Barat';
+    $orgDesc = optional($footer->get('org_description'))->value ?? 'Asosiasi Bola Tangan Indonesia<br>Provinsi Jawa Barat';
+
+    $col1Title = optional($footer->get('nav_col_1_title'))->value ?? 'Organisasi';
+    $col1Links = json_decode(optional($footer->get('nav_col_1_links'))->value ?? '[]', true);
+
+    $col2Title = optional($footer->get('nav_col_2_title'))->value ?? 'Informasi';
+    $col2Links = json_decode(optional($footer->get('nav_col_2_links'))->value ?? '[]', true);
+
+    $contactTitle = optional($footer->get('contact_title'))->value ?? 'Kontak';
+    $contactEmail = optional($footer->get('contact_email'))->value ?? 'sekretariat@abtijabar.or.id';
+    $contactPhone = optional($footer->get('contact_phone'))->value ?? '+62 22 0000 0000';
+    $contactAddress = optional($footer->get('contact_address'))->value ?? 'Bandung, Jawa Barat';
+
+    $copyright = optional($footer->get('copyright'))->value ?? '© 2026 Asosiasi Bola Tangan Indonesia – Provinsi Jawa Barat';
+@endphp
 <footer class="siteFooterFed" aria-labelledby="footerTitle">
       <div class="sffWrap">
         <div class="sffTop">
           <div class="sffBrand">
             <div class="sffLogoWrap">
-              <img src="assets/img/mainlogo.avif" alt="Logo ABTI Jawa Barat" class="sffLogo" />
+              <img src="{{ $logoSrc }}" alt="Logo {{ $orgName }}" class="sffLogo" />
             </div>
             <div class="sffBrandText">
-              <h3 id="footerTitle">ABTI Jawa Barat</h3>
-              <p>Asosiasi Bola Tangan Indonesia<br>Provinsi Jawa Barat</p>
+              <h3 id="footerTitle">{{ $orgName }}</h3>
+              <p>{!! $orgDesc !!}</p>
             </div>
           </div>
           <nav class="sffNav" aria-label="Footer navigation">
             <div class="sffCol">
-              <span class="sffTitle">Organisasi</span>
-              <a href="tentang-kami.html">Tentang Kami</a>
-              <a href="program-kerja.html">Program Kerja</a>
-              <a href="profile.html">Profile Tim</a>
+              <span class="sffTitle">{{ $col1Title }}</span>
+              @foreach($col1Links as $link)
+                <a href="{{ $link['url'] }}">{{ $link['text'] }}</a>
+              @endforeach
             </div>
             <div class="sffCol">
-              <span class="sffTitle">Informasi</span>
-              <a href="event.html">Event</a>
-              <a href="database.html">Database</a>
-              <a href="gallery.html">Galeri</a>
-              <a href="archives.html">Arsip</a>
+              <span class="sffTitle">{{ $col2Title }}</span>
+              @foreach($col2Links as $link)
+                <a href="{{ $link['url'] }}">{{ $link['text'] }}</a>
+              @endforeach
             </div>
             <div class="sffCol">
-              <span class="sffTitle">Kontak</span>
-              <span>sekretariat@abtijabar.or.id</span>
-              <span>+62 22 0000 0000</span>
-              <span>Bandung, Jawa Barat</span>
+              <span class="sffTitle">{{ $contactTitle }}</span>
+              <span>{{ $contactEmail }}</span>
+              <span>{{ $contactPhone }}</span>
+              <span>{{ $contactAddress }}</span>
             </div>
           </nav>
         </div>
         <div class="sffBottom">
-          © 2026 Asosiasi Bola Tangan Indonesia – Provinsi Jawa Barat
+          {{ $copyright }}
         </div>
       </div>
     </footer>

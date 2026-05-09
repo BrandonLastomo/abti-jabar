@@ -19,7 +19,7 @@ class HighlightController extends Controller
 
     public function create()
     {
-        return view('cms.highlight.create-highlight');
+        return view('cms.highlight.add-highlight');
     }
 
     public function store(Request $request)

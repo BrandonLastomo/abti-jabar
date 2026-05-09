@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Highlight;
+use App\Models\Live;
 use App\Models\News;
 use App\Models\Sponsor;
 use Illuminate\Http\Request;
@@ -17,11 +18,15 @@ class HomeController extends Controller
         $bigNews = News::latest()->take(5)->get();
         $sponsors = Sponsor::orderBy('name')->get();
 
+        // Ambil livestream yang sedang berjalan dan terbaru
+        $activeLive  = Live::active()->latest()->first();
+
         return view('index', compact(
             'highlights',
             'activities',
             'bigNews',
-            'sponsors'
+            'sponsors',
+            'activeLive' 
         ));
     }
 }

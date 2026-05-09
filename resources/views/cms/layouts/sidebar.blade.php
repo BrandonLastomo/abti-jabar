@@ -70,7 +70,7 @@
       <span class="navMeta"><span class="pill">Header + Slider + Clubs</span></span>
     </a>
 
-    <a href="{{ route('gallery.index') }}" class="navBtn <?= $page === 'gallery' ? 'active' : '' ?>">
+    <a href="{{ route('galleries.index') }}" class="navBtn <?= $page === 'gallery' ? 'active' : '' ?>">
       <span>Gallery</span>
       <span class="navMeta"><span class="pill">10 items × 10 photos</span></span>
     </a>
@@ -78,6 +78,15 @@
     <a href="{{ route('archive.index') }}" class="navBtn <?= $page === 'archive' ? 'active' : '' ?>">
       <span>Archives</span>
       <span class="navMeta"><span class="pill">Accordion + PDF links</span></span>
+    </a>
+    <a href="{{ route('live.index') }}" class="navBtn <?= $page === 'live' ? 'active' : '' ?>">
+      <span>Live</span>
+      <span class="navMeta"><span class="pill">Youtube Livestream</span></span>
+    </a>
+
+    <a href="{{ route('footer.index') }}" class="navBtn <?= $page === 'footer' ? 'active' : '' ?>">
+      <span>Footer</span>
+      <span class="navMeta"><span class="pill">Logo + Nav + Kontak</span></span>
     </a>
 
 </div>

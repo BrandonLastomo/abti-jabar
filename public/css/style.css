@@ -7718,3 +7718,12 @@ body.is-ready .abti-archives .acc-item:nth-child(5) {
         font-size: clamp(20px, 8vw, 40px);
     }
 }
+
+.check-live {
+    float: left;
+    display: flex;
+}
+
+#check-live-btn {
+    width: 0px !important;
+}

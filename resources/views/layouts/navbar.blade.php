@@ -24,8 +24,8 @@
           </button>
           <div class="ddPanel" role="menu">
             <a class="ddLink" href="{{ route('west-java-corner') }}#podcastSection" data-scroll role="menuitem">Podcast</a>
-            <a class="ddLink" href="{{ route('west-java-corner') }}#newsVideoSection" data-scroll role="menuitem">Berita Terbaru</a>
-            <a class="ddLink" href="{{ route('west-java-corner') }}#envReels" data-scroll role="menuitem">Cuplikan</a>
+            <a class="ddLink" href="{{ route('west-java-corner') }}#newsVideoSection" data-scroll role="menuitem">News</a>
+            <a class="ddLink" href="{{ route('west-java-corner') }}#envReels" data-scroll role="menuitem">Highlight</a>
           </div>
         </li>
         <li class="item">
@@ -50,6 +50,34 @@
         <li class="item">
           <a class="link" href="{{ route('archives') }}" data-scroll>Archives</a>
         </li>
+        @guest
+        <li class="item">
+          <a class="link" href="{{ route('login') }}" style="font-weight:bold; color: #d61f2c;">Login</a>
+        </li>
+        @endguest
+        @auth
+        <li class="item dd dd-right" data-dd>
+          <button class="ddBtn" type="button" aria-expanded="false" style="display:flex; align-items:center; gap:5px;">
+            <div style="width: 24px; height: 24px; background: #d61f2c; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold;">
+              {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+            </div>
+            <span class="caret" aria-hidden="true"></span>
+          </button>
+          <div class="ddPanel" role="menu">
+            @if(Auth::user()->hasRole('superadmin'))
+              <a class="ddLink" href="{{ route('hero.index') }}" role="menuitem">CMS Panel</a>
+            @elseif(Auth::user()->hasRole('admin'))
+              <a class="ddLink" href="{{ route('admin.dashboard') }}" role="menuitem">Dashboard</a>
+            @else
+              <a class="ddLink" href="{{ route('user.profile') }}" role="menuitem">My Profile</a>
+            @endif
+            <form method="POST" action="{{ route('logout') }}" style="margin:0;">
+              @csrf
+              <button type="submit" class="ddLink" style="width:100%; text-align:left; background:transparent; border:none; cursor:pointer;" role="menuitem">Logout</button>
+            </form>
+          </div>
+        </li>
+        @endauth
       </ul>
       <button class="burger" type="button" aria-label="Open menu" aria-expanded="false" data-burger>
         <span class="burgerLines" aria-hidden="true"></span>
@@ -104,6 +132,24 @@
         </div>
         <a class="mLink" href="{{ route('gallery') }}" data-scroll data-close>Gallery</a>
         <a class="mLink" href="{{ route('archives') }}" data-scroll data-close>Archives</a>
+        <hr style="margin: 15px 0; border: 0; border-top: 1px solid #eee;">
+        @guest
+          <a class="mLink" href="{{ route('login') }}" style="color: #d61f2c; font-weight: bold;">Login</a>
+          <a class="mLink" href="{{ route('register') }}">Daftar</a>
+        @endguest
+        @auth
+          @if(Auth::user()->hasRole('superadmin'))
+            <a class="mLink" href="{{ route('hero.index') }}">CMS Panel</a>
+          @elseif(Auth::user()->hasRole('admin'))
+            <a class="mLink" href="{{ route('admin.dashboard') }}">Dashboard Admin</a>
+          @else
+            <a class="mLink" href="{{ route('user.profile') }}">Profil Saya</a>
+          @endif
+          <form method="POST" action="{{ route('logout') }}" style="margin:0;">
+            @csrf
+            <button type="submit" class="mLink" style="width:100%; text-align:left; background:transparent; border:none; cursor:pointer; padding: 12px 18px;">Logout</button>
+          </form>
+        @endauth
       </div>
     </aside>
   </div>

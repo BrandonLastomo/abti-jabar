@@ -5,17 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title', 'Handball')</title>
-     @vite(['resources/css/app.css', 'resources/js/app.js'])
+     @vite(['resources/css/edit-home.css', 'resources/js/app.js'])
      <script>
       function toggleSidebar() {
-    document.querySelector('.side').classList.toggle('show');
-    document.querySelector('.overlay').classList.toggle('show');
-  }
+        document.querySelector('.side').classList.toggle('show');
+        const overlay = document.querySelector('.overlay');
+        
+        if (overlay.style.display === 'none' || overlay.style.display === '') {
+            overlay.style.display = 'block';
+            setTimeout(() => overlay.classList.add('show'), 10);
+        } else {
+            overlay.classList.remove('show');
+            setTimeout(() => overlay.style.display = 'none', 300);
+        }
+      }
      </script>
 </head>
 <body>
     <div class="app">
-      <div class="overlay" onclick="toggleSidebar()"></div>
+      <div class="overlay" style="display: none;" onclick="toggleSidebar()"></div>
 
         @include('cms.layouts.sidebar', ['page' => $page])
     

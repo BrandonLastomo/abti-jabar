@@ -89,11 +89,19 @@
       <span class="navMeta"><span class="pill">Logo + Nav + Kontak</span></span>
     </a>
 
+    <a href="{{ route('users.index') }}" class="navBtn <?= $page === 'users' ? 'active' : '' ?>">
+      <span>Users</span>
+      <span class="navMeta"><span class="pill">User Management</span></span>
+    </a>
+
 </div>
 
 
     <div class="sideFoot">
-      <a class="btn" href="logout.php">Logout</a>
+      <form method="POST" action="{{ route('logout') }}" style="width:100%; margin-bottom: 5px;">
+        @csrf
+        <button type="submit" class="btn" style="width:100%; border:none; cursor:pointer;">Logout</button>
+      </form>
       <a class="btn" href="/" target="_blank" rel="noopener">Open Site</a>
     </div>
   </aside>

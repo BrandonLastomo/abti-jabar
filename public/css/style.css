@@ -239,6 +239,11 @@ body.lock {
         visibility 0.18s var(--ease);
     z-index: 999;
 }
+.dd-right .ddPanel {
+    left: auto;
+    right: 0;
+    transform-origin: top right;
+}
 .ddPanel::before {
     content: "";
     position: absolute;
@@ -251,6 +256,10 @@ body.lock {
     border-top: 1px solid var(--line);
     transform: rotate(45deg);
     backdrop-filter: blur(14px);
+}
+.dd-right .ddPanel::before {
+    left: auto;
+    right: 20px;
 }
 .ddLink {
     display: flex;

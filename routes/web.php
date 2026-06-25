@@ -20,6 +20,7 @@ use App\Http\Controllers\CMSController\WestJavaVideoController;
 use App\Http\Controllers\CMSController\LiveController;
 use App\Http\Controllers\CMSController\FooterContentController;
 use App\Http\Controllers\CMSController\UserManagementController;
+use App\Http\Controllers\CMSController\SettingController;
 use App\Http\Controllers\EditBigNewsController;
 use App\Http\Controllers\EventPublicController;
 use App\Http\Controllers\GalleryPublicController;
@@ -58,14 +59,17 @@ Route::middleware(['auth', 'role:user'])->prefix('user')->name('user.')->group(f
     Route::get('/profile', [UserProfileController::class, 'index'])->name('profile');
     Route::post('/documents', [UserProfileController::class, 'uploadDocument'])->name('documents.store');
     Route::delete('/documents/{document}', [UserProfileController::class, 'deleteDocument'])->name('documents.destroy');
+    Route::post('/mutation', [UserProfileController::class, 'submitMutation'])->name('mutation.store');
 });
 
 
-// ======================== ADMIN ROUTES (role: admin) ========================
-Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+// ======================== ADMIN ROUTES (role: admin, superadmin) ========================
+Route::middleware(['auth', 'role:admin|superadmin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
     Route::patch('/documents/{document}/verify', [AdminDashboardController::class, 'verify'])->name('documents.verify');
     Route::patch('/documents/{document}/reject', [AdminDashboardController::class, 'reject'])->name('documents.reject');
+    Route::patch('/mutations/{mutation}/verify', [AdminDashboardController::class, 'verifyMutation'])->name('mutations.verify');
+    Route::patch('/mutations/{mutation}/reject', [AdminDashboardController::class, 'rejectMutation'])->name('mutations.reject');
 });
 
 
@@ -102,6 +106,10 @@ Route::middleware(['auth', 'role:superadmin'])->prefix('cms')->group(function ()
     Route::put('/footer', [FooterContentController::class, 'update'])->name('footer.update');
     Route::resource('/live', LiveController::class);
     Route::patch('/live/{live}/toggle', [LiveController::class, 'toggleLive'])->name('live.toggle');
+
+    // Settings
+    Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
+    Route::post('/settings', [SettingController::class, 'update'])->name('settings.update');
 
     // User management (superadmin only)
     Route::resource('/users', UserManagementController::class)->except(['show']);

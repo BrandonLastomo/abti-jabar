@@ -93,6 +93,10 @@
       <span>Users</span>
       <span class="navMeta"><span class="pill">User Management</span></span>
     </a>
+    <a href="{{ route('settings.index') }}" class="navBtn <?= $page === 'settings' ? 'active' : '' ?>">
+      <span>Settings</span>
+      <span class="navMeta"><span class="pill">Web Config</span></span>
+    </a>
 
 </div>
 

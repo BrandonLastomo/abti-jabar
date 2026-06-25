@@ -13,6 +13,7 @@
   <link rel="icon" href="{{ asset('img/mainlogo.avif') }}" type="image/avif" />
   <link rel="apple-touch-icon" href="{{ asset('img/mainlogo.avif') }}" />
   <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">

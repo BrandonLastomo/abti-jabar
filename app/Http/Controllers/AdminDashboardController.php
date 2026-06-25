@@ -14,25 +14,25 @@ class AdminDashboardController extends Controller
     public function index(Request $request)
     {
         $filter = $request->get('filter', 'pending');
+        $tab = $request->get('tab', 'documents');
 
-        $query = UserDocument::with('user', 'verifier');
-
-        if ($filter === 'pending') {
-            $query->where('status', 'pending');
-        } elseif ($filter === 'verified') {
-            $query->where('status', 'verified');
-        } elseif ($filter === 'rejected') {
-            $query->where('status', 'rejected');
+        // Documents Query
+        $docQuery = UserDocument::with('user', 'verifier');
+        if ($filter !== 'all') {
+            $docQuery->where('status', $filter);
         }
+        $documents = $docQuery->latest()->paginate(15, ['*'], 'doc_page');
 
-        $documents = $query->latest()->paginate(15);
+        // Mutations Query
+        $mutQuery = \App\Models\MutationProposal::with('user');
+        if ($filter !== 'all') {
+            $mutQuery->where('status', $filter);
+        }
+        $mutations = $mutQuery->latest()->paginate(15, ['*'], 'mut_page');
 
-        return view('admin.dashboard', compact('documents', 'filter'));
+        return view('admin.dashboard', compact('documents', 'mutations', 'filter', 'tab'));
     }
 
-    /**
-     * Verify a document.
-     */
     public function verify(Request $request, UserDocument $document)
     {
         $document->update([
@@ -45,9 +45,6 @@ class AdminDashboardController extends Controller
         return back()->with('success', 'Dokumen berhasil diverifikasi.');
     }
 
-    /**
-     * Reject a document.
-     */
     public function reject(Request $request, UserDocument $document)
     {
         $request->validate([
@@ -62,5 +59,31 @@ class AdminDashboardController extends Controller
         ]);
 
         return back()->with('success', 'Dokumen ditolak.');
+    }
+
+    public function verifyMutation(Request $request, \App\Models\MutationProposal $mutation)
+    {
+        $mutation->update([
+            'status' => 'verified',
+            'admin_notes' => $request->input('notes'),
+            'verified_at' => now(),
+        ]);
+
+        return back()->with('success', 'Proposal Mutasi berhasil diverifikasi.');
+    }
+
+    public function rejectMutation(Request $request, \App\Models\MutationProposal $mutation)
+    {
+        $request->validate([
+            'notes' => 'required|string|max:500',
+        ]);
+
+        $mutation->update([
+            'status' => 'rejected',
+            'admin_notes' => $request->input('notes'),
+            'verified_at' => now(),
+        ]);
+
+        return back()->with('success', 'Proposal Mutasi ditolak.');
     }
 }

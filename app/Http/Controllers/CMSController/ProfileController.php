@@ -3,100 +3,99 @@
 namespace App\Http\Controllers\CMSController;
 
 use App\Http\Controllers\Controller;
-use App\Models\Club;
+use App\Models\TeamProfile;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $clubs = Club::latest()->paginate(10);
+        $profiles = TeamProfile::latest()->paginate(10);
 
-        return view('cms.club.index', [
-            'clubs' => $clubs,
-            'page' => 'club'
+        return view('cms.profile.index', [
+            'profiles' => $profiles,
+            'page' => 'profile'
         ]);
     }
 
     public function create()
     {
-        return view('cms.club.add-club', [
-            'page' => 'club'
+        return view('cms.profile.add', [
+            'page' => 'profile'
         ]);
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'city' => 'required|string|max:255',
-            'director_club' => 'required|string|max:255',
-            'administrator' => 'required|string|max:255',
-            'technical_director' => 'required|string|max:255',
-            'training_venue' => 'required|string|max:255',
-            'email' => 'nullable|email|max:255',
-            'contact_person' => 'nullable|string|max:255',
-            'website' => 'nullable|url|max:255',
-            'founded_year' => 'nullable|digits:4',
-            'status' => 'required|in:member,guest',
+            'category' => 'required|in:indoor,beach,wheelchair',
+            'subcategory' => 'required|string|max:255',
+            'picture' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
-        Club::create($request->all());
+        $imagePath = null;
+        if ($request->hasFile('picture')) {
+            $imagePath = $request->file('picture')->store('team_profiles', 'public');
+        }
+
+        TeamProfile::create([
+            'category' => $request->category,
+            'subcategory' => $request->subcategory,
+            'picture' => $imagePath,
+        ]);
 
         return redirect()
             ->route('club.index')
-            ->with('success', 'Club created successfully.');
+            ->with('success', 'Team Profile created successfully.');
     }
 
-    public function show(Club $club)
+    public function edit(TeamProfile $club)
     {
-        return view('cms.club.show-club', [
-            'club' => $club,
-            'page' => 'club'
+        return view('cms.profile.edit', [
+            'profile' => $club,
+            'page' => 'profile'
         ]);
     }
 
-    public function edit(Club $club)
-    {
-        return view('cms.club.edit-club', [
-            'club' => $club,
-            'page' => 'club'
-        ]);
-    }
-
-    public function update(Request $request, Club $club)
+    public function update(Request $request, TeamProfile $club)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'city' => 'required|string|max:255',
-            'director_club' => 'required|string|max:255',
-            'administrator' => 'required|string|max:255',
-            'technical_director' => 'required|string|max:255',
-            'training_venue' => 'required|string|max:255',
-            'email' => 'nullable|email|max:255',
-            'contact_person' => 'nullable|string|max:255',
-            'website' => 'nullable|url|max:255',
-            'founded_year' => 'nullable|digits:4',
-            'status' => 'required|in:member,guest',
+            'category' => 'required|in:indoor,beach,wheelchair',
+            'subcategory' => 'required|string|max:255',
+            'picture' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
-        $club->update($request->all());
+        $imagePath = $club->picture;
+
+        if ($request->hasFile('picture')) {
+            if ($club->picture && Storage::disk('public')->exists($club->picture)) {
+                Storage::disk('public')->delete($club->picture);
+            }
+            $imagePath = $request->file('picture')->store('team_profiles', 'public');
+        }
+
+        $club->update([
+            'category' => $request->category,
+            'subcategory' => $request->subcategory,
+            'picture' => $imagePath,
+        ]);
 
         return redirect()
             ->route('club.index')
-            ->with('success', 'Club updated successfully.');
+            ->with('success', 'Team Profile updated successfully.');
     }
 
-    public function destroy(Club $club)
+    public function destroy(TeamProfile $club)
     {
+        if ($club->picture && Storage::disk('public')->exists($club->picture)) {
+            Storage::disk('public')->delete($club->picture);
+        }
         $club->delete();
 
         return redirect()
             ->route('club.index')
-            ->with('success', 'Club deleted successfully.');
+            ->with('success', 'Team Profile deleted successfully.');
     }
 }
+

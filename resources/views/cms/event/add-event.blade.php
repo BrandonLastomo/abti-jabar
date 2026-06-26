@@ -34,6 +34,16 @@
                 </div>
 
                 <div class="field">
+                    <label>Subcategory</label>
+                    <input type="text" name="subcategory" value="{{ old('subcategory') }}" placeholder="e.g. Senior putra">
+                </div>
+
+                <div class="field">
+                    <label>Event Date</label>
+                    <input type="date" name="event_date" value="{{ old('event_date') }}">
+                </div>
+
+                <div class="field">
                     <label>Location</label>
                     <input type="text" name="loc" value="{{ old('loc') }}">
                 </div>

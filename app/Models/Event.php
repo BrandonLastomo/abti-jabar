@@ -10,6 +10,8 @@ class Event extends Model
         'event_id',
         'name',
         'category',
+        'subcategory',
+        'event_date',
         'loc',
         'athletes',
         'coaches',

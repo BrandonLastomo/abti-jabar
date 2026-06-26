@@ -1,12 +1,12 @@
 @extends('cms.layouts.master')
 
-@section('title', 'Clubs')
+@section('title', 'Team Profiles')
 
 @section('content')
 <div class="section">
     <div class="sectionHead">
-        <h2>Clubs</h2>
-        <div class="pill">{{ $clubs->total() }} items</div>
+        <h2>Team Profiles</h2>
+        <div class="pill">{{ $profiles->total() }} items</div>
     </div>
 
     @if(session('success'))
@@ -20,26 +20,29 @@
             <table class="custom-table">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>City</th>
-                        <th>Status</th>
-                        <th>Director</th>
+                        <th>Picture</th>
+                        <th>Category</th>
+                        <th>Subcategory</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($clubs as $club)
+                    @foreach($profiles as $profile)
                     <tr>
-                        <td>{{ $club->name }}</td>
-                        <td>{{ $club->city }}</td>
-                        <td>{{ ucfirst($club->status) }}</td>
-                        <td>{{ $club->director_club }}</td>
+                        <td>
+                            @if($profile->picture)
+                                <img src="{{ asset('storage/'.$profile->picture) }}" width="60" alt="Team Photo">
+                            @else
+                                No Image
+                            @endif
+                        </td>
+                        <td>{{ ucfirst($profile->category) }}</td>
+                        <td>{{ $profile->subcategory }}</td>
 
                         <td class="actions">
-                            <a href="{{ route('club.show', $club) }}" class="btn btn-view">View</a>
-                            <a href="{{ route('club.edit', $club) }}" class="btn btn-edit">Edit</a>
+                            <a href="{{ route('club.edit', $profile) }}" class="btn btn-edit">Edit</a>
 
-                            <form action="{{ route('club.destroy', $club) }}"
+                            <form action="{{ route('club.destroy', $profile) }}"
                                   method="POST"
                                   style="display:inline;">
                                 @csrf
@@ -52,14 +55,14 @@
                 </tbody>
             </table>
 
-            {{ $clubs->links() }}
+            {{ $profiles->links() }}
         </div>
     </div>
 </div>
 
 <div class="actions">
     <a href="{{ route('club.create') }}" class="btn primary">
-        Add Club
+        Add Team Profile
     </a>
 </div>
 @endsection

@@ -43,12 +43,20 @@ class NewsContentController extends Controller
             'content'     => 'required|string|max:1000',
             'cta_text'    => 'required|string|max:255',
             'youtube_url' => 'required|url|max:255',
+            'images.*'    => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
         $slug = Str::slug($request->title);
 
         if (News::where('slug', $slug)->exists()) {
             $slug .= '-' . time();
+        }
+
+        $imagePaths = [];
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $imagePaths[] = $image->store('news', 'public');
+            }
         }
 
         News::create([
@@ -58,6 +66,7 @@ class NewsContentController extends Controller
             'content'     => $request->content,
             'cta_text'    => $request->cta_text,
             'youtube_url' => $request->youtube_url,
+            'images'      => json_encode($imagePaths),
         ]);
 
         return redirect()->route('news-content.index')
@@ -97,6 +106,7 @@ class NewsContentController extends Controller
             'content'     => 'required|string|max:1000',
             'cta_text'    => 'required|string|max:255',
             'youtube_url' => 'required|url|max:255',
+            'images.*'    => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
         $slug = Str::slug($request->title);
@@ -109,6 +119,23 @@ class NewsContentController extends Controller
             $slug .= '-' . time();
         }
 
+        $imagePaths = json_decode($news->images, true) ?? [];
+        if ($request->hasFile('images')) {
+            // Delete old images
+            if (!empty($imagePaths)) {
+                foreach ($imagePaths as $oldImage) {
+                    if (\Illuminate\Support\Facades\Storage::disk('public')->exists($oldImage)) {
+                        \Illuminate\Support\Facades\Storage::disk('public')->delete($oldImage);
+                    }
+                }
+            }
+            
+            $imagePaths = [];
+            foreach ($request->file('images') as $image) {
+                $imagePaths[] = $image->store('news', 'public');
+            }
+        }
+
         $news->update([
             'title'       => $request->title,
             'slug'        => $slug,
@@ -116,6 +143,7 @@ class NewsContentController extends Controller
             'content'     => $request->content,
             'cta_text'    => $request->cta_text,
             'youtube_url' => $request->youtube_url,
+            'images'      => json_encode($imagePaths),
         ]);
 
         return redirect()->route('news-content.index')
@@ -127,6 +155,15 @@ class NewsContentController extends Controller
      */
     public function destroy(News $news)
     {
+        $imagePaths = json_decode($news->images, true) ?? [];
+        if (!empty($imagePaths)) {
+            foreach ($imagePaths as $oldImage) {
+                if (\Illuminate\Support\Facades\Storage::disk('public')->exists($oldImage)) {
+                    \Illuminate\Support\Facades\Storage::disk('public')->delete($oldImage);
+                }
+            }
+        }
+        
         $news->delete();
 
         return redirect()->route('news-content.index')

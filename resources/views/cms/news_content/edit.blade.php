@@ -71,6 +71,17 @@
                     @enderror
                 </div>
 
+                <div class="field">
+                    <label>Images (Carousel) - Max 4 images</label>
+                    <input type="file" name="images[]" id="images-input" multiple accept="image/*">
+                    <div id="images-preview" style="display:flex; gap:10px; margin-top:10px;">
+                        @php $images = json_decode($news->images, true) ?? []; @endphp
+                        @foreach($images as $img)
+                            <img src="{{ asset('storage/'.$img) }}" style="width:100px; height:100px; object-fit:cover;">
+                        @endforeach
+                    </div>
+                </div>
+
                 <div class="actions">
                     <button type="submit" class="btn primary">
                         Update News
@@ -86,4 +97,28 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById('images-input').addEventListener('change', function(e) {
+        const previewContainer = document.getElementById('images-preview');
+        previewContainer.innerHTML = '';
+        if (this.files.length > 4) {
+            alert('Maksimal 4 gambar yang diperbolehkan.');
+            this.value = '';
+            return;
+        }
+        for (let i = 0; i < this.files.length; i++) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.style.width = '100px';
+                img.style.height = '100px';
+                img.style.objectFit = 'cover';
+                previewContainer.appendChild(img);
+            }
+            reader.readAsDataURL(this.files[i]);
+        }
+    });
+</script>
 @endsection

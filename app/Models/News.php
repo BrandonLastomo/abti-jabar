@@ -13,6 +13,7 @@ class News extends Model
         'content',
         'cta_text',
         'youtube_url',
+        'images',
     ];
 
     public function getRouteKeyName()

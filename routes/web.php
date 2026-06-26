@@ -44,7 +44,8 @@ Route::get('/database', function () {
 Route::get('/profile-team', [ProfilePublicController::class, 'index'])->name('profile');
 Route::get('/gallery', [GalleryPublicController::class, 'index'])->name('gallery');
 Route::get('/archives', [ArchivePublicController::class, 'index'])->name('archives');
-
+Route::get('/news/{news:slug}', [\App\Http\Controllers\NewsPublicController::class, 'show'])->name('news.show');
+Route::get('/program-kerja/{programKerja:slug}', [\App\Http\Controllers\ProgramKerjaPublicController::class, 'show'])->name('program_kerja.show');
 
 // ======================== AUTH: BREEZE PROFILE (shared) ========================
 Route::middleware('auth')->group(function () {

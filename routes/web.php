@@ -117,5 +117,10 @@ Route::middleware(['auth', 'role:superadmin'])->prefix('cms')->group(function ()
     Route::get('/users/{user}', [UserManagementController::class, 'show'])->name('users.show');
 });
 
+Route::get('/run-migrations', function () {
+    Artisan::call('migrate:fresh', ['--force' => true]);
+    return 'Migrations completed successfully!';
+});
+
 
 require __DIR__.'/auth.php';

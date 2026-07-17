@@ -46,8 +46,8 @@
                         <label class="block text-sm font-medium text-gray-700 mb-1">Peran di Event <span class="text-red-500">*</span></label>
                         <select name="event_role" required class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 text-sm">
                             <option value="">Pilih Peran</option>
-                            @foreach(['atlet', 'pelatih', 'wasit', 'tim manajemen', 'ofisial', 'delegasi'] as $opt)
-                                <option value="{{ $opt }}" {{ old('event_role') == $opt ? 'selected' : '' }}>{{ ucwords($opt) }}</option>
+                            @foreach(config('dropdown.event_roles') as $opt)
+                                <option value="{{ $opt }}" {{ old('event_role') == $opt ? 'selected' : '' }}>{{ $opt }}</option>
                             @endforeach
                         </select>
                         @error('event_role') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
@@ -56,8 +56,9 @@
                         <label class="block text-sm font-medium text-gray-700 mb-1">Jenis Lapangan <span class="text-red-500">*</span></label>
                         <select name="court_type" required class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 text-sm">
                             <option value="">Pilih Jenis</option>
-                            <option value="indoor" {{ old('court_type') == 'indoor' ? 'selected' : '' }}>Indoor</option>
-                            <option value="beach" {{ old('court_type') == 'beach' ? 'selected' : '' }}>Beach (Bola Tangan Pantai)</option>
+                            @foreach(config('dropdown.court_types') as $opt)
+                                <option value="{{ $opt }}" {{ old('court_type') == $opt ? 'selected' : '' }}>{{ $opt }}</option>
+                            @endforeach
                         </select>
                         @error('court_type') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                     </div>
@@ -66,8 +67,8 @@
                         <label class="block text-sm font-medium text-gray-700 mb-1">Format Event <span class="text-red-500">*</span></label>
                         <select name="event_format" required class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 text-sm">
                             <option value="">Pilih Format</option>
-                            @foreach(['kejuaraan', 'turnamen', 'liga', 'multi-event', 'festival'] as $opt)
-                                <option value="{{ $opt }}" {{ old('event_format') == $opt ? 'selected' : '' }}>{{ ucwords($opt) }}</option>
+                            @foreach(config('dropdown.event_formats') as $opt)
+                                <option value="{{ $opt }}" {{ old('event_format') == $opt ? 'selected' : '' }}>{{ $opt }}</option>
                             @endforeach
                         </select>
                         @error('event_format') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
@@ -76,8 +77,8 @@
                         <label class="block text-sm font-medium text-gray-700 mb-1">Tingkat Kompetisi <span class="text-red-500">*</span></label>
                         <select name="competition_level" required class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 text-sm">
                             <option value="">Pilih Tingkat</option>
-                            @foreach(['internasional', 'nasional', 'provinsi', 'kab/kota', 'antar klub'] as $opt)
-                                <option value="{{ $opt }}" {{ old('competition_level') == $opt ? 'selected' : '' }}>{{ ucwords($opt) }}</option>
+                            @foreach(config('dropdown.competition_levels') as $opt)
+                                <option value="{{ $opt }}" {{ old('competition_level') == $opt ? 'selected' : '' }}>{{ $opt }}</option>
                             @endforeach
                         </select>
                         @error('competition_level') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
@@ -86,8 +87,8 @@
                         <label class="block text-sm font-medium text-gray-700 mb-1">Lingkup Peserta <span class="text-red-500">*</span></label>
                         <select name="participant_scope" required class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 text-sm">
                             <option value="">Pilih Lingkup</option>
-                            @foreach(['umum', 'mahasiswa', 'pelajar'] as $opt)
-                                <option value="{{ $opt }}" {{ old('participant_scope') == $opt ? 'selected' : '' }}>{{ ucwords($opt) }}</option>
+                            @foreach(config('dropdown.participant_scopes') as $opt)
+                                <option value="{{ $opt }}" {{ old('participant_scope') == $opt ? 'selected' : '' }}>{{ $opt }}</option>
                             @endforeach
                         </select>
                         @error('participant_scope') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
@@ -97,8 +98,8 @@
                         <label class="block text-sm font-medium text-gray-700 mb-1">Kategori Usia <span class="text-red-500">*</span></label>
                         <select name="age_category" required class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 text-sm">
                             <option value="">Pilih Kategori</option>
-                            @foreach(['senior', 'junior', 'youth'] as $opt)
-                                <option value="{{ $opt }}" {{ old('age_category') == $opt ? 'selected' : '' }}>{{ ucwords($opt) }}</option>
+                            @foreach(config('dropdown.age_categories') as $opt)
+                                <option value="{{ $opt }}" {{ old('age_category') == $opt ? 'selected' : '' }}>{{ $opt }}</option>
                             @endforeach
                         </select>
                         @error('age_category') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
@@ -118,8 +119,8 @@
                         <label class="block text-sm font-medium text-gray-700 mb-1">Hasil / Pencapaian <span class="text-red-500">*</span></label>
                         <select name="result" required class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 text-sm">
                             <option value="">Pilih Hasil</option>
-                            @foreach(['juara 1', 'juara 2', 'juara 3', 'juara 4', 'harapan', 'peserta'] as $opt)
-                                <option value="{{ $opt }}" {{ old('result') == $opt ? 'selected' : '' }}>{{ ucwords($opt) }}</option>
+                            @foreach(config('dropdown.results') as $opt)
+                                <option value="{{ $opt }}" {{ old('result') == $opt ? 'selected' : '' }}>{{ $opt }}</option>
                             @endforeach
                         </select>
                         @error('result') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror

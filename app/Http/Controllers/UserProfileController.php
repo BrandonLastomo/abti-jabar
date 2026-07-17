@@ -17,18 +17,24 @@ class UserProfileController extends Controller
         $user = Auth::user();
         $documents = $user->documents()->latest()->get();
 
-        $mutation_open = \App\Models\Setting::getVal('mutation_open', '0');
+        return view('user.profile', compact('user', 'documents'));
+    }
+
+    /**
+     * Show the mutation proposal form.
+     */
+    public function mutationForm()
+    {
+        $user = Auth::user();
+        $mutation_open = \App\Models\MutationSetting::where('key', 'mutation_open')->value('value') ?? '0';
         $mutation_proposal = \App\Models\MutationProposal::where('user_id', $user->id)->latest()->first();
 
-        // Check if athletes can propose (every 4 years). If the latest proposal is less than 4 years old, they cannot.
-        // Wait, the prompt says "athletes can propose their mutation/transfer every 4 years."
-        // We can just check if the last proposal was submitted less than 4 years ago.
         $can_propose_mutation = true;
         if ($mutation_proposal && $mutation_proposal->created_at->diffInYears(now()) < 4) {
             $can_propose_mutation = false;
         }
 
-        return view('user.profile', compact('user', 'documents', 'mutation_open', 'mutation_proposal', 'can_propose_mutation'));
+        return view('user.mutation', compact('mutation_open', 'mutation_proposal', 'can_propose_mutation'));
     }
 
     public function submitMutation(Request $request)
@@ -40,7 +46,7 @@ class UserProfileController extends Controller
             'integrity_pact' => 'required|file|mimes:pdf,jpg,jpeg,png|max:5120',
         ]);
 
-        if (\App\Models\Setting::getVal('mutation_open', '0') !== '1') {
+        if (\App\Models\MutationSetting::where('key', 'mutation_open')->value('value') !== '1') {
             return back()->with('error', 'Pendaftaran mutasi sedang ditutup.');
         }
 

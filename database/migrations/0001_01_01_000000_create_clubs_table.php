@@ -14,20 +14,18 @@ return new class extends Migration
         Schema::create('clubs', function (Blueprint $table) {
             $table->id();
 
+            $table->string('logo')->nullable();
             $table->string('name');
-            $table->string('city');
-
-            $table->string('director_club');        // Direktur Klub
-            $table->string('administrator');        // Administrator
-            $table->string('technical_director');   // Direktur Teknik
-            $table->string('training_venue');       // Venue Latihan
-
-            $table->string('email')->nullable();
-            $table->string('contact_person')->nullable();
+            $table->string('pengcab_address')->nullable();
+            $table->string('office_address')->nullable();
+            $table->text('office_address_complete')->nullable();
+            $table->string('venue_address')->nullable();
+            $table->text('venue_address_complete')->nullable();
             $table->string('website')->nullable();
-
-            $table->year('founded_year')->nullable();
-            $table->enum('status', ['member', 'guest'])->default('member');
+            $table->string('email')->nullable();
+            $table->string('phone')->nullable();
+            $table->enum('club_status', ['amatir', 'profesional'])->nullable();
+            $table->string('picture')->nullable();
 
             $table->timestamps();
         });

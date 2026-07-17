@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('west_java_videos', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->string('court_type')->nullable();
             $table->string('link');
-            $table->enum('type', ['shorts', 'podcast']);
+            $table->enum('type', ['shorts', 'podcast', 'highlights']);
             $table->timestamps();
         });
     }

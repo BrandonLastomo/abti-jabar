@@ -12,16 +12,27 @@ class Club extends Model
     use HasFactory;
     
     protected $fillable = [
+        'logo',
         'name',
-        'city',
-        'director_club',
-        'administrator',
-        'technical_director',
-        'training_venue',
-        'email',
-        'contact_person',
+        'pengcab_address',
+        'office_address',
+        'office_address_complete',
+        'venue_address',
+        'venue_address_complete',
         'website',
-        'founded_year',
-        'status',
+        'email',
+        'phone',
+        'club_status',
+        'picture',
     ];
+
+    public function documents(): HasMany
+    {
+        return $this->hasMany(ClubDocument::class);
+    }
+
+    public function staff(): HasMany
+    {
+        return $this->hasMany(ClubStaff::class);
+    }
 }

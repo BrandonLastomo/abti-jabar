@@ -22,6 +22,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'prenominal_title',
+        'postnominal_title',
     ];
 
     /**
@@ -47,11 +49,51 @@ class User extends Authenticatable
         ];
     }
 
+    public function generalProfile()
+    {
+        return $this->hasOne(GeneralProfile::class);
+    }
+
+    public function identityDocument()
+    {
+        return $this->hasOne(IdentityDocument::class);
+    }
+
+    public function educationDocument()
+    {
+        return $this->hasOne(EducationDocument::class);
+    }
+
+    public function integrityDocuments()
+    {
+        return $this->hasMany(IntegrityDocument::class);
+    }
+
+    public function userTeamExperiences()
+    {
+        return $this->hasMany(UserTeamExperience::class);
+    }
+
+    public function eventExperiences()
+    {
+        return $this->hasMany(EventExperience::class);
+    }
+
+    public function userCertifications()
+    {
+        return $this->hasMany(UserCertification::class);
+    }
+
     /**
      * Get the documents uploaded by this user.
      */
     public function documents()
     {
         return $this->hasMany(UserDocument::class);
+    }
+
+    public function mutationProposals()
+    {
+        return $this->hasMany(MutationProposal::class);
     }
 }

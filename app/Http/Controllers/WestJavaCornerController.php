@@ -20,9 +20,14 @@ class WestJavaCornerController extends Controller
             ->latest()
             ->get();
 
+        $highlights = WestJavaVideos::where('type', 'highlights')
+            ->latest()
+            ->get();
+
         return view('west-java-corner', compact(
             'podcasts',
             'shorts',
+            'highlights',
             'latestNews',
             'moreNews'
         ));

@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('west_java_videos', function (Blueprint $table) {
+        Schema::create('club_staff', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('court_type')->nullable();
-            $table->string('link');
-            $table->enum('type', ['shorts', 'podcast', 'highlights']);
+            $table->foreignId('club_id')->constrained()->cascadeOnDelete();
+            $table->string('name');
+            $table->string('position');
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('westjava_videos');
+        Schema::dropIfExists('club_staff');
     }
 };

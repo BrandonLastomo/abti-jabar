@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('west_java_videos', function (Blueprint $table) {
+        Schema::create('mutation_settings', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('court_type')->nullable();
-            $table->string('link');
-            $table->enum('type', ['shorts', 'podcast', 'highlights']);
+            $table->string('key')->unique();
+            $table->text('value')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('westjava_videos');
+        Schema::dropIfExists('mutation_settings');
     }
 };

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\TeamProfile;
+
 use App\Models\Event;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -15,9 +15,10 @@ class ProfilePublicController extends Controller
         $category = $request->query('category', 'indoor');
         $subcategory = $request->query('subcategory', 'Senior putra');
 
-        $teamProfile = TeamProfile::where('category', $category)
-            ->where('subcategory', $subcategory)
-            ->first();
+        // TeamProfile model has been removed in DBML v2.
+        // In the future, this might fetch from the Clubs table or a specific team table.
+        // For now, to keep the UI intact without crashing, we pass null.
+        $teamProfile = null;
 
         // Get events for the selected category and subcategory
         $events = Event::where('category', $category)

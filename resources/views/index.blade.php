@@ -250,58 +250,62 @@
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <h2 class="text-2xl font-bold text-gray-900 mb-8 uppercase tracking-wide">UPDATE INFORMASI</h2>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <!-- Placeholder for Instagram embed 1 -->
-        <div class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden">
-            <div class="p-4 flex items-center gap-3 border-b border-gray-100">
-                <div class="w-10 h-10 bg-gray-200 rounded-full flex-shrink-0"></div>
-                <div>
-                    <div class="text-sm font-bold text-gray-900">abti_jabar <span class="text-blue-500 material-icons text-sm align-middle">verified</span></div>
-                    <div class="text-xs text-gray-500">Bandung, Jawa Barat</div>
-                </div>
-            </div>
-            <div class="aspect-square bg-gray-200">
-                <img src="{{ asset('img/mainhero.png') }}" class="w-full h-full object-cover" alt="IG Post 1">
-            </div>
-            <div class="p-4">
-                <div class="text-sm text-gray-800 line-clamp-3 mb-4">
-                    Pertandingan final yang sangat menegangkan antara tim...
-                </div>
-                <button class="w-full bg-red-600 text-white font-bold py-2 rounded text-sm hover:bg-red-700 transition">View on Instagram</button>
-            </div>
-        </div>
-
-        <!-- Placeholder for Instagram embed 2 -->
-        <div class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden">
-            <div class="p-4 flex items-center gap-3 border-b border-gray-100">
-                <div class="w-10 h-10 bg-gray-200 rounded-full flex-shrink-0"></div>
-                <div>
-                    <div class="text-sm font-bold text-gray-900">abti_jabar <span class="text-blue-500 material-icons text-sm align-middle">verified</span></div>
-                    <div class="text-xs text-gray-500">Cirebon</div>
-                </div>
-            </div>
-            <div class="aspect-square bg-gray-200">
-                <img src="{{ asset('img/sechero.png') }}" class="w-full h-full object-cover" alt="IG Post 2">
-            </div>
-            <div class="p-4">
-                <div class="text-sm text-gray-800 line-clamp-3 mb-4">
-                    Pelatihan wasit dan pelatih tingkat provinsi Jawa Barat tahun 2024...
-                </div>
-                <button class="w-full bg-red-600 text-white font-bold py-2 rounded text-sm hover:bg-red-700 transition">View on Instagram</button>
-            </div>
-        </div>
-
-        <!-- Placeholder for Facebook embed -->
+        <!-- Instagram Feed -->
         <div class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden flex flex-col">
-            <div class="p-4 bg-blue-600 text-white flex items-center gap-2">
-                <span class="font-bold text-lg">Facebook</span>
+            <a href="https://www.instagram.com/westjavahandball" target="_blank" class="p-4 flex items-center gap-3 border-b border-gray-100 hover:bg-gray-50 transition">
+                <div class="w-10 h-10 bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 rounded-full flex-shrink-0 flex items-center justify-center text-white font-bold text-xs">IG</div>
+                <div>
+                    <div class="text-sm font-bold text-gray-900 hover:text-red-600">westjavahandball <span class="text-blue-500 material-icons text-sm align-middle">verified</span></div>
+                    <div class="text-xs text-gray-500">Instagram</div>
+                </div>
+            </a>
+            <div class="aspect-square bg-gray-200 relative group block">
+                <a href="https://www.instagram.com/westjavahandball" target="_blank">
+                    <img src="{{ asset('img/mainhero.png') }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="IG Post">
+                </a>
+            </div>
+            <div class="p-4 mt-auto">
+                <div class="text-sm text-gray-800 line-clamp-3 mb-4">
+                    Ikuti berbagai kegiatan dan update terbaru seputar bola tangan di Jawa Barat melalui Instagram resmi kami.
+                </div>
+                <a href="https://www.instagram.com/westjavahandball" target="_blank" class="block text-center w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold py-2 rounded text-sm hover:opacity-90 transition">View on Instagram</a>
+            </div>
+        </div>
+
+        <!-- TikTok Feed -->
+        <div class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden flex flex-col">
+            <a href="https://www.tiktok.com/@teamjawabarat" target="_blank" class="p-4 flex items-center gap-3 border-b border-gray-100 hover:bg-gray-50 transition">
+                <div class="w-10 h-10 bg-black rounded-full flex-shrink-0 flex items-center justify-center text-white font-bold text-xs">TK</div>
+                <div>
+                    <div class="text-sm font-bold text-gray-900 hover:text-red-600">teamjawabarat <span class="text-blue-500 material-icons text-sm align-middle">verified</span></div>
+                    <div class="text-xs text-gray-500">TikTok</div>
+                </div>
+            </a>
+            <div class="aspect-square bg-gray-200 relative group block">
+                <a href="https://www.tiktok.com/@teamjawabarat" target="_blank">
+                    <img src="{{ asset('img/sechero.png') }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="TikTok Post">
+                </a>
+            </div>
+            <div class="p-4 mt-auto">
+                <div class="text-sm text-gray-800 line-clamp-3 mb-4">
+                    Saksikan keseruan, highlight, dan momen-momen menarik para atlet bola tangan Jawa Barat di TikTok.
+                </div>
+                <a href="https://www.tiktok.com/@teamjawabarat" target="_blank" class="block text-center w-full bg-black text-white font-bold py-2 rounded text-sm hover:bg-gray-800 transition">View on TikTok</a>
+            </div>
+        </div>
+
+        <!-- YouTube Feed -->
+        <div class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden flex flex-col">
+            <div class="p-4 bg-red-600 text-white flex items-center gap-2">
+                <span class="font-bold text-lg">YouTube</span>
             </div>
             <div class="p-6 flex-1 flex flex-col justify-center items-center text-center">
-                <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-4">
-                    <span class="text-2xl font-bold">f</span>
+                <div class="w-16 h-16 bg-red-100 text-red-600 rounded-full flex items-center justify-center mb-4 shadow-sm">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
                 </div>
-                <h3 class="font-bold text-gray-900 mb-2">ABTI Jawa Barat</h3>
-                <p class="text-sm text-gray-600 mb-6">Ikuti halaman Facebook resmi kami untuk mendapatkan informasi terbaru seputar bola tangan di Jawa Barat.</p>
-                <button class="px-6 py-2 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition shadow-md">Ikuti Halaman</button>
+                <a href="https://www.youtube.com/@westjavahandball" target="_blank" class="font-bold text-gray-900 mb-2 hover:text-red-600 transition text-lg">westjavahandball</a>
+                <p class="text-sm text-gray-600 mb-6">Tonton siaran ulang pertandingan, podcast, dan video eksklusif lainnya di kanal YouTube resmi kami.</p>
+                <a href="https://www.youtube.com/@westjavahandball" target="_blank" class="inline-block w-full px-6 py-2 bg-red-600 text-white font-bold rounded-lg hover:bg-red-700 transition shadow-md">Subscribe Channel</a>
             </div>
         </div>
     </div>

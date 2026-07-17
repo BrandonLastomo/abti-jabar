@@ -24,3 +24,4 @@ Homestead.yaml
 Thumbs.db
 storage/logs/.gitignore
 AGENTS.md
+database_audit.md

@@ -3,23 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Highlight;
-use App\Models\Live;
 use App\Models\News;
 use App\Models\Sponsor;
+use App\Models\WestJavaVideos;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        $highlights = Highlight::latest()->take(10)->get();
+        $highlights = WestJavaVideos::where('type', 'highlights')->latest()->take(10)->get();
         $activities = News::latest()->skip(5)->take(10)->get();
         $bigNews = News::latest()->take(5)->get();
         $sponsors = Sponsor::orderBy('name')->get();
 
         // Ambil livestream yang sedang berjalan dan terbaru
-        $activeLive  = Live::active()->latest()->first();
+        // Note: Live model removed in DBML v2. Passed as null to prevent UI crash.
+        $activeLive = null;
 
         return view('index', compact(
             'highlights',

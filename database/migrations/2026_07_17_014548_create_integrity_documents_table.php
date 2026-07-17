@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('west_java_videos', function (Blueprint $table) {
+        Schema::create('integrity_documents', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('court_type')->nullable();
-            $table->string('link');
-            $table->enum('type', ['shorts', 'podcast', 'highlights']);
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->date('issue_date')->nullable();
+            $table->enum('integrity_type', ['jawa barat', 'kota/kabupaten', 'keabsahan mutasi'])->nullable();
+            $table->string('integrity_path')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('westjava_videos');
+        Schema::dropIfExists('integrity_documents');
     }
 };

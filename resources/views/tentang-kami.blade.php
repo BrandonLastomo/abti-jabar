@@ -358,44 +358,34 @@
           @if($programKerja->count())
 
               @foreach($programKerja as $pk)
-                  <article class="pk-card">
+                  <article class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 flex flex-col hover:shadow-lg transition-shadow duration-300">
 
-                      <div class="pk-card__image">
+                      <div class="aspect-video relative overflow-hidden bg-gray-100">
                           @if($pk->image)
                               <img src="{{ asset('storage/' . $pk->image) }}"
-                                  alt="{{ $pk->title }}">
+                                  alt="{{ $pk->title }}" class="w-full h-full object-cover">
                           @else
-                              <div class="pk-card__placeholder">
+                              <div class="w-full h-full flex items-center justify-center font-bold text-gray-400 text-xl tracking-wider">
                                   {{ $pk->thumbnail_text ?? 'ABTI' }}
                               </div>
                           @endif
                       </div>
 
-                      <div class="pk-card__body">
-                          <p class="pk-card__meta">
+                      <div class="p-6 flex flex-col flex-grow">
+                          <p class="text-xs font-semibold text-red-600 uppercase tracking-wider mb-2">
                               {{ $pk->hero_meta ?? 'PROGRAM KERJA' }}
                               @if($pk->year)
                                   • {{ $pk->year }}
                               @endif
                           </p>
 
-                          <h4 class="pk-card__title">
+                          <h4 class="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
                               {{ $pk->title }}
                           </h4>
 
-                          <p class="pk-card__desc">
+                          <p class="text-gray-600 text-sm leading-relaxed line-clamp-3">
                               {{ Str::limit($pk->desc, 120) }}
                           </p>
-
-                          <div class="pk-card__actions">
-                              @if($pk->doc)
-                                  <a href="{{ asset('storage/' . $pk->doc) }}"
-                                    target="_blank"
-                                    class="pk-btn pk-btn--primary">
-                                      Unduh Dokumen
-                                  </a>
-                              @endif
-                          </div>
                       </div>
 
                   </article>

@@ -14,7 +14,6 @@ class ProgramKerja extends Model
         'hero_meta',
         'category',
         'year',
-        'doc',
         'desc',
         'thumbnail_text',
         'image',

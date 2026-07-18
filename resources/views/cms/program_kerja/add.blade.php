@@ -48,12 +48,7 @@
                                 placeholder="2026">
                         </div>
 
-                        <div class="field">
-                            <label>Doc URL</label>
-                            <input type="text" name="doc"
-                                value="{{ old('doc') }}"
-                                placeholder="https://...pdf">
-                        </div>
+
                     </div>
 
                     <div class="field">

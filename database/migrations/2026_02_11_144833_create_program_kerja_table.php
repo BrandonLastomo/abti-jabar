@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('hero_meta')->nullable();
             $table->enum('category', ['indoor', 'beach', 'wheelchair'])->nullable();
             $table->year('year')->nullable();
-            $table->string('doc')->nullable();
+
             $table->text('desc')->nullable();
             $table->string('thumbnail_text')->nullable();
             $table->string('image')->nullable();

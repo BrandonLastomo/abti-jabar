@@ -37,15 +37,15 @@
                             <select name="category">
                                 <option value="">Select Category</option>
                                 <option value="indoor"
-                                    {{ old('category', $event->category) == 'indoor' ? 'selected' : '' }}>
+                                    {{ old('category', $programKerja->category ?? '') == 'indoor' ? 'selected' : '' }}>
                                     Indoor
                                 </option>
                                 <option value="beach"
-                                    {{ old('category', $event->category) == 'beach' ? 'selected' : '' }}>
+                                    {{ old('category', $programKerja->category ?? '') == 'beach' ? 'selected' : '' }}>
                                     Beach
                                 </option>
                                 <option value="wheelchair"
-                                    {{ old('category', $event->category) == 'wheelchair' ? 'selected' : '' }}>
+                                    {{ old('category', $programKerja->category ?? '') == 'wheelchair' ? 'selected' : '' }}>
                                     Wheelchair
                                 </option>
                             </select>
@@ -58,12 +58,7 @@
                                 placeholder="2026">
                         </div>
 
-                        <div class="field">
-                            <label>Doc URL</label>
-                            <input type="text" name="doc"
-                                value="{{ $programKerja->doc ?? old('doc') }}"
-                                placeholder="https://...pdf">
-                        </div>
+
                     </div>
 
                     <div class="field">

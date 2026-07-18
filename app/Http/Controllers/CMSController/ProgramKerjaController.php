@@ -43,7 +43,6 @@ class ProgramKerjaController extends Controller
             'hero_meta'   => 'required|string|max:255',
             'category'   => 'required|string|max:100',
             'year'   => 'required|string|max:10',
-            'doc'   => 'required|string|max:255',
             'desc'   => 'required|string|max:255',
             'thumbnail_text' => 'nullable|string|max:255',
             'image'   => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048'
@@ -68,7 +67,6 @@ class ProgramKerjaController extends Controller
             'hero_meta'   => $request->hero_meta,
             'category'   => $request->category,
             'year'   => $request->year,
-            'doc'   => $request->doc,
             'desc'   => $request->desc,
             'thumbnail_text' => $request->thumbnail_text,
             'image'   => $imagePath,
@@ -110,7 +108,6 @@ class ProgramKerjaController extends Controller
             'hero_meta'   => 'required|string|max:255',
             'category'   => 'required|string|max:100',
             'year'   => 'required|string|max:10',
-            'doc'   => 'required|string|max:255',
             'desc'   => 'required|string|max:255',
             'thumbnail_text' => 'nullable|string|max:255',
             'image'   => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048'
@@ -144,7 +141,6 @@ class ProgramKerjaController extends Controller
             'hero_meta'   => $request->hero_meta,
             'category'   => $request->category,
             'year'   => $request->year,
-            'doc'   => $request->doc,
             'desc'   => $request->desc,
             'thumbnail_text' => $request->thumbnail_text,
             'image'   => $imagePath,

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Club;
+use App\Models\Anggota;
 use App\Models\History;
 use App\Models\Organisasi;
 use App\Models\ProgramKerja;
@@ -20,7 +20,7 @@ public function index()
         'visi' => VisiMisi::latest()->first(),
         'organisasi' => Organisasi::latest()->first(),
         'programKerja' => ProgramKerja::latest()->paginate(6),
-        'clubs' => Club::orderBy('city')->paginate(10)
+        'clubs' => Anggota::orderBy('city')->get()
     ]);
 }
 }

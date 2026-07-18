@@ -198,86 +198,148 @@
             </div>
           </div>
         </header>
-        <div class="abti-panel">
-          <div class="abti-list" aria-label="Members list">
-            <div class="abti-list-head">
-              <div class="abti-count">
-                <span class="abti-badge">
-                    {{ $clubs->total() }}
-                </span>
-                <span class="abti-muted">entries</span>
-              </div>
-              <div class="abti-muted abti-hint">
-                Klik “Detail” untuk melihat kontak lengkap
-              </div>
-            </div>
-            
-            <div class="abti-rows">
-              @if($clubs->count())
-
-                  @foreach($clubs as $club)
-                      <div class="abti-row">
-
-                          <div class="abti-row-main">
-                              <h4 class="abti-row-title">
-                                  {{ $club->city }}
-                              </h4>
-
-                              <p class="abti-row-sub">
-                                  {{ $club->name }}
-                              </p>
-                          </div>
-
-                          <div class="abti-row-meta">
-                              <span>Direktur: {{ $club->director_club }}</span>
-                          </div>
-
-                          <div class="abti-row-actions">
-                              <button type="button"
-                                      class="abti-btn abti-btn--primary"
-                                      data-bs-toggle="collapse"
-                                      data-bs-target="#club-{{ $club->id }}">
-                                  Detail
-                              </button>
-                          </div>
-
+        <div class="abti-panel bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mt-6">
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm text-left text-gray-500" id="anggotaTable">
+              <thead class="text-xs text-gray-700 uppercase bg-gray-50 border-b">
+                <tr>
+                  <th scope="col" class="px-6 py-4">Logo</th>
+                  <th scope="col" class="px-6 py-4">Kota/Kab</th>
+                  <th scope="col" class="px-6 py-4">Ketua</th>
+                  <th scope="col" class="px-6 py-4">Sekretaris</th>
+                  <th scope="col" class="px-6 py-4">Email</th>
+                  <th scope="col" class="px-6 py-4">Website Link</th>
+                </tr>
+              </thead>
+              <tbody id="anggotaTableBody">
+                @forelse($clubs as $club)
+                  <tr class="bg-white border-b hover:bg-gray-50 transition-colors anggota-row"
+                      data-city="{{ strtolower($club->city) }}"
+                      data-ketua="{{ strtolower($club->lead_name) }}"
+                      data-sekretaris="{{ strtolower($club->sec_name) }}"
+                      data-search="{{ strtolower($club->city . ' ' . $club->lead_name . ' ' . $club->sec_name . ' ' . $club->email) }}">
+                    <td class="px-6 py-4">
+                      @if($club->logo)
+                        <img src="{{ asset('storage/' . $club->logo) }}" alt="Logo {{ $club->city }}" class="w-10 h-10 object-contain">
+                      @else
+                        <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center text-red-600 font-bold">
+                          {{ substr($club->city, 0, 1) }}
+                        </div>
+                      @endif
+                    </td>
+                    <td class="px-6 py-4 font-semibold text-gray-900">{{ $club->city }}</td>
+                    <td class="px-6 py-4">{{ $club->lead_name }}</td>
+                    <td class="px-6 py-4">{{ $club->sec_name }}</td>
+                    <td class="px-6 py-4">{{ $club->email ?? '-' }}</td>
+                    <td class="px-6 py-4">
+                      @if($club->link)
+                        <a href="{{ $club->link }}" target="_blank" class="text-red-600 hover:underline">Kunjungi Web</a>
+                      @else
+                        -
+                      @endif
+                    </td>
+                  </tr>
+                @empty
+                  <tr>
+                    <td colspan="6" class="px-6 py-8 text-center text-gray-500">
+                      <div class="flex flex-col items-center justify-center">
+                        <span class="text-3xl mb-2">🏟️</span>
+                        <p class="font-medium">Belum Ada Anggota</p>
+                        <p class="text-xs mt-1">Data anggota ABTI akan segera diperbarui.</p>
                       </div>
-
-                      <div class="abti-detail collapse" id="club-{{ $club->id }}">
-                          <div class="abti-detail-card">
-                              <p><strong>Administrator:</strong> {{ $club->administrator }}</p>
-                              <p><strong>Direktur Teknik:</strong> {{ $club->technical_director }}</p>
-                              <p><strong>Venue:</strong> {{ $club->training_venue }}</p>
-                              <p><strong>Email:</strong> {{ $club->email ?? '-' }}</p>
-                              <p><strong>Kontak:</strong> {{ $club->contact_person ?? '-' }}</p>
-                              <p><strong>Website:</strong> 
-                                  @if($club->website)
-                                      <a href="{{ $club->website }}" target="_blank">
-                                          {{ $club->website }}
-                                      </a>
-                                  @else
-                                      -
-                                  @endif
-                              </p>
-                              <p><strong>Tahun Berdiri:</strong> {{ $club->founded_year ?? '-' }}</p>
-                              <p><strong>Status:</strong> {{ ucfirst($club->status) }}</p>
-                          </div>
-                      </div>
-                  @endforeach
-              @else
-                  <div class="abti-empty">
-                      <div class="abti-empty-icon">🏟️</div>
-                      <h4>Belum Ada Anggota</h4>
-                      <p>Data anggota ABTI akan segera diperbarui.</p>
-                  </div>
-              @endif
-              </div>
-            <div class="abti-pagination" aria-label="Pagination">
-              <div class="abti-pagination">
-                  {{ $clubs->links() }}
-              </div>
-            </div>
+                    </td>
+                  </tr>
+                @endforelse
+              </tbody>
+            </table>
           </div>
+        </div>
+
+        {{-- Client-side Search and Sort Logic --}}
+        <script>
+          document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('abtiSearch');
+            const searchClear = document.getElementById('abtiSearchClear');
+            const tbody = document.getElementById('anggotaTableBody');
+            const rows = Array.from(tbody.querySelectorAll('.anggota-row'));
+            
+            // Search functionality
+            function filterRows() {
+              const query = searchInput.value.toLowerCase().trim();
+              rows.forEach(row => {
+                if (row.dataset.search.includes(query)) {
+                  row.style.display = '';
+                } else {
+                  row.style.display = 'none';
+                }
+              });
+            }
+
+            if(searchInput) {
+              searchInput.addEventListener('input', filterRows);
+            }
+            if(searchClear) {
+              searchClear.addEventListener('click', () => {
+                if(searchInput) {
+                  searchInput.value = '';
+                  filterRows();
+                }
+              });
+            }
+
+            // Sort functionality
+            const sortItems = document.querySelectorAll('.abti-dd-item');
+            const sortLabel = document.getElementById('abtiSortLabel');
+            const sortBtn = document.getElementById('abtiSortBtn');
+            const sortMenu = document.getElementById('abtiSortMenu');
+            
+            // Toggle dropdown
+            if(sortBtn && sortMenu) {
+                sortBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const expanded = sortBtn.getAttribute('aria-expanded') === 'true';
+                    sortBtn.setAttribute('aria-expanded', !expanded);
+                    if(!expanded) {
+                        sortMenu.classList.add('is-open'); // Assuming CSS handles this, or just display: block
+                        sortMenu.style.display = 'block';
+                    } else {
+                        sortMenu.classList.remove('is-open');
+                        sortMenu.style.display = 'none';
+                    }
+                });
+                document.addEventListener('click', () => {
+                    if(sortMenu) sortMenu.style.display = 'none';
+                    if(sortBtn) sortBtn.setAttribute('aria-expanded', 'false');
+                });
+            }
+
+            sortItems.forEach(item => {
+              item.addEventListener('click', function() {
+                // Update active state
+                sortItems.forEach(i => i.classList.remove('is-active'));
+                this.classList.add('is-active');
+                if(sortLabel) sortLabel.textContent = 'Sort: ' + this.textContent.trim();
+                
+                const sortType = this.dataset.sort;
+                
+                rows.sort((a, b) => {
+                  let valA = '', valB = '';
+                  if (sortType === 'city_asc') {
+                    valA = a.dataset.city;
+                    valB = b.dataset.city;
+                  } else if (sortType === 'name_asc') {
+                    valA = a.dataset.ketua;
+                    valB = b.dataset.ketua;
+                  }
+                  return valA.localeCompare(valB);
+                });
+                
+                // Re-append sorted rows
+                rows.forEach(row => tbody.appendChild(row));
+              });
+            });
+          });
+        </script>
         </div>
       </div>
       <div class="abti-drawer" id="abtiDrawer" aria-hidden="true">

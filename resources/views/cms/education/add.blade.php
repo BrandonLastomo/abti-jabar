@@ -17,7 +17,16 @@
                 @csrf
                 <div class="field">
                     <label>Category (e.g., Coach, Referee, Multiplier)</label>
-                    <input type="text" name="category" value="{{ old('category') }}" required>
+                    <select name="category" required>
+                        <option value="">Select Category</option>
+                        <option value="Multiplier" {{ old('category') == 'Multiplier' ? 'selected' : '' }}>Multiplier</option>
+                        <option value="Coach" {{ old('category') == 'Coach' ? 'selected' : '' }}>Coach</option>
+                        <option value="Goalkeeper Coach" {{ old('category') == 'Goalkeeper Coach' ? 'selected' : '' }}>Goalkeeper Coach</option>
+                        <option value="Referee" {{ old('category') == 'Referee' ? 'selected' : '' }}>Referee</option>
+                        <option value="Delegates" {{ old('category') == 'Delegates' ? 'selected' : '' }}>Delegates</option>
+                        <option value="Training Management" {{ old('category') == 'Training Management' ? 'selected' : '' }}>Training Management</option>
+                        <option value="Club Management" {{ old('category') == 'Club Management' ? 'selected' : '' }}>Club Management</option>
+                    </select>
                 </div>
 
                 <div class="field">

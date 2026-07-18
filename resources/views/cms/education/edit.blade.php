@@ -18,7 +18,16 @@
                 @method('PUT')
                 <div class="field">
                     <label>Category (e.g., Coach, Referee, Multiplier)</label>
-                    <input type="text" name="category" value="{{ old('category', $education->category) }}" required>
+                    <select name="category" required>
+                        <option value="">Select Category</option>
+                        <option value="Multiplier" {{ old('category', $education->category) == 'Multiplier' ? 'selected' : '' }}>Multiplier</option>
+                        <option value="Coach" {{ old('category', $education->category) == 'Coach' ? 'selected' : '' }}>Coach</option>
+                        <option value="Goalkeeper Coach" {{ old('category', $education->category) == 'Goalkeeper Coach' ? 'selected' : '' }}>Goalkeeper Coach</option>
+                        <option value="Referee" {{ old('category', $education->category) == 'Referee' ? 'selected' : '' }}>Referee</option>
+                        <option value="Delegates" {{ old('category', $education->category) == 'Delegates' ? 'selected' : '' }}>Delegates</option>
+                        <option value="Training Management" {{ old('category', $education->category) == 'Training Management' ? 'selected' : '' }}>Training Management</option>
+                        <option value="Club Management" {{ old('category', $education->category) == 'Club Management' ? 'selected' : '' }}>Club Management</option>
+                    </select>
                 </div>
 
                 <div class="field">

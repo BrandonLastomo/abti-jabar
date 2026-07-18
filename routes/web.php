@@ -47,7 +47,7 @@ Route::get('/gallery', [GalleryPublicController::class, 'index'])->name('gallery
 Route::get('/archives', [ArchivePublicController::class, 'index'])->name('archives');
 Route::get('/news/{news:slug}', [\App\Http\Controllers\NewsPublicController::class, 'show'])->name('news.show');
 Route::get('/program-kerja/{programKerja:slug}', [\App\Http\Controllers\ProgramKerjaPublicController::class, 'show'])->name('program_kerja.show');
-Route::get('/education', [\App\Http\Controllers\EducationPublicController::class, 'index'])->name('education.index');
+Route::get('/education', [\App\Http\Controllers\EducationPublicController::class, 'index'])->name('education');
 
 // ======================== AUTH: BREEZE PROFILE (shared) ========================
 Route::middleware('auth')->group(function () {

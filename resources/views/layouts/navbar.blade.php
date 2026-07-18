@@ -35,7 +35,7 @@
           <a class="link" href="{{ route('database') }}" data-scroll>Database</a>
         </li>
         <li class="item">
-          <a class="link" href="{{ route('education.index') }}" data-scroll>Education</a>
+          <a class="link" href="{{ route('education') }}" data-scroll>Education</a>
         </li>
         <li class="item dd" data-dd>
           <button class="ddBtn" type="button" aria-expanded="false">
@@ -123,7 +123,7 @@
         </div>
         <a class="mLink" href="{{ route('event') }}" data-scroll data-close>Event</a>
         <a class="mLink" href="{{ route('database') }}" data-scroll data-close>Database</a>
-        <a class="mLink" href="{{ route('education.index') }}" data-scroll data-close>Education</a>
+        <a class="mLink" href="{{ route('education') }}" data-scroll data-close>Education</a>
         <div class="mGroup" data-mdd>
           <button class="mDD" type="button" aria-expanded="false">
             Profile <span class="caret" aria-hidden="true"></span>

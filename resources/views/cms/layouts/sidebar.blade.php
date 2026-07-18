@@ -61,6 +61,11 @@
       <span class="navMeta"><span class="pill">Header + Slider + Clubs</span></span>
     </a>
 
+    <a href="{{ route('education.index') }}" class="navBtn <?= $page === 'education' ? 'active' : '' ?>">
+      <span>Education</span>
+      <span class="navMeta"><span class="pill">Education Content</span></span>
+    </a>
+
     <a href="{{ route('galleries.index') }}" class="navBtn <?= $page === 'gallery' ? 'active' : '' ?>">
       <span>Gallery</span>
       <span class="navMeta"><span class="pill">10 items × 10 photos</span></span>

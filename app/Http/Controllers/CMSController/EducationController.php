@@ -23,7 +23,7 @@ class EducationController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'category' => 'required|string|max:100',
+            'category' => 'required|string|in:Multiplier,Coach,Goalkeeper Coach,Referee,Delegates,Training Management,Club Management',
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'image' => 'nullable|mimes:jpeg,png,jpg,webp,svg|max:2048',
@@ -61,7 +61,7 @@ class EducationController extends Controller
     public function update(Request $request, Education $education)
     {
         $request->validate([
-            'category' => 'required|string|max:100',
+            'category' => 'required|string|in:Multiplier,Coach,Goalkeeper Coach,Referee,Delegates,Training Management,Club Management',
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'image' => 'nullable|mimes:jpeg,png,jpg,webp,svg|max:2048',

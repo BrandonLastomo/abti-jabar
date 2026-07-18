@@ -44,7 +44,7 @@
                 <div class="preview-box" id="previewContainer" onclick="handlePreviewClick()">
                     {{-- Menampilkan gambar lama jika ada, jika tidak pakai placeholder --}}
                     <img id="previewImage" 
-                         src="{{ $sponsor->image ? asset('storage/' . $sponsor->image) : 'https://via.placeholder.com/150?text=No+Logo' }}" 
+                         src="{{ $sponsor->image ? asset('storage/' . $sponsor->image) : 'https://placehold.co/150?text=No+Logo' }}" 
                          alt="Preview">
                 </div>
 

@@ -5,7 +5,7 @@ use App\Http\Controllers\ArchivePublicController;
 use App\Http\Controllers\CMSController\AboutController;
 use App\Http\Controllers\CMSController\AnggotaController;
 use App\Http\Controllers\CMSController\ArchivesController;
-use App\Http\Controllers\CMSController\BigNewsController;
+
 use App\Http\Controllers\CMSController\EventController;
 use App\Http\Controllers\CMSController\GalleryController;
 use App\Http\Controllers\CMSController\HeroController;
@@ -15,14 +15,14 @@ use App\Http\Controllers\CMSController\NewsContentController;
 
 use App\Http\Controllers\CMSController\ProgramKerjaController;
 use App\Http\Controllers\CMSController\SponsorController;
-use App\Http\Controllers\CMSController\ViewBigNewsController;
+
 use App\Http\Controllers\CMSController\WestJavaVideoController;
 
 use App\Http\Controllers\CMSController\FooterContentController;
 use App\Http\Controllers\CMSController\UserManagementController;
 use App\Http\Controllers\CMSController\MutationSettingController;
 use App\Http\Controllers\CMSController\ClubCMSController;
-use App\Http\Controllers\EditBigNewsController;
+
 use App\Http\Controllers\EventPublicController;
 use App\Http\Controllers\GalleryPublicController;
 use App\Http\Controllers\HomeController;
@@ -117,8 +117,7 @@ Route::middleware(['auth', 'role:superadmin'])->prefix('cms')->group(function ()
             'anggota' => 'anggota'
         ]);
     Route::resource('/archive', ArchivesController::class);
-    Route::get('/big-news', [BigNewsController::class, 'index'])->name('big_news.index');
-    Route::resource('/big_news', BigNewsController::class);
+
     Route::resource('/events', EventController::class);
     Route::resource('/galleries', GalleryController::class);
     Route::delete('/gallery-photo/{photo}', [GalleryController::class, 'deletePhoto'])

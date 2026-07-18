@@ -23,7 +23,7 @@
 
                     <div class="image-preview">
                         <img id="previewImage"
-                             src="https://via.placeholder.com/150x150?text=No+Logo"
+                             src="https://placehold.co/150x150?text=No+Logo"
                              alt="Preview"
                              style="max-width:150px;">
                     </div>

@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             FooterContentSeeder::class,
             AnggotaSeeder::class,
-            BigNewsSeeder::class,
+
             KegiatanSeeder::class,
             SponsorSeeder::class,
         ]);

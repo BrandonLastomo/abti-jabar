@@ -20,9 +20,10 @@
                 <div class="">
                     <div class="field">
                         <label>Category</label>
-                        <input type="text" name="category"
-                            value="{{old('category')}}"
-                            placeholder="Informasi Organisasi">
+                        <select name="category" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                            <option value="News" {{ old('category') == 'News' ? 'selected' : '' }}>News</option>
+                            <option value="Inspirational" {{ old('category') == 'Inspirational' ? 'selected' : '' }}>Inspirational</option>
+                        </select>
                     </div>
 
                     <div class="field">
@@ -37,23 +38,17 @@
                         <textarea name="content" placeholder="Deskripsi singkat...">{{old('content')}}</textarea>
                     </div>
 
-                    <div class="field">
-                        <label>CTA Text</label>
-                        <input type="text" name="cta_text"
-                            value="{{old('cta_text')}}"
-                            placeholder="Lihat di youtube">
-                    </div>
 
                     <div class="field">
-                        <label>YouTube URL (shorts / video)</label>
-                        <input type="text" name="youtube_url"
-                            value="{{old('youtube_url')}}"
-                            placeholder="https://www.youtube.com/shorts/...">
-                    </div>
-                    <div class="field">
                         <label>Images (Carousel) - Max 4 images</label>
-                        <input type="file" name="images[]" id="images-input" multiple accept="image/*">
-                        <div id="images-preview" style="display:flex; gap:10px; margin-top:10px;"></div>
+                        <div style="display:flex; flex-direction:column; gap:10px;">
+                            @for($i = 0; $i < 4; $i++)
+                            <div style="display:flex; align-items:center; gap:10px;">
+                                <span style="min-width:120px;">Image {{ $i + 1 }} {{ $i == 0 ? '(Main)' : '' }}</span>
+                                <input type="file" name="image_{{ $i }}" accept="image/*">
+                            </div>
+                            @endfor
+                        </div>
                     </div>
                 </div>
 
@@ -73,35 +68,13 @@
 
 
             <div class="note">
-                Catatan: link youtube wajib disertakan lengkap <i>dengan https://...</i>.
+                Catatan: url wajib disertakan lengkap <i>dengan https://...</i>.
             </div>
 
         </div>
     </div>
 </div>
 
-<script>
-    document.getElementById('images-input').addEventListener('change', function(e) {
-        const previewContainer = document.getElementById('images-preview');
-        previewContainer.innerHTML = '';
-        if (this.files.length > 4) {
-            alert('Maksimal 4 gambar yang diperbolehkan.');
-            this.value = '';
-            return;
-        }
-        for (let i = 0; i < this.files.length; i++) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const img = document.createElement('img');
-                img.src = e.target.result;
-                img.style.width = '100px';
-                img.style.height = '100px';
-                img.style.objectFit = 'cover';
-                previewContainer.appendChild(img);
-            }
-            reader.readAsDataURL(this.files[i]);
-        }
-    });
-</script>
+
 
 @endsection

@@ -41,9 +41,11 @@ class NewsContentController extends Controller
             'category'    => 'required|string|max:100',
             'title'       => 'required|string|max:255',
             'content'     => 'required|string|max:1000',
-            'cta_text'    => 'required|string|max:255',
-            'youtube_url' => 'required|url|max:255',
-            'images.*'    => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+
+            'image_0'     => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'image_1'     => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'image_2'     => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'image_3'     => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
         $slug = Str::slug($request->title);
@@ -53,9 +55,9 @@ class NewsContentController extends Controller
         }
 
         $imagePaths = [];
-        if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $image) {
-                $imagePaths[] = $image->store('news', 'public');
+        for ($i = 0; $i < 4; $i++) {
+            if ($request->hasFile("image_$i")) {
+                $imagePaths[] = $request->file("image_$i")->store('news', 'public');
             }
         }
 
@@ -64,8 +66,7 @@ class NewsContentController extends Controller
             'slug'        => $slug,
             'category'    => $request->category,
             'content'     => $request->content,
-            'cta_text'    => $request->cta_text,
-            'youtube_url' => $request->youtube_url,
+
             'images'      => json_encode($imagePaths),
         ]);
 
@@ -104,9 +105,11 @@ class NewsContentController extends Controller
             'category'    => 'required|string|max:100',
             'title'       => 'required|string|max:255',
             'content'     => 'required|string|max:1000',
-            'cta_text'    => 'required|string|max:255',
-            'youtube_url' => 'required|url|max:255',
-            'images.*'    => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+
+            'image_0'     => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'image_1'     => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'image_2'     => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'image_3'     => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
         $slug = Str::slug($request->title);
@@ -120,29 +123,27 @@ class NewsContentController extends Controller
         }
 
         $imagePaths = json_decode($news->images, true) ?? [];
-        if ($request->hasFile('images')) {
-            // Delete old images
-            if (!empty($imagePaths)) {
-                foreach ($imagePaths as $oldImage) {
-                    if (\Illuminate\Support\Facades\Storage::disk('public')->exists($oldImage)) {
-                        \Illuminate\Support\Facades\Storage::disk('public')->delete($oldImage);
+        for ($i = 0; $i < 4; $i++) {
+            if ($request->hasFile("image_$i") || $request->input("delete_image_$i")) {
+                if (isset($imagePaths[$i])) {
+                    if (\Illuminate\Support\Facades\Storage::disk('public')->exists($imagePaths[$i])) {
+                        \Illuminate\Support\Facades\Storage::disk('public')->delete($imagePaths[$i]);
                     }
+                    unset($imagePaths[$i]);
                 }
             }
-            
-            $imagePaths = [];
-            foreach ($request->file('images') as $image) {
-                $imagePaths[] = $image->store('news', 'public');
+            if ($request->hasFile("image_$i")) {
+                $imagePaths[$i] = $request->file("image_$i")->store('news', 'public');
             }
         }
+        $imagePaths = array_values($imagePaths);
 
         $news->update([
             'title'       => $request->title,
             'slug'        => $slug,
             'category'    => $request->category,
             'content'     => $request->content,
-            'cta_text'    => $request->cta_text,
-            'youtube_url' => $request->youtube_url,
+
             'images'      => json_encode($imagePaths),
         ]);
 

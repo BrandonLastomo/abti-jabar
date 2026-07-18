@@ -74,21 +74,24 @@
                 <article class="env-card env-news" aria-labelledby="envNewsTitle">
                     <header class="env-card__header">
                         <h2 class="env-title" id="envNewsTitle">Berita terbaru</h2>
-                        <p class="env-subtitle">Pembaruan ringkas dan formal untuk menjaga Anda tetap terinformasi.
-                        </p>
+                        <p class="env-subtitle">Pembaruan ringkas dan formal untuk menjaga Anda tetap terinformasi.</p>
                     </header>
                     
                     <div class="env-news__list" aria-live="polite">
                         @forelse($latestNews as $item)
                             <article class="env-news__item">
-                                <h3>{{ $item->title }}</h3>
-                                <p>{{ Str::limit(strip_tags($item->content), 120) }}</p>
-
-                                @if($item->youtube_url)
-                                    <a href="{{ $item->youtube_url }}" target="_blank">
-                                        Tonton di YouTube
+                                <div class="newsCard__meta">
+                                    <span class="newsCard__date">
+                                        {{ \Carbon\Carbon::parse($item->created_at)->format('d F Y') }}
+                                    </span>
+                                </div>
+                                <div class="flex items-start gap-3 mt-2">
+                                    <a href="{{ url('/news/'.$item->slug) }}" class="text-xl font-bold text-gray-900 leading-snug hover:text-red-600 hover:underline transition">
+                                        {{ $item->title }}
                                     </a>
-                                @endif
+                                    <span class="px-2 py-1 bg-red-100 text-red-600 rounded text-[10px] font-bold uppercase tracking-wider flex-shrink-0 mt-1">Inspirational</span>
+                                </div>
+                                <p class="mt-2">{{ Str::limit(strip_tags($item->content), 120) }}</p>
                             </article>
                         @empty
                             <p>Belum ada berita tersedia.</p>
@@ -149,21 +152,20 @@
             <div class="moreNewsGrid">
                 @forelse($moreNews as $item)
                     <article class="moreNewsCard">
-                        <h3 class="moreNewsCard__title">
-                            {{ $item->title }}
-                        </h3>
-
-                        <p class="moreNewsCard__excerpt">
+                        <div class="moreNewsCard__meta">
+                            <span class="moreNewsCard__date">
+                                {{ \Carbon\Carbon::parse($item->created_at)->format('d F Y') }}
+                            </span>
+                        </div>
+                        <div class="flex items-start gap-3 mt-2">
+                            <a href="{{ url('/news/'.$item->slug) }}" class="text-lg font-bold text-gray-900 leading-snug hover:text-red-600 hover:underline transition">
+                                {{ $item->title }}
+                            </a>
+                            <span class="px-2 py-1 bg-blue-100 text-blue-600 rounded text-[10px] font-bold uppercase tracking-wider flex-shrink-0 mt-1">{{ $item->category ?? 'News' }}</span>
+                        </div>
+                        <p class="mt-2 text-sm text-gray-600">
                             {{ Str::limit(strip_tags($item->content), 100) }}
                         </p>
-
-                        @if($item->youtube_url)
-                            <a href="{{ $item->youtube_url }}" 
-                            target="_blank"
-                            class="moreNewsCard__link">
-                            Tonton
-                            </a>
-                        @endif
                     </article>
                 @empty
                     <p>Tidak ada berita lainnya.</p>

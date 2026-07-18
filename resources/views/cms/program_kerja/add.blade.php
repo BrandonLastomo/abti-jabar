@@ -82,7 +82,7 @@
                         <div class="image-section">
                             <div class="image-preview">
                                 <img id="preview-image"
-                                    src="https://via.placeholder.com/150x150"
+                                    src="https://placehold.co/150x150"
                                     width="150">
                             </div>
 

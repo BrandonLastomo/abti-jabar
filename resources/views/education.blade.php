@@ -117,7 +117,7 @@
                         @foreach($relatedNews as $news)
                             @php 
                                 $newsImages = json_decode($news->images, true) ?? []; 
-                                $newsThumb = count($newsImages) > 0 ? asset('storage/'.$newsImages[0]) : 'https://via.placeholder.com/400x250';
+                                $newsThumb = count($newsImages) > 0 ? asset('storage/'.$newsImages[0]) : 'https://placehold.co/400x250';
                             @endphp
                             <div class="bg-white border border-gray-100 rounded-2xl shadow-sm overflow-hidden group flex flex-col">
                                 <div class="h-40 w-full overflow-hidden relative">

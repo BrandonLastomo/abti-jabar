@@ -65,36 +65,90 @@
             <div class="aboutXContent">
             {{-- HISTORY --}}
             <div class="about-content-item is-active" id="about-history">
-                <h4>{{ $history->kicker ?? 'HISTORY' }}</h4>
-                <h3>{{ $history->title ?? '-' }}</h3>
+                <h4 class="text-sm md:text-base font-semibold text-gray-500 uppercase tracking-wider mb-2">{{ $history->kicker ?? 'HISTORY' }}</h4>
+                <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">{{ $history->title ?? '-' }}</h3>
 
-                <p>{{ $history->desc ?? '-' }}</p>
+                <p class="text-base md:text-lg text-gray-700 leading-relaxed">{{ $history->desc ?? '-' }}</p>
 
                 @if($history && $history->timeline)
-                    <div class="timeline">
-                        {{ $history->timeline }}
-                    </div>
+                    @php $timelines = json_decode($history->timeline); @endphp
+                    @if(is_array($timelines) && count($timelines) > 0)
+                        <div class="mt-8 border-l-2 border-red-500 pl-6 space-y-6">
+                            @foreach($timelines as $item)
+                                <div class="relative">
+                                    <div class="absolute -left-[31px] bg-red-500 h-4 w-4 rounded-full border-4 border-white"></div>
+                                    <h4 class="font-bold text-lg text-gray-900">{{ $item->title ?? '' }}</h4>
+                                    <p class="text-sm text-gray-600">{{ $item->subtitle ?? '' }}</p>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
                 @endif
             </div>
 
             {{-- VISION --}}
             <div class="about-content-item" id="about-vision">
-                <h4>{{ $visi->kicker ?? 'VISION & MISSION' }}</h4>
-                <h3>{{ $visi->title ?? '-' }}</h3>
+                <h4 class="text-sm md:text-base font-semibold text-gray-500 uppercase tracking-wider mb-2">{{ $visi->kicker ?? 'VISION & MISSION' }}</h4>
+                <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">{{ $visi->title ?? '-' }}</h3>
 
-                <h5>Visi</h5>
-                <p>{{ $visi->visi ?? '-' }}</p>
+                <h5 class="text-xl md:text-2xl font-bold text-gray-900 mt-6 mb-4">Visi</h5>
+                @if($visi && $visi->visi)
+                    @php $visiList = json_decode($visi->visi, true); @endphp
+                    @if(is_array($visiList) && count($visiList) > 0)
+                        <ul class="space-y-3 mb-6">
+                            @foreach($visiList as $v)
+                                <li class="flex items-start">
+                                    <svg class="h-6 w-6 text-red-500 mr-2 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                    </svg>
+                                    <span class="text-base md:text-lg text-gray-700">{{ $v }}</span>
+                                </li>
+                            @endforeach
+                        </ul>
+                    @else
+                        <p class="text-base md:text-lg text-gray-700 leading-relaxed">{{ $visi->visi }}</p>
+                    @endif
+                @endif
 
-                <h5>Misi</h5>
-                <p>{{ $visi->misi ?? '-' }}</p>
+                <h5 class="text-xl md:text-2xl font-bold text-gray-900 mt-6 mb-4">Misi</h5>
+                @if($visi && $visi->misi)
+                    @php $misiList = json_decode($visi->misi, true); @endphp
+                    @if(is_array($misiList) && count($misiList) > 0)
+                        <ul class="space-y-3">
+                            @foreach($misiList as $m)
+                                <li class="flex items-start">
+                                    <svg class="h-6 w-6 text-red-500 mr-2 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                    </svg>
+                                    <span class="text-base md:text-lg text-gray-700">{{ $m }}</span>
+                                </li>
+                            @endforeach
+                        </ul>
+                    @else
+                        <p class="text-base md:text-lg text-gray-700 leading-relaxed">{{ $visi->misi }}</p>
+                    @endif
+                @endif
             </div>
 
             {{-- ORGANISASI --}}
             <div class="about-content-item" id="about-org">
-                <h4>{{ $organisasi->kicker ?? 'ORGANIZATION' }}</h4>
-                <h3>{{ $organisasi->title ?? '-' }}</h3>
+                <h4 class="text-sm md:text-base font-semibold text-gray-500 uppercase tracking-wider mb-2">{{ $organisasi->kicker ?? 'ORGANIZATION' }}</h4>
+                <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">{{ $organisasi->title ?? '-' }}</h3>
 
-                <p>{{ $organisasi->desc ?? '-' }}</p>
+                <p class="text-base md:text-lg text-gray-700 leading-relaxed">{{ $organisasi->desc ?? '-' }}</p>
+                
+                @if($organisasi && $organisasi->tag)
+                    @php $tags = json_decode($organisasi->tag, true); @endphp
+                    @if(is_array($tags) && count($tags) > 0)
+                        <div class="mt-8 flex flex-wrap gap-2">
+                            @foreach($tags as $tag)
+                                <span class="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold bg-red-100 text-red-700 shadow-sm border border-red-200">
+                                    {{ $tag }}
+                                </span>
+                            @endforeach
+                        </div>
+                    @endif
+                @endif
             </div>
 
         </div>

@@ -14,15 +14,6 @@
       <span class="navMeta"><span class="pill">Text + Image</span></span>
     </a>
 
-    <a href="{{ route('highlight.index') }}" class="navBtn <?= $page === 'highlight' ? 'active' : '' ?>">
-      <span>Highlight</span>
-      <span class="navMeta"><span class="pill">Highlight</span></span>
-    </a>
-
-    <a href="{{ route('big_news.index') }}" class="navBtn <?= $page === 'big-news' ? 'active' : '' ?>">
-      <span>Big News</span>
-      <span class="navMeta"><span class="pill">3 items</span></span>
-    </a>
 
     <a href="{{ route('kegiatan.index') }}" class="navBtn <?= $page === 'kegiatan' ? 'active' : '' ?>">
       <span>Kegiatan</span>
@@ -79,10 +70,10 @@
       <span>Archives</span>
       <span class="navMeta"><span class="pill">Accordion + PDF links</span></span>
     </a>
-    <a href="{{ route('live.index') }}" class="navBtn <?= $page === 'live' ? 'active' : '' ?>">
+    {{-- <a href="{{ route('live.index') }}" class="navBtn <?= $page === 'live' ? 'active' : '' ?>">
       <span>Live</span>
       <span class="navMeta"><span class="pill">Youtube Livestream</span></span>
-    </a>
+    </a> --}}
 
     <a href="{{ route('footer.index') }}" class="navBtn <?= $page === 'footer' ? 'active' : '' ?>">
       <span>Footer</span>

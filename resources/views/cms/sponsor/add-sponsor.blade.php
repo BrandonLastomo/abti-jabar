@@ -113,7 +113,7 @@
             <div class="image-section">
                 <div class="preview-box" id="previewContainer" onclick="handlePreviewClick()">
     <img id="previewImage" 
-         src="https://via.placeholder.com/150?text=No+Logo" 
+         src="https://placehold.co/150?text=No+Logo" 
          alt="Preview">
 </div>
 

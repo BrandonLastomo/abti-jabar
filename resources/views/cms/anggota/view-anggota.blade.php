@@ -20,7 +20,7 @@
                     @if($anggota->logo)
                         <img src="{{ asset('storage/' . $anggota->logo) }}" alt="Logo">
                     @else
-                        <img src="https://via.placeholder.com/150x150?text=No+Logo" alt="No Logo">
+                        <img src="https://placehold.co/150x150?text=No+Logo" alt="No Logo">
                     @endif
                 </div>
 

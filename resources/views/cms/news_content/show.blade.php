@@ -30,19 +30,7 @@
                 </div>
             </div>
 
-            <div class="field">
-                <label>CTA Text</label>
-                <div class="value">{{ $news->cta_text }}</div>
-            </div>
 
-            <div class="field">
-                <label>YouTube URL</label>
-                <div class="value">
-                    <a href="{{ $news->youtube_url }}" target="_blank">
-                        {{ $news->youtube_url }}
-                    </a>
-                </div>
-            </div>
 
             <div class="actions">
                 <a href="{{ route('news-content.edit', $news) }}" class="btn warning">

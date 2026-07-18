@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('kicker')->nullable();
             $table->string('title')->nullable();
-            $table->string('mobile_title')->nullable();
-            $table->string('mobile_desc')->nullable();
+
             $table->text('visi')->nullable();
             $table->text('misi')->nullable();
             $table->string('image')->nullable();

@@ -52,7 +52,7 @@
     >
 
         <div class="event-card__media">
-            <img src="{{ $event->cover ? asset('storage/'.$event->cover) : 'https://via.placeholder.com/600x350' }}"
+            <img src="{{ $event->cover ? asset('storage/'.$event->cover) : 'https://placehold.co/600x350' }}"
                  alt="{{ $event->name }}">
         </div>
 
@@ -60,7 +60,7 @@
             <div class="event-card__head">
                 <div class="event-card__logoWrap">
                 <img class="event-card__logo"
-                     src="{{ $event->logo ? asset('storage/'.$event->logo) : 'https://via.placeholder.com/80' }}"
+                     src="{{ $event->logo ? asset('storage/'.$event->logo) : 'https://placehold.co/80' }}"
                      alt="">
                 </div>
                 <div class="event-card__titleWrap">

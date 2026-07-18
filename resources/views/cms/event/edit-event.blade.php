@@ -131,7 +131,7 @@
                 <div class="image-section">
                     <div class="image-preview">
                         <img id="preview-logo"
-                             src="{{ $event->logo ? asset('storage/'.$event->logo) : 'https://via.placeholder.com/150x150' }}"
+                             src="{{ $event->logo ? asset('storage/'.$event->logo) : 'https://placehold.co/150x150' }}"
                              width="150">
                     </div>
                     <div>
@@ -153,7 +153,7 @@
                 <div class="image-section">
                     <div class="image-preview">
                         <img id="preview-cover"
-                             src="{{ $event->cover ? asset('storage/'.$event->cover) : 'https://via.placeholder.com/300x150' }}"
+                             src="{{ $event->cover ? asset('storage/'.$event->cover) : 'https://placehold.co/300x150' }}"
                              width="300">
                     </div>
                     <div>

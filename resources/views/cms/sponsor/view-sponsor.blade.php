@@ -97,7 +97,7 @@
                     @if($sponsor->image)
                         <img src="{{ asset('storage/' . $sponsor->image) }}" alt="Logo {{ $sponsor->name }}">
                     @else
-                        <img src="https://via.placeholder.com/250?text=No+Logo" alt="No Logo">
+                        <img src="https://placehold.co/250?text=No+Logo" alt="No Logo">
                     @endif
                 </div>
 

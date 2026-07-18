@@ -77,7 +77,7 @@
             @foreach($otherNews as $item)
                 @php 
                     $itemImages = json_decode($item->images, true) ?? []; 
-                    $itemThumb = count($itemImages) > 0 ? asset('storage/'.$itemImages[0]) : 'https://via.placeholder.com/400x250';
+                    $itemThumb = count($itemImages) > 0 ? asset('storage/'.$itemImages[0]) : 'https://placehold.co/400x250';
                 @endphp
                 <a href="{{ route('news.show', $item) }}" class="group bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition flex flex-col h-full">
                     <div class="w-full h-48 overflow-hidden bg-gray-100 relative">

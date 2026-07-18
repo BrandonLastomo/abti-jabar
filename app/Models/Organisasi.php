@@ -11,8 +11,6 @@ class Organisasi extends Model
     protected $fillable = [
         'kicker',
         'title',
-        'mobile_title',
-        'mobile_desc',
         'desc',
         'tag',
         'image',

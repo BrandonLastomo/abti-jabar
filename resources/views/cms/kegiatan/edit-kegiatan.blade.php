@@ -27,7 +27,7 @@
                              width="150">
                     @else
                         <img id="previewImage"
-                             src="https://via.placeholder.com/150x150?text=No+Image"
+                             src="https://placehold.co/150x150?text=No+Image"
                              alt="No Image"
                              width="150">
                     @endif

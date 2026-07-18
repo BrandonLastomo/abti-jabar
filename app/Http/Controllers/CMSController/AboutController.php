@@ -5,7 +5,7 @@ namespace App\Http\Controllers\CMSController;
 use App\Http\Controllers\Controller;
 use App\Models\History;
 use App\Models\Organisasi;
-use App\Models\Visi;
+use App\Models\VisiMisi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -16,7 +16,7 @@ class AboutController extends Controller
         // Ambil data pertama dari masing-masing tabel
         $aboutData = [
             'history' => History::first(),
-            'visi'    => Visi::first(),
+            'visi'    => VisiMisi::first(),
             'organisasi' => Organisasi::first(),
         ];
 
@@ -65,8 +65,6 @@ class AboutController extends Controller
         $history->fill([
             'kicker' => $request->kicker,
             'title' => $request->title,
-            'mobile_title' => $request->mobile_title,
-            'mobile_desc' => $request->mobile_desc,
             'desc' => $request->desc,
             'timeline' => json_encode($timeline),
         ]);
@@ -81,7 +79,7 @@ class AboutController extends Controller
     /* ================= VISI ================= */
     private function storeVisi(Request $request)
     {
-        $visiModel = Visi::first() ?? new Visi();
+        $visiModel = VisiMisi::first() ?? new VisiMisi();
 
         if ($request->hasFile('image')) {
             if ($visiModel->image) { Storage::disk('public')->delete($visiModel->image); }
@@ -91,8 +89,6 @@ class AboutController extends Controller
         $visiModel->fill([
             'kicker' => $request->kicker,
             'title' => $request->title,
-            'mobile_title' => $request->mobile_title,
-            'mobile_desc' => $request->mobile_desc,
             'visi' => json_encode($request->visi),
             'misi' => json_encode($request->misi),
         ]);
@@ -115,8 +111,6 @@ class AboutController extends Controller
         $org->fill([
             'kicker' => $request->kicker,
             'title' => $request->title,
-            'mobile_title' => $request->mobile_title,
-            'mobile_desc' => $request->mobile_desc,
             'desc' => $request->desc,
             'tag' => json_encode($request->tag),
         ]);

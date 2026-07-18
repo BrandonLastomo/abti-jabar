@@ -11,8 +11,7 @@ class News extends Model
         'slug',
         'category',
         'content',
-        'cta_text',
-        'youtube_url',
+
         'images',
     ];
 

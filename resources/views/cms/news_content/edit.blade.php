@@ -14,16 +14,16 @@
         <div class="sectionBody">
 
             <form action="{{ route('news-content.update', $news) }}"
-                  method="POST">
+                  method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
                 <div class="field">
                     <label>Category</label>
-                    <input type="text"
-                           name="category"
-                           value="{{ old('category', $news->category) }}"
-                           maxlength="100">
+                    <select name="category" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        <option value="News" {{ old('category', $news->category) == 'News' ? 'selected' : '' }}>News</option>
+                        <option value="Inspirational" {{ old('category', $news->category) == 'Inspirational' ? 'selected' : '' }}>Inspirational</option>
+                    </select>
                     @error('category')
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
@@ -49,38 +49,29 @@
                     @enderror
                 </div>
 
-                <div class="field">
-                    <label>CTA Text</label>
-                    <input type="text"
-                           name="cta_text"
-                           value="{{ old('cta_text', $news->cta_text) }}"
-                           maxlength="255">
-                    @error('cta_text')
-                        <small class="text-danger">{{ $message }}</small>
-                    @enderror
-                </div>
 
-                <div class="field">
-                    <label>YouTube URL</label>
-                    <input type="url"
-                           name="youtube_url"
-                           value="{{ old('youtube_url', $news->youtube_url) }}"
-                           maxlength="255">
-                    @error('youtube_url')
-                        <small class="text-danger">{{ $message }}</small>
-                    @enderror
-                </div>
 
-                <div class="field">
-                    <label>Images (Carousel) - Max 4 images</label>
-                    <input type="file" name="images[]" id="images-input" multiple accept="image/*">
-                    <div id="images-preview" style="display:flex; gap:10px; margin-top:10px;">
-                        @php $images = json_decode($news->images, true) ?? []; @endphp
-                        @foreach($images as $img)
-                            <img src="{{ asset('storage/'.$img) }}" style="width:100px; height:100px; object-fit:cover;">
-                        @endforeach
+                    <div class="field">
+                        <label>Images (Carousel) - Max 4 images</label>
+                        <div style="display:flex; flex-direction:column; gap:15px;">
+                            @php $images = json_decode($news->images, true) ?? []; @endphp
+                            @for($i = 0; $i < 4; $i++)
+                            <div style="border:1px solid #eee; padding:10px; border-radius:5px;">
+                                <div style="font-weight:bold; margin-bottom:10px;">Image {{ $i + 1 }} {{ $i == 0 ? '(Main)' : '' }}</div>
+                                @if(isset($images[$i]))
+                                    <div style="margin-bottom:10px; display:flex; align-items:center; gap:15px;">
+                                        <img src="{{ asset('storage/'.$images[$i]) }}" style="width:100px; height:100px; object-fit:cover; border-radius:5px; border:1px solid #ccc;">
+                                        <label style="color:red; font-weight:bold;">
+                                            <input type="checkbox" name="delete_image_{{ $i }}" value="1"> Hapus gambar ini
+                                        </label>
+                                    </div>
+                                    <div style="margin-bottom:5px; font-size:0.9em; color:#666;">Ganti gambar:</div>
+                                @endif
+                                <input type="file" name="image_{{ $i }}" accept="image/*">
+                            </div>
+                            @endfor
+                        </div>
                     </div>
-                </div>
 
                 <div class="actions">
                     <button type="submit" class="btn primary">
@@ -98,27 +89,5 @@
     </div>
 </div>
 
-<script>
-    document.getElementById('images-input').addEventListener('change', function(e) {
-        const previewContainer = document.getElementById('images-preview');
-        previewContainer.innerHTML = '';
-        if (this.files.length > 4) {
-            alert('Maksimal 4 gambar yang diperbolehkan.');
-            this.value = '';
-            return;
-        }
-        for (let i = 0; i < this.files.length; i++) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const img = document.createElement('img');
-                img.src = e.target.result;
-                img.style.width = '100px';
-                img.style.height = '100px';
-                img.style.objectFit = 'cover';
-                previewContainer.appendChild(img);
-            }
-            reader.readAsDataURL(this.files[i]);
-        }
-    });
-</script>
+
 @endsection

@@ -12,9 +12,11 @@ class HomeController extends Controller
 {
     public function index()
     {
+        $hero = \App\Models\Hero::first();
         $highlights = WestJavaVideos::where('type', 'highlights')->latest()->take(10)->get();
-        $activities = News::latest()->skip(5)->take(10)->get();
-        $bigNews = News::latest()->take(5)->get();
+        $bigNews = \App\Models\News::where('category', 'Inspirational')->latest()->take(3)->get();
+        $internationalNews = \App\Models\News::where('category', 'News')->latest()->take(3)->get();
+        $kegiatan = \App\Models\Kegiatan::latest()->take(3)->get();
         $sponsors = Sponsor::orderBy('name')->get();
 
         // Ambil livestream yang sedang berjalan dan terbaru
@@ -22,9 +24,11 @@ class HomeController extends Controller
         $activeLive = null;
 
         return view('index', compact(
+            'hero',
             'highlights',
-            'activities',
             'bigNews',
+            'internationalNews',
+            'kegiatan',
             'sponsors',
             'activeLive' 
         ));

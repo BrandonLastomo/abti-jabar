@@ -196,13 +196,8 @@
                     @csrf
                     <input type="hidden" name="section" value="{{ $sec['id'] }}">
 
-                    <div class="tabs">
-                        <div class="tab-link active" onclick="openTab(event, '{{ $sec['id'] }}-main')">General Content</div>
-                        <div class="tab-link" onclick="openTab(event, '{{ $sec['id'] }}-mobile')">Mobile Layout</div>
-                    </div>
-
-                    {{-- TAB MAIN --}}
-                    <div id="{{ $sec['id'] }}-main" class="tab-content active">
+                    {{-- MAIN CONTENT --}}
+                    <div id="{{ $sec['id'] }}-main">
                         <div class="field-group">
                             <div class="field">
                                 <label>Header Kicker</label>
@@ -297,7 +292,7 @@
                             <label>Section Image</label>
                             <div class="image-upload-wrapper">
                                 <div class="preview-box">
-                                    <img id="{{ $sec['id'] }}Preview" src="{{ ($data && $data->image) ? asset('storage/'.$data->image) : 'https://via.placeholder.com/180x120?text=No+Image' }}">
+                                    <img id="{{ $sec['id'] }}Preview" src="{{ ($data && $data->image) ? asset('storage/'.$data->image) : 'https://placehold.co/180x120?text=No+Image' }}">
                                 </div>
                                 <div class="upload-info">
                                     <label class="btn primary" style="padding: 8px 16px; font-size: 0.8rem; display: inline-block;">
@@ -310,17 +305,7 @@
                         </div>
                     </div>
 
-                    {{-- TAB MOBILE --}}
-                    <div id="{{ $sec['id'] }}-mobile" class="tab-content">
-                        <div class="field">
-                            <label>Mobile Title</label>
-                            <input type="text" name="mobile_title" value="{{ $data->mobile_title ?? '' }}" placeholder="Judul ringkas">
-                        </div>
-                        <div class="field">
-                            <label>Mobile Description</label>
-                            <textarea name="mobile_desc" rows="3" placeholder="Deskripsi pendek">{{ $data->mobile_desc ?? '' }}</textarea>
-                        </div>
-                    </div>
+
 
                     <div style="margin-top: 2.5rem; display: flex; justify-content: flex-end;">
                         <button type="submit" class="btn primary">Update {{ $sec['title'] }} Section</button>
@@ -340,16 +325,7 @@
 <div id="toastContainer" class="toast-container"></div>
 
 <script>
-// Logic Tab
-function openTab(evt, tabName) {
-    const parent = evt.currentTarget.closest('.itemCard');
-    const tabcontent = parent.getElementsByClassName("tab-content");
-    for (let i = 0; i < tabcontent.length; i++) { tabcontent[i].style.display = "none"; }
-    const tablinks = parent.getElementsByClassName("tab-link");
-    for (let i = 0; i < tablinks.length; i++) { tablinks[i].className = tablinks[i].className.replace(" active", ""); }
-    document.getElementById(tabName).style.display = "block";
-    evt.currentTarget.className += " active";
-}
+// Logic Tab Removed
 
 // Preview Gambar
 function previewFile(sectionId) {

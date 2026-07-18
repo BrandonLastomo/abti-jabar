@@ -93,7 +93,7 @@
                 <div class="image-section">
                     <div class="image-preview">
                         <img id="preview-logo"
-                            src="https://via.placeholder.com/150x150"
+                            src="https://placehold.co/150x150"
                             width="150">
                     </div>
                     <div>
@@ -111,7 +111,7 @@
                 <div class="image-section">
                     <div class="image-preview">
                         <img id="preview-cover"
-                            src="https://via.placeholder.com/150x150"
+                            src="https://placehold.co/150x150"
                             width="150">
                     </div>
                     <div>

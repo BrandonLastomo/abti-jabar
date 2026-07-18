@@ -14,6 +14,16 @@
             <div class="pill">Main Hero</div>
         </div>
 
+        @if ($errors->any())
+            <div style="background: #fee2e2; color: #dc2626; padding: 12px 20px; border-radius: 8px; margin-bottom: 20px;">
+                <ul style="margin: 0; padding-left: 20px;">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         {{-- GRID UNTUK IMAGE SECTION --}}
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px;">
             
@@ -28,7 +38,7 @@
                     <div class="image-preview" onclick="openModal('prev-desktop')" 
                          style="cursor: zoom-in; width: 100%; max-width: 400px; aspect-ratio: 16/9; overflow: hidden; border-radius: 8px; border: 1px solid #eee; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background: #eee;">
                         <img id="prev-desktop" 
-                             src="{{ $hero && $hero->image_desktop ? asset('storage/'.$hero->image_desktop) : 'https://via.placeholder.com/640x360?text=No+Desktop+Image' }}" 
+                             src="{{ $hero && $hero->image_desktop ? asset('storage/'.$hero->image_desktop) : 'https://placehold.co/640x360?text=Hero+Image' }}"
                              alt="Preview Desktop" 
                              style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
@@ -39,8 +49,11 @@
                             <input type="file" name="image_desktop" id="in-desktop" hidden accept="image/*">
                         </label>
                         <p class="hint" style="margin-top: 10px; font-size: 11px; color: #999;">
-                            Rasio 16:9 • Maks 300kb (JPG, PNG, WEBP)
+                            Rasio 16:9 • Maks 2MB (JPG, PNG, WEBP)
                         </p>
+                        @error('image_desktop')
+                            <p style="color: #dc2626; font-size: 12px; margin-top: 5px;">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
             </div>
@@ -56,7 +69,7 @@
                     <div class="image-preview" onclick="openModal('prev-mobile')" 
                          style="cursor: zoom-in; width: 100%; max-width: 180px; aspect-ratio: 1/1; overflow: hidden; border-radius: 8px; border: 1px solid #eee; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background: #eee;">
                         <img id="prev-mobile" 
-                             src="{{ $hero && $hero->image_mobile ? asset('storage/'.$hero->image_mobile) : 'https://via.placeholder.com/300x300?text=No+Mobile+Image' }}" 
+                             src="{{ $hero && $hero->image_mobile ? asset('storage/'.$hero->image_mobile) : 'https://placehold.co/300x300?text=Hero+Image' }}" 
                              alt="Preview Mobile" 
                              style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
@@ -67,8 +80,11 @@
                             <input type="file" name="image_mobile" id="in-mobile" hidden accept="image/*">
                         </label>
                         <p class="hint" style="margin-top: 10px; font-size: 11px; color: #999;">
-                            Rasio 1:1 • Maks 300kb (JPG, PNG, WEBP)
+                            Rasio 1:1 • Maks 2MB (JPG, PNG, WEBP)
                         </p>
+                        @error('image_mobile')
+                            <p style="color: #dc2626; font-size: 12px; margin-top: 5px;">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
             </div>
@@ -82,6 +98,7 @@
                     <label>Hero Kicker</label>
                 </div>
                 <input type="text" name="kicker" value="{{ old('kicker', $hero->kicker ?? '') }}" placeholder="Contoh: Asosiasi Bola Tangan Indonesia" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
+                @error('kicker') <p style="color: #dc2626; font-size: 12px; margin-top: 5px;">{{ $message }}</p> @enderror
             </div>
 
             <div class="field">
@@ -89,6 +106,7 @@
                     <label>Hero Big Title</label>
                 </div>
                 <input type="text" name="big" value="{{ old('big', $hero->big ?? '') }}" placeholder="Contoh: Provinsi Jawa Barat" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
+                @error('big') <p style="color: #dc2626; font-size: 12px; margin-top: 5px;">{{ $message }}</p> @enderror
             </div>
 
             <div class="field" style="grid-column: 1 / -1;">
@@ -96,6 +114,7 @@
                     <label>Hero Description</label>
                 </div>
                 <textarea name="desc" rows="4" placeholder="Masukkan deskripsi singkat di sini..." style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; resize: vertical;">{{ old('desc', $hero->desc ?? '') }}</textarea>
+                @error('desc') <p style="color: #dc2626; font-size: 12px; margin-top: 5px;">{{ $message }}</p> @enderror
             </div>
         </div>
     </div>

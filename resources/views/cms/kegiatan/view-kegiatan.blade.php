@@ -20,7 +20,7 @@
                     @if($kegiatan->image)
                         <img src="{{ asset('storage/' . $kegiatan->image) }}" alt="Preview" style="max-width: 100%; border-radius: 8px;">
                     @else
-                        <img src="https://via.placeholder.com/150x150?text=No+Image" alt="No Image">
+                        <img src="https://placehold.co/150x150?text=No+Image" alt="No Image">
                     @endif
                 </div>
 

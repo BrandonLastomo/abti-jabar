@@ -7,9 +7,21 @@
   <!-- HERO SECTION -->
   <section id="beranda" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 flex flex-col md:flex-row items-center justify-between gap-8">
     <div class="flex-1 space-y-6">
+      @if(isset($hero) && $hero->kicker)
+        <p class="text-lg text-gray-500 font-semibold mb-2 uppercase tracking-wide">{{ $hero->kicker }}</p>
+      @endif
       <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-red-600 leading-tight">
-        Asosiasi Bola <br/> Tangan Indonesia <br/> Provinsi Jawa Barat
+        @if(isset($hero) && $hero->big)
+            {!! nl2br(e($hero->big)) !!}
+        @else
+            Asosiasi Bola <br/> Tangan Indonesia <br/> Provinsi Jawa Barat
+        @endif
       </h1>
+      @if(isset($hero) && $hero->desc)
+        <p class="text-gray-600 text-lg mt-4 max-w-xl leading-relaxed">
+            {{ $hero->desc }}
+        </p>
+      @endif
       <div class="flex flex-wrap gap-4 mt-6">
         <a href="{{ route('event') }}" class="px-6 py-3 bg-red-600 text-white font-semibold rounded shadow-md hover:bg-red-700 transition">
           Lihat Event <span aria-hidden="true">&rarr;</span>
@@ -24,8 +36,8 @@
     </div>
     <div class="flex-1">
       <picture class="w-full h-auto">
-        <source media="(max-width: 980px)" srcset="{{ asset('img/sechero.png') }}">
-        <img src="{{ asset('img/mainhero.png') }}" alt="ABTI JAWA BARAT" class="w-full h-auto object-cover rounded-xl" />
+        <source media="(max-width: 980px)" srcset="{{ isset($hero) && $hero->image_mobile ? asset('storage/'.$hero->image_mobile) : asset('img/sechero.png') }}">
+        <img src="{{ isset($hero) && $hero->image_desktop ? asset('storage/'.$hero->image_desktop) : asset('img/mainhero.png') }}" alt="ABTI JAWA BARAT" class="w-full h-auto object-cover rounded-xl" />
       </picture>
     </div>
   </section>
@@ -127,12 +139,14 @@
       <div>
         <h2 class="text-2xl font-bold text-red-600 mb-6 uppercase tracking-wide">INSPIRING NEWS</h2>
         <div class="space-y-6">
-          @forelse($bigNews->take(3) as $news)
+          @forelse($bigNews as $news)
           <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-            <div class="text-xs text-gray-400 mb-2">{{ \Carbon\Carbon::parse($news->created_at)->format('d M Y') }} &bull; {{ strtoupper($news->category ?? 'Berita Utama') }}</div>
-            <h3 class="text-lg font-bold text-gray-900 mb-2 leading-snug">{{ $news->title }}</h3>
-            <p class="text-sm text-gray-600 mb-4 line-clamp-2">{{ Str::limit(strip_tags($news->content), 100) }}</p>
-            <a href="{{ url('/news/'.$news->slug) }}" class="text-red-600 font-semibold text-sm hover:underline">Lihat update</a>
+            <div class="text-xs text-gray-400 mb-2">{{ \Carbon\Carbon::parse($news->created_at)->format('d M Y') }}</div>
+            <div class="flex items-start gap-3 mb-2">
+                <a href="{{ url('/news/'.$news->slug) }}" class="text-lg font-bold text-gray-900 leading-snug hover:text-red-600 hover:underline transition">{{ $news->title }}</a>
+                <span class="px-2 py-1 bg-red-100 text-red-600 rounded text-[10px] font-bold uppercase tracking-wider flex-shrink-0 mt-1">Inspirational</span>
+            </div>
+            <p class="text-sm text-gray-600 mb-0 line-clamp-2">{{ Str::limit(strip_tags($news->content), 120) }}</p>
           </div>
           @empty
           <div class="text-gray-500">Belum Ada Berita Terbaru</div>
@@ -144,12 +158,14 @@
       <div>
         <h2 class="text-2xl font-bold text-red-600 mb-6 uppercase tracking-wide">INTERNATIONAL NEWS</h2>
         <div class="space-y-6">
-          @forelse($activities->take(3) as $news)
+          @forelse($internationalNews as $news)
           <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-            <div class="text-xs text-gray-400 mb-2">{{ \Carbon\Carbon::parse($news->created_at)->format('d M Y') }} &bull; {{ strtoupper($news->category ?? 'Berita Internasional') }}</div>
-            <h3 class="text-lg font-bold text-gray-900 mb-2 leading-snug">{{ $news->title }}</h3>
-            <p class="text-sm text-gray-600 mb-4 line-clamp-2">{{ Str::limit(strip_tags($news->content), 100) }}</p>
-            <a href="{{ url('/news/'.$news->slug) }}" class="text-red-600 font-semibold text-sm hover:underline">Lihat update</a>
+            <div class="text-xs text-gray-400 mb-2">{{ \Carbon\Carbon::parse($news->created_at)->format('d M Y') }}</div>
+            <div class="flex items-start gap-3 mb-2">
+                <a href="{{ url('/news/'.$news->slug) }}" class="text-lg font-bold text-gray-900 leading-snug hover:text-red-600 hover:underline transition">{{ $news->title }}</a>
+                <span class="px-2 py-1 bg-blue-100 text-blue-600 rounded text-[10px] font-bold uppercase tracking-wider flex-shrink-0 mt-1">{{ $news->category ?? 'News' }}</span>
+            </div>
+            <p class="text-sm text-gray-600 mb-0 line-clamp-2">{{ Str::limit(strip_tags($news->content), 120) }}</p>
           </div>
           @empty
           <div class="text-gray-500">Belum Ada Berita Terbaru</div>
@@ -163,17 +179,17 @@
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <h2 class="text-2xl font-bold text-red-600 mb-6 uppercase tracking-wide">KEGIATAN TERBARU</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      @foreach($activities->skip(3)->take(3) as $news)
+      @foreach($kegiatan as $keg)
       <div class="bg-white rounded-xl shadow-md overflow-hidden flex flex-col border border-gray-100">
         <div class="aspect-video w-full overflow-hidden bg-gray-200">
-          <img src="{{ asset('storage/'.$news->image) }}" alt="{{ $news->title }}" class="w-full h-full object-cover">
+          <img src="{{ $keg->image ? asset('storage/'.$keg->image) : 'https://placehold.co/600x400' }}" alt="{{ $keg->name }}" class="w-full h-full object-cover">
         </div>
         <div class="p-5 flex-1 flex flex-col justify-between">
           <h4 class="font-bold text-gray-900 mb-3 text-sm leading-snug line-clamp-3">
-             {{ $news->title }}
+             {{ $keg->name }}
           </h4>
-          <a href="{{ url('/news/'.$news->slug) }}" class="mt-auto block w-full text-center px-4 py-2 bg-red-600 text-white text-sm font-semibold rounded hover:bg-red-700 transition">
-            Baca Berita
+          <a href="{{ $keg->link ?? '#' }}" class="mt-auto block w-full text-center px-4 py-2 bg-red-600 text-white text-sm font-semibold rounded hover:bg-red-700 transition">
+            Lihat Detail
           </a>
         </div>
       </div>
@@ -232,8 +248,8 @@
       @if($sponsors->count())
         <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3 justify-center">
             @foreach($sponsors->take(16) as $sponsor)
-            <div class="bg-white rounded-lg aspect-square flex items-center justify-center p-3 shadow-md hover:scale-105 transition duration-300">
-                <img src="{{ asset('storage/'.$sponsor->logo) }}" alt="{{ $sponsor->name }}" class="max-h-full max-w-full object-contain filter grayscale hover:grayscale-0 transition duration-300">
+            <div class="flex items-center justify-center p-3 hover:scale-105 transition duration-300">
+                <img src="{{ asset('storage/'.$sponsor->image) }}" alt="{{ $sponsor->name }}" class="max-h-full max-w-full object-contain filter grayscale hover:grayscale-0 transition duration-300">
             </div>
             @endforeach
         </div>

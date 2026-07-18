@@ -6,12 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class VisiMisi extends Model
 {
-    protected $table = 'visi_misi';
+    protected $table = 'visi_misis';
     protected $fillable = [
         'kicker',
         'title',
-        'mobile_title',
-        'mobile_desc',
         'visi',
         'misi',
         'image',

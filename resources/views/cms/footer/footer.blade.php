@@ -204,7 +204,7 @@
                                 ? (str_starts_with($logoItem->value, 'footer/')
                                     ? asset('storage/' . $logoItem->value)
                                     : asset($logoItem->value))
-                                : 'https://via.placeholder.com/120?text=No+Logo';
+                                : 'https://placehold.co/120?text=No+Logo';
                         @endphp
                         <img id="previewImage" src="{{ $logoSrc }}" alt="Logo Footer">
                     </div>

@@ -45,7 +45,7 @@ class ProgramKerjaController extends Controller
             'year'   => 'required|string|max:10',
             'desc'   => 'required|string|max:255',
             'thumbnail_text' => 'nullable|string|max:255',
-            'image'   => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048'
+            'image'   => 'nullable|mimes:jpg,jpeg,png,webp,svg|max:2048'
         ]);
 
         $slug = Str::slug($request->title);
@@ -110,7 +110,7 @@ class ProgramKerjaController extends Controller
             'year'   => 'required|string|max:10',
             'desc'   => 'required|string|max:255',
             'thumbnail_text' => 'nullable|string|max:255',
-            'image'   => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048'
+            'image'   => 'nullable|mimes:jpg,jpeg,png,webp,svg|max:2048'
         ]);
 
         $slug = Str::slug($request->title);
@@ -165,3 +165,5 @@ class ProgramKerjaController extends Controller
             ->with('success', 'Program Kerja berhasil dihapus');
     }
 }
+
+

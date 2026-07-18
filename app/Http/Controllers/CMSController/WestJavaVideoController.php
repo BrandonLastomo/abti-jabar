@@ -27,7 +27,8 @@ class WestJavaVideoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'type' => 'required|in:shorts,podcast',
+            'court_type' => 'nullable|string|max:255',
+            'type' => 'required|in:shorts,podcast,highlights',
             'link' => 'required|url',
         ]);
 
@@ -40,7 +41,7 @@ class WestJavaVideoController extends Controller
     public function show(WestJavaVideos $westJavaVideo)
     {
         return view('cms.west-java-videos.show-videos', [
-            'videos' => $westJavaVideo,
+            'westJavaVideo' => $westJavaVideo,
             'page' => 'west-java-videos'
         ]);
     }
@@ -48,7 +49,7 @@ class WestJavaVideoController extends Controller
     public function edit(WestJavaVideos $westJavaVideo)
     {
         return view('cms.west-java-videos.edit-videos', [
-            'videos' => $westJavaVideo,
+            'westJavaVideo' => $westJavaVideo,
             'page' => 'west-java-videos'
         ]);
     }
@@ -56,7 +57,8 @@ class WestJavaVideoController extends Controller
     public function update(Request $request, WestJavaVideos $westJavaVideo)
     {
         $request->validate([
-            'type' => 'required|in:shorts,podcast',
+            'court_type' => 'nullable|string|max:255',
+            'type' => 'required|in:shorts,podcast,highlights',
             'link' => 'required|url',
         ]);
 

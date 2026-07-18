@@ -213,10 +213,10 @@
                         <div class="upload-btns">
                             <label class="btn-save" style="cursor: pointer; margin: 0; display: inline-block; width: fit-content;">
                                 <span id="btnText">{{ $logoItem && $logoItem->value ? 'Ganti Logo' : 'Upload Logo' }}</span>
-                                <input type="file" name="logo" id="imageInput" accept="image/*" hidden>
+                                <input type="file" name="logo" id="imageInput" accept="image/*,.svg" hidden>
                             </label>
                         </div>
-                        <p class="hint">Maks 500kb (JPG, PNG, WEBP, AVIF)</p>
+                        <p class="hint">Maks 2MB (JPG, PNG, WEBP, AVIF)</p>
                     </div>
                 </div>
 
@@ -393,8 +393,8 @@
         const file = e.target.files[0];
         if (!file) return;
 
-        if (file.size > 500 * 1024) {
-            showToast('❌ File terlalu besar! Maksimal 500KB.', 'error');
+        if (file.size > 2 * 1024 * 1024) {
+            showToast('❌ File terlalu besar! Maksimal 2MB.', 'error');
             this.value = '';
             return;
         }
@@ -462,3 +462,4 @@
     @endif
 </script>
 @endsection
+

@@ -7,7 +7,7 @@
           <p class="archives-eyebrow">ABTI Jawa Barat</p>
           <h1 class="archives-title">Archives</h1>
           <p class="archives-subtitle">
-            Kumpulan dokumen regulasi resmi. Klik kategori untuk melihat daftar dokumen, lalu unduh file PDF.
+            Kumpulan dokumen regulasi resmi. Klik kategori untuk melihat daftar dokumen, lalu buka file PDF.
           </p>
         </header>
         <div class="archives-accordion" data-accordion="abti-archives">
@@ -57,8 +57,8 @@
 
                                     <a class="doc-download"
                                       href="{{ asset('storage/' . $doc->file) }}"
-                                      download>
-                                        Download PDF
+                                      target="_blank">
+                                        Lihat PDF
                                     </a>
                                 </li>
                             @endforeach
@@ -74,7 +74,7 @@
         </div>
         <footer class="archives-footer">
           <p class="archives-note">
-            Catatan: Lihat detailnya melalui <code>PDF</code> yang dapat anda unduh.
+            Catatan: Lihat detailnya melalui <code>PDF</code> yang tersedia.
           </p>
         </footer>
       </div>

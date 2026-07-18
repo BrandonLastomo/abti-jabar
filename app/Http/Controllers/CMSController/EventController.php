@@ -42,8 +42,8 @@ class EventController extends Controller
             'audience_offline' => 'nullable|integer',
             'website' => 'nullable|string|max:255',
             'administrator' => 'nullable|string|max:255',
-            'logo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-            'cover' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'logo' => 'nullable|mimes:jpg,jpeg,png,webp,svg|max:2048',
+            'cover' => 'nullable|mimes:jpg,jpeg,png,webp,svg|max:2048',
         ]);
 
         // Upload logo
@@ -95,8 +95,8 @@ class EventController extends Controller
             'audience_offline' => 'nullable|integer',
             'website' => 'nullable|string|max:255',
             'administrator' => 'nullable|string|max:255',
-            'logo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-            'cover' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'logo' => 'nullable|mimes:jpg,jpeg,png,webp,svg|max:2048',
+            'cover' => 'nullable|mimes:jpg,jpeg,png,webp,svg|max:2048',
         ]);
 
         // Replace logo if new uploaded
@@ -141,3 +141,5 @@ class EventController extends Controller
             ->with('success', 'Event deleted successfully.');
     }
 }
+
+

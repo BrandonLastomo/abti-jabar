@@ -188,8 +188,7 @@ document.querySelectorAll('.open-modal').forEach(btn => {
             ? `<a href="${card.dataset.website}" target="_blank" class="flex items-center gap-2 px-6 py-3 bg-red-600 text-white font-bold rounded shadow-md hover:bg-red-700 transition">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                 Kunjungi Website
-               </a>
-               <a href="#" class="px-6 py-3 border border-red-200 text-red-600 font-bold rounded shadow-sm hover:bg-red-50 transition">Download Panduan</a>`
+               </a>`
             : '';
 
         const modal = document.getElementById('eventModal');

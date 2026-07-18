@@ -18,21 +18,38 @@
             </div>
         @endif
 
+        @if (session('success'))
+            <div style="color:green; margin-bottom:15px; margin-top:15px; background: #e6ffed; padding: 10px; border: 1px solid green; border-radius: 5px;">
+                {{ session('success') }}
+            </div>
+        @endif
+        
         <form action="{{ route('west-java-videos.update', $westJavaVideo) }}"
               method="POST">
             @csrf
             @method('PUT')
 
             <div class="field">
+                <label>Court Type (Optional)</label>
+                <input type="text"
+                       name="court_type"
+                       value="{{ old('court_type', $westJavaVideo->court_type) }}">
+            </div>
+
+            <div class="field">
                 <label>Video Type *</label>
                 <select name="type" required>
                     <option value="shorts"
-                        {{ $westJavaVideo->type == 'shorts' ? 'selected' : '' }}>
+                        {{ old('type', $westJavaVideo->type) == 'shorts' ? 'selected' : '' }}>
                         Shorts
                     </option>
                     <option value="podcast"
-                        {{ $westJavaVideo->type == 'podcast' ? 'selected' : '' }}>
+                        {{ old('type', $westJavaVideo->type) == 'podcast' ? 'selected' : '' }}>
                         Podcast
+                    </option>
+                    <option value="highlights"
+                        {{ old('type', $westJavaVideo->type) == 'highlights' ? 'selected' : '' }}>
+                        Highlights
                     </option>
                 </select>
             </div>
@@ -41,7 +58,7 @@
                 <label>YouTube Link *</label>
                 <input type="url"
                        name="link"
-                       value="{{ $westJavaVideo->link }}"
+                       value="{{ old('link', $westJavaVideo->link) }}"
                        required>
             </div>
 

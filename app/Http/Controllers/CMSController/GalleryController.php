@@ -44,7 +44,7 @@ class GalleryController extends Controller
             'title' => 'required|string|max:255',
             'season' => 'required|string|max:255',
             'photos' => 'required|array|max:10',
-            'photos.*' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
+            'photos.*' => 'mimes:jpg,jpeg,png,webp,svg|max:2048',
         ]);
 
         // Create gallery
@@ -107,7 +107,7 @@ class GalleryController extends Controller
             'title' => 'required|string|max:255',
             'season' => 'required|string|max:255',
             'photos' => 'nullable|array',
-            'photos.*' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
+            'photos.*' => 'mimes:jpg,jpeg,png,webp,svg|max:2048',
         ]);
 
         $gallery->update([
@@ -174,3 +174,5 @@ public function deletePhoto(GalleryPhoto $photo)
             ->with('success', 'Gallery deleted successfully.');
     }
 }
+
+

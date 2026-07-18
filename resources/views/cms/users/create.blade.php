@@ -19,7 +19,12 @@
     </div>
 
     <div class="bignews-wrapper">
-        <form action="{{ route('users.store') }}" method="POST">
+                    @if (session('success'))
+                <div style="color:green; margin-bottom:15px; margin-top:15px; background: #e6ffed; padding: 10px; border: 1px solid green; border-radius: 5px;">
+                    {{ session('success') }}
+                </div>
+            @endif
+<form action="{{ route('users.store') }}" method="POST">
             @csrf
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                 <div class="form-group" style="grid-column: span 2;">

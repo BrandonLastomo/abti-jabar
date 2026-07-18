@@ -18,7 +18,12 @@
             </div>
         @endif
 
-        <form action="{{ route('events.update', $event) }}" method="POST" enctype="multipart/form-data">
+                    @if (session('success'))
+                <div style="color:green; margin-bottom:15px; margin-top:15px; background: #e6ffed; padding: 10px; border: 1px solid green; border-radius: 5px;">
+                    {{ session('success') }}
+                </div>
+            @endif
+<form action="{{ route('events.update', $event) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
@@ -140,7 +145,7 @@
                             <input type="file"
                                    name="logo"
                                    id="logo-input"
-                                   accept="image/*"
+                                   accept="image/*,.svg"
                                    hidden>
                         </label>
                     </div>
@@ -162,7 +167,7 @@
                             <input type="file"
                                    name="cover"
                                    id="cover-input"
-                                   accept="image/*"
+                                   accept="image/*,.svg"
                                    hidden>
                         </label>
                     </div>

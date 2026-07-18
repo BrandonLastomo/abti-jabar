@@ -1,6 +1,6 @@
 @extends('cms.layouts.master')
 
-@section('title', 'Anggota')
+@section('title', 'Clubs / Profile Tim')
 
 @section('content')
 
@@ -9,58 +9,60 @@
 
     <div class="sectionHead">
       <div>
-        <h2>Anggota ABTI Kota/Kab</h2>
+        <h2>Clubs / Profile Tim</h2>
       </div>
 
       <div class="actions" style="margin-top:-20px; justify-content:flex-end;">
-        <a href="{{ route('anggota.create') }}" class="btn primary">
-            Add Anggota
+        <a href="{{ route('club.create') }}" class="btn primary">
+            Add Club
         </a>
-
       </div>
     </div>
+
+    @if (session('success'))
+        <div style="color:green; margin-bottom:15px; margin-top:15px; background: #e6ffed; padding: 10px; border: 1px solid green; border-radius: 5px;">
+            {{ session('success') }}
+        </div>
+    @endif
 
     <div class="table-wrapper">
       <table class="custom-table">
         <thead>
           <tr>
-            <th>Kota/Kab</th>
-            <th>Ketua</th>
-            <th>Sekretaris</th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Website</th>
             <th>Email</th>
-            <th>Link</th>
             <th>Logo</th>
+            <th>Picture</th>
             <th>Action</th>
           </tr>
         </thead>
 
         <tbody>
 
-        @if($anggota->count() == 0)
+        @if($clubs->count() == 0)
           <tr>
             <td colspan="7" style="text-align:center;">
-              Belum ada data anggota
+              Belum ada data club
             </td>
           </tr>
         @endif
 
-        @foreach($anggota as $item)
+        @foreach($clubs as $item)
           <tr>
-
-           <td>{{ \Illuminate\Support\Str::limit($item->city, 25) }}</td>
-<td>{{ \Illuminate\Support\Str::limit($item->lead_name, 20) }}</td>
-<td>{{ \Illuminate\Support\Str::limit($item->sec_name, 20) }}</td>
-            <td>{{ $item->email ?? '-' }}</td>
-
+            <td>{{ \Illuminate\Support\Str::limit($item->name, 25) }}</td>
+            <td>{{ $item->club_status ? ucfirst($item->club_status) : '-' }}</td>
             <td>
-              @if($item->link)
-                <a href="{{ $item->link }}" target="_blank">
-                  {{ \Illuminate\Support\Str::limit($item->link, 25) }}
+              @if($item->website)
+                <a href="{{ $item->website }}" target="_blank">
+                  {{ \Illuminate\Support\Str::limit($item->website, 25) }}
                 </a>
               @else
                 -
               @endif
             </td>
+            <td>{{ $item->email ?? '-' }}</td>
 
             <td>
               @if($item->logo)
@@ -69,45 +71,40 @@
                 <span class="status not-uploaded">Not Uploaded</span>
               @endif
             </td>
+            
+            <td>
+              @if($item->picture)
+                <span class="status uploaded">Uploaded</span>
+              @else
+                <span class="status not-uploaded">Not Uploaded</span>
+              @endif
+            </td>
 
-           <td class="actions" style="white-space: nowrap;">
+            <td class="actions" style="white-space: nowrap;">
+                <a href="{{ route('club.edit', $item->id) }}" class="btn btn-edit">
+                    Edit
+                </a>
 
-    <a href="{{ route('anggota.show', $item->slug) }}" class="btn btn-view">
-        View
-    </a>
+                <form id="deleteForm{{ $loop->index }}"
+                      action="{{ route('club.destroy', $item->id) }}"
+                      method="POST"
+                      style="display:inline;">
+                    @csrf
+                    @method('DELETE')
 
-    <a href="{{ route('anggota.edit', $item->slug) }}" class="btn btn-edit">
-        Edit
-    </a>
-
-                @if (session('success'))
-                <div style="color:green; margin-bottom:15px; margin-top:15px; background: #e6ffed; padding: 10px; border: 1px solid green; border-radius: 5px;">
-                    {{ session('success') }}
-                </div>
-            @endif
-<form id="deleteForm{{ $loop->index }}"
-         action="{{ route('anggota.destroy', $item->slug) }}"
-          method="POST"
-          style="display:inline;">
-        @csrf
-        @method('DELETE')
-
-        <button type="button"
-            class="btn btn-delete"
-            onclick="showAlert(
-                'Hapus Data',
-                'Data ini akan dihapus permanen.',
-                function() {
-                    document.getElementById('deleteForm{{ $loop->index }}').submit();
-                }
-            )">
-            Delete
-        </button>
-    </form>
-
-</td>
-
-
+                    <button type="button"
+                        class="btn btn-delete"
+                        onclick="showAlert(
+                            'Hapus Data',
+                            'Data ini akan dihapus permanen.',
+                            function() {
+                                document.getElementById('deleteForm{{ $loop->index }}').submit();
+                            }
+                        )">
+                        Delete
+                    </button>
+                </form>
+            </td>
           </tr>
         @endforeach
 
@@ -115,14 +112,8 @@
       </table>
     </div>
 
-    {{-- Pagination --}}
-    <div class="table-bottom">
-      {{ $anggota->links() }}
-    </div>
-
   </div>
 </div>
-
 
 {{-- ALERT MODAL --}}
 <div id="customAlert" class="alert-overlay">

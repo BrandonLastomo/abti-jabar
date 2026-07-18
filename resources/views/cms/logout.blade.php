@@ -150,7 +150,12 @@
       <p class="desc">Masukkan akun admin untuk mengakses panel editor.</p>
 
       
-      <form method="POST" autocomplete="off">
+                  @if (session('success'))
+                <div style="color:green; margin-bottom:15px; margin-top:15px; background: #e6ffed; padding: 10px; border: 1px solid green; border-radius: 5px;">
+                    {{ session('success') }}
+                </div>
+            @endif
+<form method="POST" autocomplete="off">
         <div class="field">
           <label for="username">Username</label>
           <input id="username" name="username" placeholder="Username" required>

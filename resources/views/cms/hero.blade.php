@@ -3,6 +3,11 @@
 @section('title', 'Hero Settings')
 
 @section('content')
+            @if (session('success'))
+                <div style="color:green; margin-bottom:15px; margin-top:15px; background: #e6ffed; padding: 10px; border: 1px solid green; border-radius: 5px;">
+                    {{ session('success') }}
+                </div>
+            @endif
 <form action="{{ route('hero.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="section">
@@ -46,7 +51,7 @@
                     <div class="image-info" style="text-align: center;">
                         <label class="btn-save" style="cursor: pointer; display: inline-flex; align-items: center; padding: 8px 25px; font-size: 13px; background-color: #d92128; border:none; color: white; border-radius: 8px;">
                             <span id="txt-desktop">{{ $hero && $hero->image_desktop ? 'Change Image' : 'Upload Image' }}</span>
-                            <input type="file" name="image_desktop" id="in-desktop" hidden accept="image/*">
+                            <input type="file" name="image_desktop" id="in-desktop" hidden accept="image/*,.svg">
                         </label>
                         <p class="hint" style="margin-top: 10px; font-size: 11px; color: #999;">
                             Rasio 16:9 • Maks 2MB (JPG, PNG, WEBP)
@@ -77,7 +82,7 @@
                     <div class="image-info" style="text-align: center;">
                         <label class="btn-save" style="cursor: pointer; display: inline-flex; align-items: center; padding: 8px 25px; font-size: 13px; background-color: #d92128; border:none; color: white; border-radius: 8px;">
                             <span id="txt-mobile">{{ $hero && $hero->image_mobile ? 'Change Image' : 'Upload Image' }}</span>
-                            <input type="file" name="image_mobile" id="in-mobile" hidden accept="image/*">
+                            <input type="file" name="image_mobile" id="in-mobile" hidden accept="image/*,.svg">
                         </label>
                         <p class="hint" style="margin-top: 10px; font-size: 11px; color: #999;">
                             Rasio 1:1 • Maks 2MB (JPG, PNG, WEBP)

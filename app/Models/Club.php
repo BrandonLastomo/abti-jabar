@@ -12,6 +12,8 @@ class Club extends Model
     use HasFactory;
     
     protected $fillable = [
+        'category',
+        'subcategory',
         'logo',
         'name',
         'pengcab_address',

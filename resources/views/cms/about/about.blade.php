@@ -194,6 +194,15 @@
             <div class="card-body">
                 <form action="{{ route('about.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
+            @if ($errors->any())
+                <div style="color:red; margin-bottom:15px; margin-top:15px; background: #fff2f2; padding: 10px; border: 1px solid red; border-radius: 5px;">
+                    <ul style="margin:0; padding-left:20px;">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
                     <input type="hidden" name="section" value="{{ $sec['id'] }}">
 
                     {{-- MAIN CONTENT --}}
@@ -297,7 +306,7 @@
                                 <div class="upload-info">
                                     <label class="btn primary" style="padding: 8px 16px; font-size: 0.8rem; display: inline-block;">
                                         Change Image
-                                        <input type="file" name="image" id="{{ $sec['id'] }}Input" accept="image/*" hidden onchange="previewFile('{{ $sec['id'] }}')">
+                                        <input type="file" name="image" id="{{ $sec['id'] }}Input" accept="image/*,.svg" hidden onchange="previewFile('{{ $sec['id'] }}')">
                                     </label>
                                     <p style="font-size: 0.75rem; color: var(--muted); margin-top: 10px;">Max 2MB. Re-upload will replace the current image.</p>
                                 </div>

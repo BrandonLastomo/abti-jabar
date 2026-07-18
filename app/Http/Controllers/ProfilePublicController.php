@@ -15,10 +15,10 @@ class ProfilePublicController extends Controller
         $category = $request->query('category', 'indoor');
         $subcategory = $request->query('subcategory', 'Senior putra');
 
-        // TeamProfile model has been removed in DBML v2.
-        // In the future, this might fetch from the Clubs table or a specific team table.
-        // For now, to keep the UI intact without crashing, we pass null.
-        $teamProfile = null;
+        // Fetch team profile from Clubs table
+        $teamProfile = \App\Models\Club::where('category', $category)
+            ->where('subcategory', $subcategory)
+            ->first();
 
         // Get events for the selected category and subcategory
         $events = Event::where('category', $category)

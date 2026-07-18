@@ -15,7 +15,12 @@
         <div class="sectionBody">
 
 
-            <form class="" action="{{ route('news-content.store') }}" method="POST" enctype="multipart/form-data">
+                        @if (session('success'))
+                <div style="color:green; margin-bottom:15px; margin-top:15px; background: #e6ffed; padding: 10px; border: 1px solid green; border-radius: 5px;">
+                    {{ session('success') }}
+                </div>
+            @endif
+<form class="" action="{{ route('news-content.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="">
                     <div class="field">
@@ -45,7 +50,7 @@
                             @for($i = 0; $i < 4; $i++)
                             <div style="display:flex; align-items:center; gap:10px;">
                                 <span style="min-width:120px;">Image {{ $i + 1 }} {{ $i == 0 ? '(Main)' : '' }}</span>
-                                <input type="file" name="image_{{ $i }}" accept="image/*">
+                                <input type="file" name="image_{{ $i }}" accept="image/*,.svg">
                             </div>
                             @endfor
                         </div>

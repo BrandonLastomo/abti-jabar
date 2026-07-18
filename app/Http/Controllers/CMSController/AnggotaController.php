@@ -35,7 +35,7 @@ class AnggotaController extends Controller
             'sec_name'  => 'required|string|max:255',
             'email'     => 'nullable|email',
             'link'      => 'nullable|url',
-            'logo'      => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'logo'      => 'nullable|mimes:jpg,jpeg,png,webp,svg|max:2048',
         ]);
 
         // Generate slug unik dari city
@@ -89,7 +89,7 @@ class AnggotaController extends Controller
             'sec_name'  => 'required|string|max:255',
             'email'     => 'nullable|email',
             'link'      => 'nullable|url',
-            'logo'      => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'logo'      => 'nullable|mimes:jpg,jpeg,png,webp,svg|max:2048',
         ]);
 
         // Update slug kalau city berubah
@@ -141,3 +141,5 @@ class AnggotaController extends Controller
             ->with('success', 'Anggota berhasil dihapus');
     }
 }
+
+

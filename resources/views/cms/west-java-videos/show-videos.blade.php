@@ -29,7 +29,7 @@
 
             <iframe width="420"
                     height="250"
-                    src="{{ str_replace('watch?v=', 'embed/', $westJavaVideo->link) }}"
+                    src="{{ $westJavaVideo->embed_link }}"
                     frameborder="0"
                     allowfullscreen>
             </iframe>

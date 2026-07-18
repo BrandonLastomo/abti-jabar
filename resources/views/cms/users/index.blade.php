@@ -16,7 +16,12 @@
 
     <div class="bignews-wrapper" style="padding: 20px; background: var(--surface); border-radius: var(--radius); width: 100%;">
         {{-- Filter & Search --}}
-        <form action="{{ route('users.index') }}" method="GET" style="display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap;">
+                    @if (session('success'))
+                <div style="color:green; margin-bottom:15px; margin-top:15px; background: #e6ffed; padding: 10px; border: 1px solid green; border-radius: 5px;">
+                    {{ session('success') }}
+                </div>
+            @endif
+<form action="{{ route('users.index') }}" method="GET" style="display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap;">
             <div style="flex:1; min-width:200px;">
                 <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nama atau email..." style="width:100%; padding:10px; border:1px solid #ddd; border-radius:5px;">
             </div>
@@ -62,7 +67,12 @@
                                     <a href="{{ route('users.show', $u->id) }}" class="btn" style="padding: 5px 10px; font-size: 12px; background: #f3f4f6; color: #374151; border: 1px solid #d1d5db;">View</a>
                                     <a href="{{ route('users.edit', $u->id) }}" class="btn" style="padding: 5px 10px; font-size: 12px; background: #e0e7ff; color: #4f46e5; border: 1px solid #c7d2fe;">Edit</a>
                                     @if($u->id !== auth()->id())
-                                    <form action="{{ route('users.destroy', $u->id) }}" method="POST" onsubmit="return confirm('Hapus user ini?')" style="display: inline;">
+                                                @if (session('success'))
+                <div style="color:green; margin-bottom:15px; margin-top:15px; background: #e6ffed; padding: 10px; border: 1px solid green; border-radius: 5px;">
+                    {{ session('success') }}
+                </div>
+            @endif
+<form action="{{ route('users.destroy', $u->id) }}" method="POST" onsubmit="return confirm('Hapus user ini?')" style="display: inline;">
                                         @csrf @method('DELETE')
                                         <button type="submit" class="btn" style="padding: 5px 10px; font-size: 12px; background: #fee2e2; color: #dc2626; border: 1px solid #fecaca; cursor: pointer;">Hapus</button>
                                     </form>

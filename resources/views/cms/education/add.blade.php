@@ -8,7 +8,12 @@
         </div>
 
         <div class="sectionBody">
-            <form action="{{ route('education.store') }}" method="POST" enctype="multipart/form-data">
+                        @if (session('success'))
+                <div style="color:green; margin-bottom:15px; margin-top:15px; background: #e6ffed; padding: 10px; border: 1px solid green; border-radius: 5px;">
+                    {{ session('success') }}
+                </div>
+            @endif
+<form action="{{ route('education.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="field">
                     <label>Category (e.g., Coach, Referee, Multiplier)</label>
@@ -27,7 +32,7 @@
 
                 <div class="field">
                     <label>Featured Image</label>
-                    <input type="file" name="image" accept="image/*">
+                    <input type="file" name="image" accept="image/*,.svg">
                 </div>
 
                 <hr style="margin: 20px 0;">
@@ -90,3 +95,4 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 @endsection
+

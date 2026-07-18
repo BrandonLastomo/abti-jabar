@@ -49,7 +49,12 @@
 								<td class="actions">
 									<a href="{{ route('news-content.show', $item['slug']) }}" class="btn btn-view">View</a> <a href="{{ route('news-content.edit', $item['slug']) }}" class="btn btn-edit">Edit</a>
 
-									<form id="deleteForm{{ $item->id }}"
+									            @if (session('success'))
+                <div style="color:green; margin-bottom:15px; margin-top:15px; background: #e6ffed; padding: 10px; border: 1px solid green; border-radius: 5px;">
+                    {{ session('success') }}
+                </div>
+            @endif
+<form id="deleteForm{{ $item->id }}"
 										action="{{ route('news-content.destroy', $item) }}"
 										method="POST"
 										style="display:inline;">

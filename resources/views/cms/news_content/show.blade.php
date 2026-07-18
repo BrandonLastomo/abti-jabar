@@ -37,7 +37,12 @@
                     Edit
                 </a>
 
-                <form action="{{ route('news-content.destroy', $news) }}"
+                            @if (session('success'))
+                <div style="color:green; margin-bottom:15px; margin-top:15px; background: #e6ffed; padding: 10px; border: 1px solid green; border-radius: 5px;">
+                    {{ session('success') }}
+                </div>
+            @endif
+<form action="{{ route('news-content.destroy', $news) }}"
                       method="POST"
                       style="display:inline-block;">
                     @csrf

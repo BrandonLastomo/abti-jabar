@@ -24,8 +24,8 @@ public function store(Request $request)
         'kicker' => 'nullable|string|max:255',
         'big'    => 'nullable|string|max:255',
         'desc'   => 'nullable|string',
-        'image_desktop' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-        'image_mobile'  => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+        'image_desktop' => 'nullable|mimes:jpg,jpeg,png,webp,svg|max:2048',
+        'image_mobile'  => 'nullable|mimes:jpg,jpeg,png,webp,svg|max:2048',
     ]);
 
     // Ambil data pertama atau buat instance baru jika kosong
@@ -49,3 +49,5 @@ public function store(Request $request)
     return redirect()->route('hero.index')->with('success', 'Hero Section berhasil diperbarui!');
 }
 }
+
+

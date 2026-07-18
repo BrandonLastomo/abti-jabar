@@ -42,10 +42,10 @@ class NewsContentController extends Controller
             'title'       => 'required|string|max:255',
             'content'     => 'required|string|max:1000',
 
-            'image_0'     => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-            'image_1'     => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-            'image_2'     => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-            'image_3'     => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'image_0'     => 'nullable|mimes:jpg,jpeg,png,webp,svg|max:2048',
+            'image_1'     => 'nullable|mimes:jpg,jpeg,png,webp,svg|max:2048',
+            'image_2'     => 'nullable|mimes:jpg,jpeg,png,webp,svg|max:2048',
+            'image_3'     => 'nullable|mimes:jpg,jpeg,png,webp,svg|max:2048',
         ]);
 
         $slug = Str::slug($request->title);
@@ -106,10 +106,10 @@ class NewsContentController extends Controller
             'title'       => 'required|string|max:255',
             'content'     => 'required|string|max:1000',
 
-            'image_0'     => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-            'image_1'     => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-            'image_2'     => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-            'image_3'     => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'image_0'     => 'nullable|mimes:jpg,jpeg,png,webp,svg|max:2048',
+            'image_1'     => 'nullable|mimes:jpg,jpeg,png,webp,svg|max:2048',
+            'image_2'     => 'nullable|mimes:jpg,jpeg,png,webp,svg|max:2048',
+            'image_3'     => 'nullable|mimes:jpg,jpeg,png,webp,svg|max:2048',
         ]);
 
         $slug = Str::slug($request->title);
@@ -171,3 +171,5 @@ class NewsContentController extends Controller
             ->with('success', 'News Content berhasil dihapus');
     }
 }
+
+

@@ -13,7 +13,12 @@
         </div>
 
         <div class="sectionBody">
-            <form action="{{ route('program-kerja.store') }}" method="POST" enctype="multipart/form-data">
+                        @if (session('success'))
+                <div style="color:green; margin-bottom:15px; margin-top:15px; background: #e6ffed; padding: 10px; border: 1px solid green; border-radius: 5px;">
+                    {{ session('success') }}
+                </div>
+            @endif
+<form action="{{ route('program-kerja.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="">
                     <div class="field">
@@ -71,7 +76,7 @@
                     <div class="field">
                         <div class="labelRow">
                             <label>Thumbnail Image</label>
-                            <span class="hint">jpg/png/webp (Maks 300kb)</span>
+                            <span class="hint">jpg/png/webp (Maks 2MB)</span>
                         </div>
 
                         <!-- <input disabled type="hidden" name="image" value="0"> -->

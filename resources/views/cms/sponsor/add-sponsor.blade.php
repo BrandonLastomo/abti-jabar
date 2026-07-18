@@ -107,8 +107,22 @@
     </div>
 
     <div class="bignews-wrapper">
-        <form action="{{ route('sponsor.store') }}" method="POST" enctype="multipart/form-data">
+                    @if (session('success'))
+                <div style="color:green; margin-bottom:15px; margin-top:15px; background: #e6ffed; padding: 10px; border: 1px solid green; border-radius: 5px;">
+                    {{ session('success') }}
+                </div>
+            @endif
+<form action="{{ route('sponsor.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
+            @if ($errors->any())
+                <div style="color:red; margin-bottom:15px; margin-top:15px; background: #fff2f2; padding: 10px; border: 1px solid red; border-radius: 5px;">
+                    <ul style="margin:0; padding-left:20px;">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
             <div class="image-section">
                 <div class="preview-box" id="previewContainer" onclick="handlePreviewClick()">
@@ -121,11 +135,11 @@
                     <div class="upload-btns">
                         <label class="btn-save" style="cursor: pointer; margin: 0;">
                             <span id="btnText">Upload Logo</span>
-                            <input type="file" name="image" id="imageInput" accept="image/*" hidden>
+                            <input type="file" name="image" id="imageInput" accept="image/*,.svg" hidden>
                         </label>
                         
                     </div>
-                    <p class="hint">Maks 300kb (JPG, PNG, WEBP)</p>
+                    <p class="hint">Maks 2MB (JPG, PNG, WEBP)</p>
                 </div>
             </div>
 
@@ -179,8 +193,8 @@
         const file = e.target.files[0];
         if (!file) return;
 
-        if (file.size > 300 * 1024) {
-            showToast('❌ File terlalu besar! Maksimal 300KB.');
+        if (file.size > 2 * 1024 * 1024) {
+            showToast('❌ File terlalu besar! Maksimal 2MB.');
             this.value = '';
             return;
         }

@@ -24,14 +24,15 @@
                 <div class="podcast__carousel" id="podcastCarousel">
                     <div class="podcast__track" aria-live="polite">
                         @forelse($podcasts as $podcast)
-                            <div class="podcast__item">
-                                <iframe 
-                                    width="100%" 
-                                    height="250"
-                                    src="{{ str_replace('watch?v=', 'embed/', $podcast->link) }}"
-                                    frameborder="0"
-                                    allowfullscreen>
-                                </iframe>
+                            <div class="podcast__slide">
+                                <div class="podcast__iframe-wrapper">
+                                    <iframe 
+                                        class="podcast__iframe"
+                                        src="{{ $podcast->embed_link }}"
+                                        frameborder="0"
+                                        allowfullscreen>
+                                    </iframe>
+                                </div>
                             </div>
                         @empty
                             <div class="podcast__empty">
@@ -120,7 +121,7 @@
                                     <iframe 
                                         width="100%" 
                                         height="450"
-                                        src="{{ str_replace('shorts/', 'embed/', $short->link) }}"
+                                        src="{{ $short->embed_link }}"
                                         frameborder="0"
                                         allowfullscreen>
                                     </iframe>

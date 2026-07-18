@@ -42,18 +42,18 @@
                 tabindex="0"
                 data-event-id="gallery-{{ $gallery->id }}"
                 data-event-title="{{ $gallery->title }}"
-                data-event-date="{{ $gallery->event_season }}"
-                data-event-cover="{{ $gallery->cover ? asset('storage/'.$gallery->cover) : asset('images/placeholder.jpg') }}"
+                data-event-date="{{ $gallery->season }}"
+                data-event-cover="{{ $gallery->photos->first() ? asset('storage/'.$gallery->photos->first()->photo) : asset('images/placeholder.jpg') }}"
                 data-event-images='@json(
                     $gallery->photos->map(function($photo){
-                        return asset("storage/".$photo->photo_path);
+                        return asset("storage/".$photo->photo);
                     })
                 )'
             >
 
                 <div class="ihf-cardimg">
                     <img
-                        src="{{ $gallery->cover ? asset('storage/'.$gallery->cover) : asset('images/placeholder.jpg') }}"
+                        src="{{ $gallery->photos->first() ? asset('storage/'.$gallery->photos->first()->photo) : asset('images/placeholder.jpg') }}"
                         alt="{{ $gallery->title }}"
                         loading="lazy"
                         decoding="async">
@@ -64,7 +64,7 @@
                         {{ $gallery->title }}
                     </div>
                     <div class="ihf-cardsub">
-                        {{ $gallery->event_season }}
+                        {{ $gallery->season }}
                     </div>
                 </div>
 

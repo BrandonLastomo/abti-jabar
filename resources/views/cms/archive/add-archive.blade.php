@@ -9,10 +9,24 @@
     </div>
 
     <div class="sectionBody">
-        <form action="{{ route('archive.store') }}"
+                    @if (session('success'))
+                <div style="color:green; margin-bottom:15px; margin-top:15px; background: #e6ffed; padding: 10px; border: 1px solid green; border-radius: 5px;">
+                    {{ session('success') }}
+                </div>
+            @endif
+<form action="{{ route('archive.store') }}"
               method="POST"
               enctype="multipart/form-data">
             @csrf
+            @if ($errors->any())
+                <div style="color:red; margin-bottom:15px; margin-top:15px; background: #fff2f2; padding: 10px; border: 1px solid red; border-radius: 5px;">
+                    <ul style="margin:0; padding-left:20px;">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
             <div class="field">
                 <label>Title</label>

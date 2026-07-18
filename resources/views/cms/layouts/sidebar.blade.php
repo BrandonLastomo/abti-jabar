@@ -93,7 +93,12 @@
 
 
     <div class="sideFoot">
-      <form method="POST" action="{{ route('logout') }}" style="width:100%; margin-bottom: 5px;">
+                  @if (session('success'))
+                <div style="color:green; margin-bottom:15px; margin-top:15px; background: #e6ffed; padding: 10px; border: 1px solid green; border-radius: 5px;">
+                    {{ session('success') }}
+                </div>
+            @endif
+<form method="POST" action="{{ route('logout') }}" style="width:100%; margin-bottom: 5px;">
         @csrf
         <button type="submit" class="btn" style="width:100%; border:none; cursor:pointer;">Logout</button>
       </form>

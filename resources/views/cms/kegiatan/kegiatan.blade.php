@@ -105,7 +105,12 @@
        Edit
     </a>
 
-    <form id="deleteForm{{ $item->slug }}"
+                @if (session('success'))
+                <div style="color:green; margin-bottom:15px; margin-top:15px; background: #e6ffed; padding: 10px; border: 1px solid green; border-radius: 5px;">
+                    {{ session('success') }}
+                </div>
+            @endif
+<form id="deleteForm{{ $item->slug }}"
           action="{{ route('kegiatan.destroy', $item) }}"
           method="POST"
           style="display:inline;">

@@ -8,7 +8,12 @@
         </div>
 
         <div class="sectionBody">
-            <form action="{{ route('education.update', $education) }}" method="POST" enctype="multipart/form-data">
+                        @if (session('success'))
+                <div style="color:green; margin-bottom:15px; margin-top:15px; background: #e6ffed; padding: 10px; border: 1px solid green; border-radius: 5px;">
+                    {{ session('success') }}
+                </div>
+            @endif
+<form action="{{ route('education.update', $education) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="field">
@@ -33,7 +38,7 @@
                             <img src="{{ asset('storage/'.$education->image) }}" width="150" alt="Current Image">
                         </div>
                     @endif
-                    <input type="file" name="image" accept="image/*">
+                    <input type="file" name="image" accept="image/*,.svg">
                 </div>
 
                 <hr style="margin: 20px 0;">
@@ -109,3 +114,4 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 @endsection
+

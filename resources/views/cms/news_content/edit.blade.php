@@ -13,7 +13,12 @@
 
         <div class="sectionBody">
 
-            <form action="{{ route('news-content.update', $news) }}"
+                        @if (session('success'))
+                <div style="color:green; margin-bottom:15px; margin-top:15px; background: #e6ffed; padding: 10px; border: 1px solid green; border-radius: 5px;">
+                    {{ session('success') }}
+                </div>
+            @endif
+<form action="{{ route('news-content.update', $news) }}"
                   method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
@@ -67,7 +72,7 @@
                                     </div>
                                     <div style="margin-bottom:5px; font-size:0.9em; color:#666;">Ganti gambar:</div>
                                 @endif
-                                <input type="file" name="image_{{ $i }}" accept="image/*">
+                                <input type="file" name="image_{{ $i }}" accept="image/*,.svg">
                             </div>
                             @endfor
                         </div>
@@ -91,3 +96,4 @@
 
 
 @endsection
+

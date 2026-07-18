@@ -31,7 +31,7 @@ class SponsorController extends Controller
         $request->validate([
             'name'  => 'required|string|max:255',
             'link'  => 'nullable|url',
-            'image' => 'required|image|mimes:jpg,jpeg,png,webp|max:300',
+            'image' => 'required|mimes:jpg,jpeg,png,webp,svg|max:2048',
         ]);
 
         $imagePath = null;
@@ -72,7 +72,7 @@ public function update(Request $request, Sponsor $sponsor)
     $request->validate([
         'name'  => 'required|string|max:255',
         'link'  => 'nullable|url',
-        'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:300', // nullable karena gambar tidak wajib ganti
+        'image' => 'nullable|mimes:jpg,jpeg,png,webp,svg|max:2048', // nullable karena gambar tidak wajib ganti
     ]);
 
     $data = [
@@ -101,3 +101,5 @@ public function show(Sponsor $sponsor)
     ]);
 }
 }
+
+

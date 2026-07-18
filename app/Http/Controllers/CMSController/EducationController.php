@@ -26,7 +26,7 @@ class EducationController extends Controller
             'category' => 'required|string|max:100',
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'image' => 'nullable|mimes:jpeg,png,jpg,webp,svg|max:2048',
             'responsibilities' => 'nullable|array',
             'responsibilities.*.title' => 'required_with:responsibilities|string|max:255',
             'responsibilities.*.description' => 'required_with:responsibilities|string',
@@ -64,7 +64,7 @@ class EducationController extends Controller
             'category' => 'required|string|max:100',
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'image' => 'nullable|mimes:jpeg,png,jpg,webp,svg|max:2048',
             'responsibilities' => 'nullable|array',
             'responsibilities.*.title' => 'required_with:responsibilities|string|max:255',
             'responsibilities.*.description' => 'required_with:responsibilities|string',
@@ -100,3 +100,5 @@ class EducationController extends Controller
         return redirect()->route('education.index')->with('success', 'Education entry deleted successfully.');
     }
 }
+
+

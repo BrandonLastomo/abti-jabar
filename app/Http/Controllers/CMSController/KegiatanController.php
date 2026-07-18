@@ -34,7 +34,7 @@ class KegiatanController extends Controller
             'date'  => 'required|date',
             'desc'  => 'required|string',
             'link'  => 'nullable|url',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'image' => 'nullable|mimes:jpg,jpeg,png,webp,svg|max:2048',
         ]);
 
         // Generate slug unik
@@ -98,7 +98,7 @@ class KegiatanController extends Controller
             'date'  => 'required|date',
             'desc'  => 'required|string',
             'link'  => 'nullable|url',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048'
+            'image' => 'nullable|mimes:jpg,jpeg,png,webp,svg|max:2048'
         ]);
 
         // Update slug jika name berubah
@@ -151,3 +151,5 @@ class KegiatanController extends Controller
             ->with('success', 'Data berhasil dihapus');
     }
 }
+
+

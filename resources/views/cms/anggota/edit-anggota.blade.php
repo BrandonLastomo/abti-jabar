@@ -10,7 +10,12 @@
 
     <div class="bignews-wrapper">
 
-        <form action="{{ route('anggota.update', $anggota) }}" 
+                    @if (session('success'))
+                <div style="color:green; margin-bottom:15px; margin-top:15px; background: #e6ffed; padding: 10px; border: 1px solid green; border-radius: 5px;">
+                    {{ session('success') }}
+                </div>
+            @endif
+<form action="{{ route('anggota.update', $anggota) }}" 
               method="POST" 
               enctype="multipart/form-data">
             @csrf
@@ -43,7 +48,7 @@
                                 Upload Logo
                             @endif
                         </span>
-                        <input type="file" name="logo" id="logoInput" hidden accept="image/*">
+                        <input type="file" name="logo" id="logoInput" hidden accept="image/*,.svg">
                     </label>
 
                     @error('logo')

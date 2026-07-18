@@ -27,7 +27,7 @@ class FooterContentController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'logo' => 'nullable|image|mimes:jpg,jpeg,png,webp,avif|max:500',
+            'logo' => 'nullable|mimes:jpg,jpeg,png,webp,avif,svg|max:2048',
         ]);
 
         // Handle logo upload
@@ -80,3 +80,5 @@ class FooterContentController extends Controller
         return redirect()->route('footer.index')->with('success', 'Footer berhasil diperbarui!');
     }
 }
+
+

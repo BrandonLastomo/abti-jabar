@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\EventExperience;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class UserEventExperienceController extends Controller
 {
@@ -22,15 +23,15 @@ class UserEventExperienceController extends Controller
             'team_name' => 'required|string|max:255',
             'event_regency' => 'required|string|max:255',
             'event_province' => 'required|string|max:255',
-            'event_role' => 'required|in:atlet,pelatih,wasit,tim manajemen,ofisial,delegasi',
-            'court_type' => 'required|in:indoor,beach',
-            'event_format' => 'required|in:kejuaraan,turnamen,liga,multi-event,festival',
-            'competition_level' => 'required|in:internasional,nasional,provinsi,kab/kota,antar klub',
-            'participant_scope' => 'required|in:umum,mahasiswa,pelajar',
-            'age_category' => 'required|in:senior,junior,youth',
+            'event_role' => ['required', Rule::in(config('dropdown.event_roles'))],
+            'court_type' => ['required', Rule::in(config('dropdown.court_types'))],
+            'event_format' => ['required', Rule::in(config('dropdown.event_formats'))],
+            'competition_level' => ['required', Rule::in(config('dropdown.competition_levels'))],
+            'participant_scope' => ['required', Rule::in(config('dropdown.participant_scopes'))],
+            'age_category' => ['required', Rule::in(config('dropdown.age_categories'))],
             'event_start_date' => 'required|date',
             'event_end_date' => 'nullable|date|after_or_equal:event_start_date',
-            'result' => 'required|in:juara 1,juara 2,juara 3,juara 4,harapan,peserta',
+            'result' => ['required', Rule::in(config('dropdown.results'))],
         ]);
 
         $data = $request->except('_token');

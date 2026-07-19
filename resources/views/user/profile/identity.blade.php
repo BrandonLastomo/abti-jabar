@@ -12,15 +12,18 @@
                     <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
                         <label class="block text-sm font-bold text-gray-900 mb-2">Pas Foto Resmi</label>
                         <div class="flex items-center gap-4">
-                            @if($identity->photo_path)
-                                <img src="{{ asset('storage/' . $identity->photo_path) }}" alt="Foto" class="w-16 h-16 rounded-full object-cover border-2 border-white shadow-md">
-                            @else
-                                <div class="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center text-gray-400">
-                                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
-                                </div>
-                            @endif
+                            <div id="photoPreviewContainer">
+                                @if($identity->photo_path)
+                                    <img id="profilePreview" src="{{ asset('storage/' . $identity->photo_path) }}" alt="Foto" class="w-16 h-16 rounded-full object-cover border-2 border-white shadow-md">
+                                @else
+                                    <img id="profilePreview" src="#" alt="Foto" class="w-16 h-16 rounded-full object-cover border-2 border-white shadow-md hidden">
+                                    <div id="profileSvg" class="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center text-gray-400">
+                                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                                    </div>
+                                @endif
+                            </div>
                             <div class="flex-1">
-                                <input type="file" name="photo" accept="image/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-100">
+                                <input type="file" id="photoInput" name="photo" accept="image/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-100">
                                 @error('photo') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                             </div>
                         </div>
@@ -156,4 +159,27 @@
             </form>
         </div>
     </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const photoInput = document.getElementById('photoInput');
+            const profilePreview = document.getElementById('profilePreview');
+            const profileSvg = document.getElementById('profileSvg');
+
+            photoInput.addEventListener('change', function (e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        profilePreview.src = e.target.result;
+                        profilePreview.classList.remove('hidden');
+                        if (profileSvg) {
+                            profileSvg.classList.add('hidden');
+                        }
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+    </script>
 </x-profile-layout>

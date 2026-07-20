@@ -2,59 +2,73 @@
 
 @section('content')
 @php use Illuminate\Support\Str; @endphp
-<main class="w-full bg-gray-50 overflow-hidden">
+<main class="w-full bg-background font-sans overflow-hidden text-gray-800">
 
   <!-- HERO SECTION -->
-  <section id="beranda" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 flex flex-col md:flex-row items-center justify-between gap-8">
-    <div class="flex-1 space-y-6">
+  <section id="beranda" class="relative w-full min-h-[90vh] flex items-center justify-center overflow-hidden">
+    <!-- Background Image -->
+    <div class="absolute inset-0 w-full h-full">
+      <picture class="w-full h-full">
+        <source media="(max-width: 768px)" srcset="{{ isset($hero) && $hero->image_mobile ? asset('storage/'.$hero->image_mobile) : asset('img/sechero.png') }}">
+        <img src="{{ isset($hero) && $hero->image_desktop ? asset('storage/'.$hero->image_desktop) : asset('img/mainhero.png') }}" alt="ABTI JAWA BARAT" class="w-full h-full object-cover object-center" />
+      </picture>
+      <!-- Gradient Overlay for Contrast -->
+      <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/30"></div>
+    </div>
+
+    <!-- Content -->
+    <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 text-center text-on-primary flex flex-col items-center mt-16">
       @if(isset($hero) && $hero->kicker)
-        <p class="text-lg text-gray-500 font-semibold mb-2 uppercase tracking-wide">{{ $hero->kicker }}</p>
+        <div class="inline-block px-5 py-2 mb-8 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-sm font-semibold tracking-widest uppercase shadow-lg">
+          <span class="w-2 h-2 rounded-full bg-success inline-block mr-2 animate-pulse"></span>
+          {{ $hero->kicker }}
+        </div>
       @endif
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-red-600 leading-tight">
+      
+      <h1 class="text-5xl md:text-7xl lg:text-8xl font-heading font-extrabold leading-[1.1] tracking-tight mb-6 drop-shadow-lg">
         @if(isset($hero) && $hero->big)
             {!! nl2br(e($hero->big)) !!}
         @else
-            Asosiasi Bola <br/> Tangan Indonesia <br/> Provinsi Jawa Barat
+            Train Smarter. <br/> Play Stronger. <br/> Win More.
         @endif
       </h1>
+      
       @if(isset($hero) && $hero->desc)
-        <p class="text-gray-600 text-lg mt-4 max-w-xl leading-relaxed">
+        <p class="text-lg md:text-xl text-gray-200 mt-6 max-w-2xl leading-relaxed drop-shadow-md">
             {{ $hero->desc }}
         </p>
       @endif
-      <div class="flex flex-wrap gap-4 mt-6">
-        <a href="{{ route('event') }}" class="px-6 py-3 bg-red-600 text-white font-semibold rounded shadow-md hover:bg-red-700 transition">
-          Lihat Event <span aria-hidden="true">&rarr;</span>
+      
+      <div class="flex flex-wrap justify-center gap-4 mt-10">
+        <a href="{{ route('west-java-corner') }}" class="px-8 py-4 bg-primary text-on-primary font-bold rounded-full shadow-xl hover:bg-danger hover:scale-105 hover:-translate-y-1 transition-all duration-300">
+          West Java Corner
         </a>
-        <a href="{{ route('gallery') }}" class="px-6 py-3 bg-red-600 text-white font-semibold rounded shadow-md hover:bg-red-700 transition">
-          Lihat Galeri <span aria-hidden="true">&rarr;</span>
-        </a>
-        <a href="{{ route('profile') }}" class="px-6 py-3 bg-red-600 text-white font-semibold rounded shadow-md hover:bg-red-700 transition">
-          Lihat Profil <span aria-hidden="true">&rarr;</span>
+        <a href="{{ route('about-us') }}" class="px-8 py-4 bg-white/10 backdrop-blur-md border border-white/30 text-on-primary font-bold rounded-full shadow-lg hover:bg-white/20 transition-all duration-300">
+          Tentang Kami
         </a>
       </div>
     </div>
-    <div class="flex-1">
-      <picture class="w-full h-auto">
-        <source media="(max-width: 980px)" srcset="{{ isset($hero) && $hero->image_mobile ? asset('storage/'.$hero->image_mobile) : asset('img/sechero.png') }}">
-        <img src="{{ isset($hero) && $hero->image_desktop ? asset('storage/'.$hero->image_desktop) : asset('img/mainhero.png') }}" alt="ABTI JAWA BARAT" class="w-full h-auto object-cover rounded-xl" />
-      </picture>
+    
+    <!-- Scroll Down Indicator -->
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/70 animate-bounce">
+      <span class="text-xs tracking-widest uppercase font-semibold">Scroll Down</span>
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
     </div>
   </section>
 
-  <!-- LIVESTREAM SECTION (IF ANY) -->
+  <!-- LIVESTREAM SECTION -->
   @if($activeLive)
-  <section id="livestream" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <div class="bg-gray-900 rounded-2xl overflow-hidden shadow-xl border border-gray-800">
-      <div class="p-4 bg-red-600 text-white flex items-center gap-3">
+  <section id="livestream" class="max-w-7xl mx-auto px-6 lg:px-8 py-16 -mt-10 relative z-20">
+    <div class="bg-gray-900 rounded-[2rem] overflow-hidden shadow-2xl border border-gray-800">
+      <div class="p-4 bg-primary text-white flex items-center gap-3">
         <span class="w-3 h-3 bg-white rounded-full animate-pulse"></span>
         <span class="font-bold tracking-wider text-sm">LIVE NOW</span>
       </div>
-      <div class="p-6 md:p-8 space-y-4">
-        <h2 class="text-2xl md:text-3xl font-bold text-white">{{ $activeLive->title }}</h2>
+      <div class="p-8 md:p-10 space-y-4">
+        <h2 class="text-3xl md:text-4xl font-heading font-bold text-white">{{ $activeLive->title }}</h2>
         <p class="text-gray-400">Saksikan pertandingan secara langsung</p>
         
-        <div class="relative w-full aspect-video bg-black rounded-lg overflow-hidden mt-4">
+        <div class="relative w-full aspect-video bg-black rounded-2xl overflow-hidden mt-6 shadow-lg">
           <iframe
             id="livestreamIframe"
             class="absolute top-0 left-0 w-full h-full"
@@ -65,266 +79,252 @@
             allowfullscreen>
           </iframe>
         </div>
-        
-        <div class="text-sm text-gray-500 pt-4">
-          Streaming dimulai pada
-          {{ \Carbon\Carbon::parse($activeLive->date)->format('d M Y') }}
-          pukul {{ $activeLive->time }} WIB
-        </div>
       </div>
     </div>
   </section>
   @endif
 
-  <!-- BEST PARTS (EXTENDED HIGHLIGHTS) -->
-  <section id="highlights" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <h2 class="text-2xl font-bold text-red-600 mb-6 uppercase tracking-wide">BEST PARTS</h2>
-    <div class="bg-gray-900 rounded-xl p-4 shadow-xl">
+  <!-- HIGHLIGHTS / BEST PARTS (Card Layout) -->
+  <section id="highlights" class="max-w-7xl mx-auto px-6 lg:px-8 py-24">
+    <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+        <div>
+            <h2 class="text-4xl md:text-5xl font-heading font-bold text-gray-900 tracking-tight">Experience the Best <br/>in Handball</h2>
+        </div>
+        <div class="max-w-md text-gray-500 text-lg">
+            Our facilities and events feature state-of-the-art training zones and spaces for tournaments or casual games.
+        </div>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
       @if($highlights->count() > 0)
         @php
             $mainHighlight = $highlights->first();
             preg_match('/(?:youtu\.be\/|youtube\.com\/watch\?v=)([^&]+)/', $mainHighlight->link, $matchesMain);
             $mainVideoId = $matchesMain[1] ?? null;
         @endphp
-        @if($mainVideoId)
-        <div class="relative w-full aspect-video bg-black rounded-lg overflow-hidden mb-4 group block">
+        
+        <!-- Main Video Card -->
+        <div class="md:col-span-8 group relative rounded-[2rem] overflow-hidden shadow-2xl bg-black h-[400px] md:h-[500px]">
+          @if($mainVideoId)
           <a href="{{ $mainHighlight->link }}" target="_blank" class="block w-full h-full">
-            <img src="https://img.youtube.com/vi/{{ $mainVideoId }}/maxresdefault.jpg" alt="{{ $mainHighlight->title }}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition duration-300">
+            <img src="https://img.youtube.com/vi/{{ $mainVideoId }}/maxresdefault.jpg" alt="{{ $mainHighlight->title }}" class="w-full h-full object-cover opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-700">
             <div class="absolute inset-0 flex items-center justify-center">
-              <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition duration-300">
-                <div class="w-0 h-0 border-t-[10px] border-t-transparent border-l-[16px] border-l-red-600 border-b-[10px] border-b-transparent ml-1"></div>
+              <div class="w-20 h-20 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center shadow-2xl group-hover:bg-primary transition-all duration-300">
+                <div class="w-0 h-0 border-t-[12px] border-t-transparent border-l-[20px] border-l-white border-b-[12px] border-b-transparent ml-2"></div>
               </div>
             </div>
-            <div class="absolute bottom-4 left-4 text-white font-semibold text-lg drop-shadow-md">
-                {{ $mainHighlight->title }}
+            <div class="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black/90 to-transparent">
+                <div class="inline-block px-3 py-1 mb-3 rounded-full bg-primary text-xs font-bold text-white uppercase tracking-wider">Premium Action</div>
+                <h3 class="text-3xl font-heading font-bold text-white leading-tight drop-shadow-md">{{ $mainHighlight->title }}</h3>
             </div>
           </a>
+          @endif
         </div>
-        @endif
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          @foreach($highlights->skip(1)->take(3) as $highlight)
+        <!-- Secondary Videos Grid -->
+        <div class="md:col-span-4 grid grid-cols-1 gap-6">
+          @foreach($highlights->skip(1)->take(2) as $highlight)
               @php
                   preg_match('/(?:youtu\.be\/|youtube\.com\/watch\?v=)([^&]+)/', $highlight->link, $matches);
                   $videoId = $matches[1] ?? null;
               @endphp
               @if($videoId)
-              <a href="{{ $highlight->link }}" target="_blank" class="block relative aspect-video rounded-lg overflow-hidden group">
-                  <img src="https://img.youtube.com/vi/{{ $videoId }}/maxresdefault.jpg" alt="{{ $highlight->title }}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition duration-300">
+              <a href="{{ $highlight->link }}" target="_blank" class="block relative rounded-[2rem] overflow-hidden shadow-xl bg-black h-full min-h-[200px] group">
+                  <img src="https://img.youtube.com/vi/{{ $videoId }}/maxresdefault.jpg" alt="{{ $highlight->title }}" class="w-full h-full object-cover opacity-60 group-hover:opacity-90 group-hover:scale-110 transition-all duration-700">
                   <div class="absolute inset-0 flex items-center justify-center">
-                      <div class="w-10 h-10 bg-white/80 rounded-full flex items-center justify-center group-hover:bg-white transition duration-300">
-                         <div class="w-0 h-0 border-t-[6px] border-t-transparent border-l-[10px] border-l-red-600 border-b-[6px] border-b-transparent ml-1"></div>
+                      <div class="w-12 h-12 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center group-hover:bg-primary transition-all duration-300">
+                         <div class="w-0 h-0 border-t-[8px] border-t-transparent border-l-[12px] border-l-white border-b-[8px] border-b-transparent ml-1"></div>
                       </div>
                   </div>
-                  <div class="absolute bottom-2 left-2 text-white font-medium text-sm drop-shadow-md truncate w-11/12">
-                      {{ $highlight->title }}
+                  <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/90 to-transparent">
+                      <h4 class="text-lg font-heading font-bold text-white leading-tight">{{ $highlight->title }}</h4>
                   </div>
               </a>
               @endif
           @endforeach
         </div>
       @else
-        <div class="text-center py-10 text-gray-400">
-            <h4 class="text-lg font-semibold">Belum Ada Extended Highlights</h4>
-            <p>Video highlight akan ditampilkan setelah tersedia.</p>
+        <div class="md:col-span-12 text-center py-20 bg-gray-100 rounded-[2rem]">
+            <h4 class="text-2xl font-heading text-gray-500">No Highlights Available</h4>
         </div>
       @endif
     </div>
   </section>
 
-  <!-- NEWS SECTION (INSPIRING & INTERNATIONAL) -->
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-      <!-- INSPIRING NEWS -->
-      <div>
-        <h2 class="text-2xl font-bold text-red-600 mb-6 uppercase tracking-wide">INSPIRING NEWS</h2>
-        <div class="space-y-6">
-          @forelse($bigNews as $news)
-          <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-            <div class="text-xs text-gray-400 mb-2">{{ \Carbon\Carbon::parse($news->created_at)->format('d M Y') }}</div>
-            <div class="flex items-start gap-3 mb-2">
-                <a href="{{ url('/news/'.$news->slug) }}" class="text-lg font-bold text-gray-900 leading-snug hover:text-red-600 hover:underline transition">{{ $news->title }}</a>
-                <span class="px-2 py-1 bg-red-100 text-red-600 rounded text-[10px] font-bold uppercase tracking-wider flex-shrink-0 mt-1">Inspirational</span>
-            </div>
-            <p class="text-sm text-gray-600 mb-0 line-clamp-2">{{ Str::limit(strip_tags($news->content), 120) }}</p>
-          </div>
-          @empty
-          <div class="text-gray-500">Belum Ada Berita Terbaru</div>
-          @endforelse
-        </div>
-      </div>
-
-      <!-- INTERNATIONAL NEWS -->
-      <div>
-        <h2 class="text-2xl font-bold text-red-600 mb-6 uppercase tracking-wide">INTERNATIONAL NEWS</h2>
-        <div class="space-y-6">
-          @forelse($internationalNews as $news)
-          <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-            <div class="text-xs text-gray-400 mb-2">{{ \Carbon\Carbon::parse($news->created_at)->format('d M Y') }}</div>
-            <div class="flex items-start gap-3 mb-2">
-                <a href="{{ url('/news/'.$news->slug) }}" class="text-lg font-bold text-gray-900 leading-snug hover:text-red-600 hover:underline transition">{{ $news->title }}</a>
-                <span class="px-2 py-1 bg-blue-100 text-blue-600 rounded text-[10px] font-bold uppercase tracking-wider flex-shrink-0 mt-1">{{ $news->category ?? 'News' }}</span>
-            </div>
-            <p class="text-sm text-gray-600 mb-0 line-clamp-2">{{ Str::limit(strip_tags($news->content), 120) }}</p>
-          </div>
-          @empty
-          <div class="text-gray-500">Belum Ada Berita Terbaru</div>
-          @endforelse
-        </div>
-      </div>
+  <!-- DATA KEANGGOTAAN (Features Grid) -->
+  <section class="max-w-7xl mx-auto px-6 lg:px-8 py-20 bg-white rounded-[3rem] shadow-sm mb-20 border border-gray-100">
+    <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-heading font-bold text-gray-900 tracking-tight">Empowering Sports Through<br/>Innovation and Convenience</h2>
+        <p class="mt-6 text-gray-500 max-w-2xl mx-auto text-lg">We are more than just a platform — we are a community built for athletes, trainers, event organizers, and sports enthusiasts.</p>
     </div>
-  </section>
-
-  <!-- KEGIATAN TERBARU -->
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <h2 class="text-2xl font-bold text-red-600 mb-6 uppercase tracking-wide">KEGIATAN TERBARU</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      @foreach($kegiatan as $keg)
-      <div class="bg-white rounded-xl shadow-md overflow-hidden flex flex-col border border-gray-100">
-        <div class="aspect-video w-full overflow-hidden bg-gray-200">
-          <img src="{{ $keg->image ? asset('storage/'.$keg->image) : 'https://placehold.co/600x400' }}" alt="{{ $keg->name }}" class="w-full h-full object-cover">
-        </div>
-        <div class="p-5 flex-1 flex flex-col justify-between">
-          <h4 class="font-bold text-gray-900 mb-3 text-sm leading-snug line-clamp-3">
-             {{ $keg->name }}
-          </h4>
-          <a href="{{ $keg->link ?? '#' }}" class="mt-auto block w-full text-center px-4 py-2 bg-red-600 text-white text-sm font-semibold rounded hover:bg-red-700 transition">
-            Lihat Detail
-          </a>
-        </div>
-      </div>
-      @endforeach
-      
-      <!-- Lihat Semua Card -->
-      <a href="{{ url('/news') }}" class="bg-red-500 rounded-xl shadow-md flex flex-col items-center justify-center p-6 hover:bg-red-600 transition group min-h-[250px]">
-        <span class="text-white font-bold text-lg mb-4">Lihat Semua</span>
-        <div class="w-12 h-12 bg-white/20 group-hover:bg-white/30 rounded-full flex items-center justify-center transition border border-white/50">
-          <span class="text-white text-xl font-bold">&rarr;</span>
-        </div>
-      </a>
-    </div>
-  </section>
-
-  <!-- DATA KEANGGOTAAN -->
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-    <h2 class="text-2xl font-bold text-red-600 mb-10 uppercase tracking-wide">DATA KEANGGOTAAN</h2>
     
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 mb-10">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
       @php
           $stats = [
-              ['val' => '27', 'label' => 'KLUB'],
-              ['val' => '156', 'label' => 'KLUB SEKOLAH'],
-              ['val' => '42', 'label' => 'KLUB UNIVERSITAS'],
-              ['val' => '89', 'label' => 'ATLET'],
-              ['val' => '112', 'label' => 'WASIT'],
-              ['val' => '240', 'label' => 'PELATIH'],
-              ['val' => '180', 'label' => 'PELATIH GK'],
-              ['val' => '45', 'label' => 'DIREKTUR TEKNIS'],
-              ['val' => '320', 'label' => 'TIM MANAJEMEN'],
-              ['val' => '15', 'label' => 'OFISIAL PERTANDINGAN'],
-              ['val' => '60', 'label' => 'DELEGASI TEKNIS'],
-              ['val' => '500', 'label' => 'VOLUNTEER'],
+              ['val' => '156+', 'label' => 'School Clubs', 'color' => 'text-primary'],
+              ['val' => '240+', 'label' => 'Certified Trainers', 'color' => 'text-gray-900'],
+              ['val' => '112+', 'label' => 'Active Referees', 'color' => 'text-gray-900'],
+              ['val' => '97%', 'label' => 'Satisfaction Rate', 'color' => 'text-success'],
           ];
       @endphp
       @foreach($stats as $stat)
-      <div class="bg-white border border-gray-200 rounded-xl py-6 px-4 shadow-sm flex flex-col items-center justify-center">
-        <span class="text-3xl font-extrabold text-gray-900 mb-1">{{ $stat['val'] }}</span>
-        <span class="text-xs text-gray-500 font-semibold tracking-wider uppercase text-center">{{ $stat['label'] }}</span>
+      <div class="p-8 rounded-[2rem] bg-gray-50 flex flex-col items-center justify-center text-center group hover:bg-gray-100 transition-colors">
+        <span class="text-5xl md:text-6xl font-heading font-black {{ $stat['color'] }} mb-3 group-hover:scale-110 transition-transform duration-300">{{ $stat['val'] }}</span>
+        <span class="text-sm text-gray-500 font-bold uppercase tracking-widest">{{ $stat['label'] }}</span>
       </div>
       @endforeach
     </div>
+  </section>
+
+  <!-- NEWS SECTION -->
+  <section class="max-w-7xl mx-auto px-6 lg:px-8 py-12">
+    <h2 class="text-4xl md:text-5xl font-heading font-bold text-gray-900 tracking-tight mb-12">Latest Updates</h2>
     
-    <button type="button" class="px-8 py-3 bg-red-600 text-white font-bold rounded-lg shadow-md hover:bg-red-700 transition">
-      Lihat Semua
-    </button>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+      <!-- INSPIRING NEWS -->
+      <div class="flex flex-col gap-6">
+        <h3 class="text-2xl font-heading font-bold text-gray-800 flex items-center gap-3">
+            <span class="w-4 h-4 rounded-full bg-warning"></span> Inspiring News
+        </h3>
+        @forelse($bigNews as $news)
+        <a href="{{ url('/news/'.$news->slug) }}" class="group bg-white p-6 rounded-[2rem] shadow-sm hover:shadow-xl border border-gray-100 transition-all duration-300 flex flex-col sm:flex-row gap-6 items-start">
+            <div class="flex-1">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="px-4 py-1.5 bg-gray-100 text-gray-700 rounded-full text-xs font-bold uppercase tracking-wider group-hover:bg-warning group-hover:text-gray-900 transition-colors">Inspirational</span>
+                    <span class="text-xs text-gray-400 font-medium">{{ \Carbon\Carbon::parse($news->created_at)->format('d M Y') }}</span>
+                </div>
+                <h4 class="text-xl font-heading font-bold text-gray-900 leading-tight mb-3 group-hover:text-primary transition-colors">{{ $news->title }}</h4>
+                <p class="text-gray-500 text-sm line-clamp-2 leading-relaxed">{{ Str::limit(strip_tags($news->content), 120) }}</p>
+            </div>
+        </a>
+        @empty
+        <div class="p-8 text-center text-gray-400 bg-gray-50 rounded-[2rem]">No latest news available</div>
+        @endforelse
+      </div>
+
+      <!-- INTERNATIONAL NEWS -->
+      <div class="flex flex-col gap-6">
+        <h3 class="text-2xl font-heading font-bold text-gray-800 flex items-center gap-3">
+            <span class="w-4 h-4 rounded-full bg-blue-500"></span> International
+        </h3>
+        @forelse($internationalNews as $news)
+        <a href="{{ url('/news/'.$news->slug) }}" class="group bg-white p-6 rounded-[2rem] shadow-sm hover:shadow-xl border border-gray-100 transition-all duration-300 flex flex-col sm:flex-row gap-6 items-start">
+            <div class="flex-1">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="px-4 py-1.5 bg-gray-100 text-gray-700 rounded-full text-xs font-bold uppercase tracking-wider group-hover:bg-blue-600 group-hover:text-white transition-colors">{{ $news->category ?? 'News' }}</span>
+                    <span class="text-xs text-gray-400 font-medium">{{ \Carbon\Carbon::parse($news->created_at)->format('d M Y') }}</span>
+                </div>
+                <h4 class="text-xl font-heading font-bold text-gray-900 leading-tight mb-3 group-hover:text-blue-600 transition-colors">{{ $news->title }}</h4>
+                <p class="text-gray-500 text-sm line-clamp-2 leading-relaxed">{{ Str::limit(strip_tags($news->content), 120) }}</p>
+            </div>
+        </a>
+        @empty
+        <div class="p-8 text-center text-gray-400 bg-gray-50 rounded-[2rem]">No latest news available</div>
+        @endforelse
+      </div>
+    </div>
+  </section>
+
+  <!-- KEGIATAN TERBARU (Activities Grid) -->
+  <section class="max-w-7xl mx-auto px-6 lg:px-8 py-24">
+    <div class="flex justify-between items-end mb-12">
+        <h2 class="text-4xl md:text-5xl font-heading font-bold text-gray-900 tracking-tight">Discover Activities</h2>
+        <a href="{{ url('/news') }}" class="hidden sm:inline-flex items-center gap-2 px-6 py-3 bg-gray-900 text-white font-bold rounded-full hover:bg-gray-800 transition-colors">
+            See All <span aria-hidden="true">&rarr;</span>
+        </a>
+    </div>
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      @foreach($kegiatan as $keg)
+      <div class="group cursor-pointer">
+        <div class="relative w-full aspect-[4/5] rounded-[2rem] overflow-hidden mb-5 shadow-sm group-hover:shadow-xl transition-all duration-500">
+          <img src="{{ $keg->image ? asset('storage/'.$keg->image) : 'https://placehold.co/600x800' }}" alt="{{ $keg->name }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <div class="absolute bottom-6 left-6 right-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+            <a href="{{ $keg->link ?? '#' }}" class="block w-full py-3 bg-white text-gray-900 text-center font-bold rounded-full shadow-lg hover:bg-gray-50">
+              Explore Activity
+            </a>
+          </div>
+        </div>
+        <h4 class="font-heading font-bold text-xl text-gray-900 leading-tight group-hover:text-primary transition-colors px-2">
+           {{ $keg->name }}
+        </h4>
+      </div>
+      @endforeach
+    </div>
+    <div class="mt-10 sm:hidden text-center">
+        <a href="{{ url('/news') }}" class="inline-flex items-center gap-2 px-8 py-4 bg-gray-900 text-white font-bold rounded-full hover:bg-gray-800 transition-colors">
+            See All Activities
+        </a>
+    </div>
+  </section>
+
+  <!-- SOCIAL MEDIA FEEDS -->
+  <section class="max-w-7xl mx-auto px-6 lg:px-8 py-16 mb-10">
+    <div class="flex items-center justify-between mb-10">
+        <h2 class="text-3xl font-heading font-bold text-gray-900 tracking-tight">Stay Connected</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Instagram -->
+        <a href="https://www.instagram.com/westjavahandball" target="_blank" class="group bg-white p-6 rounded-[2rem] shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300">
+            <div class="flex items-center gap-4 mb-6">
+                <div class="w-14 h-14 bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-md">IG</div>
+                <div>
+                    <div class="font-bold text-gray-900 text-lg group-hover:text-primary transition-colors">westjavahandball</div>
+                    <div class="text-sm text-gray-500">Instagram</div>
+                </div>
+            </div>
+            <p class="text-gray-600 mb-6">Ikuti berbagai kegiatan dan update terbaru seputar bola tangan di Jawa Barat.</p>
+            <div class="font-bold text-sm text-purple-600 group-hover:text-purple-700">Follow on Instagram &rarr;</div>
+        </a>
+
+        <!-- TikTok -->
+        <a href="https://www.tiktok.com/@teamjawabarat" target="_blank" class="group bg-white p-6 rounded-[2rem] shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300">
+            <div class="flex items-center gap-4 mb-6">
+                <div class="w-14 h-14 bg-black rounded-full flex items-center justify-center text-white font-bold text-lg shadow-md">TK</div>
+                <div>
+                    <div class="font-bold text-gray-900 text-lg group-hover:text-primary transition-colors">teamjawabarat</div>
+                    <div class="text-sm text-gray-500">TikTok</div>
+                </div>
+            </div>
+            <p class="text-gray-600 mb-6">Saksikan keseruan dan momen menarik atlet bola tangan Jawa Barat.</p>
+            <div class="font-bold text-sm text-gray-900 group-hover:text-black">Follow on TikTok &rarr;</div>
+        </a>
+
+        <!-- YouTube -->
+        <a href="https://www.youtube.com/@westjavahandball" target="_blank" class="group bg-white p-6 rounded-[2rem] shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300">
+            <div class="flex items-center gap-4 mb-6">
+                <div class="w-14 h-14 bg-red-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-md">YT</div>
+                <div>
+                    <div class="font-bold text-gray-900 text-lg group-hover:text-primary transition-colors">westjavahandball</div>
+                    <div class="text-sm text-gray-500">YouTube</div>
+                </div>
+            </div>
+            <p class="text-gray-600 mb-6">Tonton siaran ulang pertandingan, podcast, dan video eksklusif lainnya.</p>
+            <div class="font-bold text-sm text-red-600 group-hover:text-red-700">Subscribe Channel &rarr;</div>
+        </a>
+    </div>
   </section>
 
   <!-- SPONSOR & MITRA STRATEGIS -->
-  <section class="bg-red-600 py-16">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="text-3xl font-bold text-white mb-3">Sponsor & Mitra Strategis</h2>
-      <p class="text-red-100 mb-10">Dukungan sponsor dan mitra turut memperkuat pembinaan serta prestasi atlet bola tangan Jawa Barat.</p>
-      
-      @if($sponsors->count())
-        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3 justify-center">
-            @foreach($sponsors->take(16) as $sponsor)
-            <div class="flex items-center justify-center p-3 hover:scale-105 transition duration-300">
-                <img src="{{ asset('storage/'.$sponsor->image) }}" alt="{{ $sponsor->name }}" class="max-h-full max-w-full object-contain filter grayscale hover:grayscale-0 transition duration-300">
-            </div>
-            @endforeach
-        </div>
-      @else
-        <div class="text-white/80 py-8">
-            <h3 class="text-xl font-semibold mb-2">Belum Ada Sponsor</h3>
-            <p>Informasi sponsor dan mitra strategis akan segera diperbarui.</p>
-        </div>
-      @endif
+  <section class="max-w-7xl mx-auto px-6 lg:px-8 py-16 border-t border-gray-200">
+    <div class="text-center mb-10">
+      <h2 class="text-sm font-bold text-gray-400 uppercase tracking-[0.2em]">Trusted By Our Partners</h2>
     </div>
+    @if($sponsors->count())
+      <div class="flex flex-wrap justify-center items-center gap-12 opacity-60 hover:opacity-100 transition-opacity duration-500">
+          @foreach($sponsors->take(10) as $sponsor)
+          <div class="h-10 md:h-12 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+              <img src="{{ asset('storage/'.$sponsor->image) }}" alt="{{ $sponsor->name }}" class="max-h-full max-w-full object-contain">
+          </div>
+          @endforeach
+      </div>
+    @else
+      <div class="text-center text-gray-400 text-sm">
+          <p>Informasi sponsor akan segera diperbarui.</p>
+      </div>
+    @endif
   </section>
 
-  <!-- UPDATE INFORMASI (SOCIAL MEDIA FEEDS PLACEHOLDER) -->
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    <h2 class="text-2xl font-bold text-gray-900 mb-8 uppercase tracking-wide">UPDATE INFORMASI</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <!-- Instagram Feed -->
-        <div class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden flex flex-col">
-            <a href="https://www.instagram.com/westjavahandball" target="_blank" class="p-4 flex items-center gap-3 border-b border-gray-100 hover:bg-gray-50 transition">
-                <div class="w-10 h-10 bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 rounded-full flex-shrink-0 flex items-center justify-center text-white font-bold text-xs">IG</div>
-                <div>
-                    <div class="text-sm font-bold text-gray-900 hover:text-red-600">westjavahandball <span class="text-blue-500 material-icons text-sm align-middle">verified</span></div>
-                    <div class="text-xs text-gray-500">Instagram</div>
-                </div>
-            </a>
-            <div class="aspect-square bg-gray-200 relative group block">
-                <a href="https://www.instagram.com/westjavahandball" target="_blank">
-                    <img src="{{ asset('img/mainhero.png') }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="IG Post">
-                </a>
-            </div>
-            <div class="p-4 mt-auto">
-                <div class="text-sm text-gray-800 line-clamp-3 mb-4">
-                    Ikuti berbagai kegiatan dan update terbaru seputar bola tangan di Jawa Barat melalui Instagram resmi kami.
-                </div>
-                <a href="https://www.instagram.com/westjavahandball" target="_blank" class="block text-center w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold py-2 rounded text-sm hover:opacity-90 transition">View on Instagram</a>
-            </div>
-        </div>
-
-        <!-- TikTok Feed -->
-        <div class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden flex flex-col">
-            <a href="https://www.tiktok.com/@teamjawabarat" target="_blank" class="p-4 flex items-center gap-3 border-b border-gray-100 hover:bg-gray-50 transition">
-                <div class="w-10 h-10 bg-black rounded-full flex-shrink-0 flex items-center justify-center text-white font-bold text-xs">TK</div>
-                <div>
-                    <div class="text-sm font-bold text-gray-900 hover:text-red-600">teamjawabarat <span class="text-blue-500 material-icons text-sm align-middle">verified</span></div>
-                    <div class="text-xs text-gray-500">TikTok</div>
-                </div>
-            </a>
-            <div class="aspect-square bg-gray-200 relative group block">
-                <a href="https://www.tiktok.com/@teamjawabarat" target="_blank">
-                    <img src="{{ asset('img/sechero.png') }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="TikTok Post">
-                </a>
-            </div>
-            <div class="p-4 mt-auto">
-                <div class="text-sm text-gray-800 line-clamp-3 mb-4">
-                    Saksikan keseruan, highlight, dan momen-momen menarik para atlet bola tangan Jawa Barat di TikTok.
-                </div>
-                <a href="https://www.tiktok.com/@teamjawabarat" target="_blank" class="block text-center w-full bg-black text-white font-bold py-2 rounded text-sm hover:bg-gray-800 transition">View on TikTok</a>
-            </div>
-        </div>
-
-        <!-- YouTube Feed -->
-        <div class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden flex flex-col">
-            <div class="p-4 bg-red-600 text-white flex items-center gap-2">
-                <span class="font-bold text-lg">YouTube</span>
-            </div>
-            <div class="p-6 flex-1 flex flex-col justify-center items-center text-center">
-                <div class="w-16 h-16 bg-red-100 text-red-600 rounded-full flex items-center justify-center mb-4 shadow-sm">
-                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
-                </div>
-                <a href="https://www.youtube.com/@westjavahandball" target="_blank" class="font-bold text-gray-900 mb-2 hover:text-red-600 transition text-lg">westjavahandball</a>
-                <p class="text-sm text-gray-600 mb-6">Tonton siaran ulang pertandingan, podcast, dan video eksklusif lainnya di kanal YouTube resmi kami.</p>
-                <a href="https://www.youtube.com/@westjavahandball" target="_blank" class="inline-block w-full px-6 py-2 bg-red-600 text-white font-bold rounded-lg hover:bg-red-700 transition shadow-md">Subscribe Channel</a>
-            </div>
-        </div>
-    </div>
-  </section>
 </main>
 @endsection

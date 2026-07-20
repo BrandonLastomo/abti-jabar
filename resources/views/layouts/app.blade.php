@@ -7,7 +7,7 @@
 
     @include('layouts/navbar')
 
-    <main class="page">
+    <main class="{{ request()->routeIs('home') ? '' : 'page' }}">
         @yield('content')
     </main>
 

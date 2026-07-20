@@ -7,7 +7,7 @@
 
     @include('layouts/navbar')
 
-    <main class="{{ request()->routeIs('home') ? '' : 'page' }}">
+    <main class="{{ request()->routeIs('home') || request()->routeIs('west-java-corner') ? '' : 'page' }}">
         @yield('content')
     </main>
 

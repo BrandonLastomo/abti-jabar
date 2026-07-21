@@ -98,7 +98,7 @@
                             <span class="text-sm font-medium line-clamp-1">{{ $event->loc }}</span>
                         </div>
 
-                        <button class="open-modal w-full py-3 bg-gray-50 text-gray-900 font-bold rounded-xl hover:bg-primary hover:text-white transition-colors duration-300 shadow-sm text-sm tracking-wider uppercase">
+                        <button class="open-modal w-full py-3 bg-primary text-white font-bold rounded-xl shadow-[0_4px_14px_0_rgba(220,38,38,0.39)] hover:shadow-[0_6px_20px_rgba(220,38,38,0.23)] hover:bg-red-700 hover:-translate-y-1 active:translate-y-0 transition-all duration-300 text-sm tracking-wider uppercase">
                             Detail Event
                         </button>
                     </div>

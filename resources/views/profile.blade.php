@@ -67,7 +67,7 @@
                         <a href="{{ route('profile', ['category' => $category, 'subcategory' => $sub]) }}" 
                            class="px-5 py-2.5 text-sm font-bold rounded-full transition-all duration-300 shadow-sm border border-transparent 
                            {{ $subcategory === $sub 
-                               ? 'bg-gray-900 text-white shadow-md transform scale-105' 
+                               ? 'bg-primary text-white shadow-[0_4px_14px_0_rgba(220,38,38,0.39)] transform scale-105' 
                                : 'bg-white text-gray-600 border-white/50 hover:bg-gray-100 hover:text-gray-900' }}">
                             {{ $sub }}
                         </a>

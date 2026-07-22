@@ -1,7 +1,6 @@
 <x-guest-layout>
     <div class="mb-8">
         <h2 class="text-4xl font-heading font-extrabold text-gray-900 mb-2 tracking-tight">Sign up</h2>
-        <p class="text-gray-500 font-medium">Already have an account? <a href="{{ route('login') }}" class="text-primary hover:underline">Sign in</a></p>
     </div>
 
     <form method="POST" action="{{ route('register') }}" class="space-y-5">
@@ -60,6 +59,7 @@
             <x-primary-button class="mb-3 w-full">
                 {{ __('Register') }}
             </x-primary-button>
+            <p class="text-gray-500 font-medium">Already have an account? <a href="{{ route('login') }}" class="text-primary hover:underline">Sign in</a></p>
         </div>
     </form>
 </x-guest-layout>

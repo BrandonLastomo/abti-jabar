@@ -2,11 +2,8 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <div class="mb-8">
-        <h2 class="text-4xl font-heading font-extrabold text-gray-900 mb-2 tracking-tight">Sign in</h2>
-        <p class="text-gray-500 font-medium">Don't have an account? <a href="{{ route('register') }}" class="text-primary hover:underline">Sign up</a></p>
-    </div>
-
+    <h2 class="text-4xl font-heading font-extrabold text-gray-900 mb-2 tracking-tight">Sign in</h2>
+    
     <form method="POST" action="{{ route('login') }}" class="space-y-5">
         @csrf
 
@@ -36,7 +33,7 @@
         </div>
 
         <!-- Remember Me -->
-        <div class="block mt-4">
+        <div class="flex flex-col mt-4">
             <label for="remember_me" class="inline-flex items-center">
                 <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
                 <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
@@ -48,6 +45,8 @@
                 {{ __('Log in') }}
             </x-primary-button>
 
+            <p class="text-gray-500 font-medium">Don't have an account? <a href="{{ route('register') }}" class="text-primary hover:underline">Sign up</a></p>
+            
             @if (Route::has('password.request'))
                 <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
                     {{ __('Forgot your password?') }}

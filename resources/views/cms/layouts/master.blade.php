@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title', 'Handball')</title>
-     @vite(['resources/css/edit-home.css', 'resources/js/app.js'])
+     @vite(['resources/css/app.css', 'resources/css/edit-home.css', 'resources/js/app.js'])
      <script>
       function toggleSidebar() {
         document.querySelector('.side').classList.toggle('show');
@@ -42,23 +42,27 @@
       </div> -->
     </div>
     <div class="content">
-        <div class="section">
-            <div class="sectionHead">
-            <div>
-                <h2>Content Form</h2>
-                <p>Jika field dikosongkan, maka akan menampilkan konten default bawaan</p>
-            </div>
-            <div class="pill">Page: home</div>
-            </div>
-            <div class="sectionBody">
+        @hasSection('full_content')
+            @yield('full_content')
+        @else
+            <div class="section">
+                <div class="sectionHead">
+                <div>
+                    <h2>Content Form</h2>
+                    <p>Jika field dikosongkan, maka akan menampilkan konten default bawaan</p>
+                </div>
+                <div class="pill">Page: home</div>
+                </div>
+                <div class="sectionBody">
 
-                @yield('content')
+                    @yield('content')
 
+                </div>
             </div>
-        </div>
-        <div class="note">
-        Setelah Save, buka halaman utama. <b>/</b>. Jika belum berubah, → <i>lakukan refresh paksa halaman</i> (Ctrl + F5).
-      </div>
+            <div class="note">
+            Setelah Save, buka halaman utama. <b>/</b>. Jika belum berubah, → <i>lakukan refresh paksa halaman</i> (Ctrl + F5).
+          </div>
+        @endif
     </div>
   </main>
 

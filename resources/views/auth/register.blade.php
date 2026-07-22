@@ -56,16 +56,6 @@
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 
-        <!-- Role Selection -->
-        <div class="mt-4">
-            <x-input-label for="role" value="Daftar Sebagai" />
-            <select id="role" name="role" required class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full">
-                <option value="user">User</option>
-                <option value="admin">Admin</option>
-            </select>
-            <x-input-error :messages="$errors->get('role')" class="mt-2" />
-        </div>
-
         <div class="flex flex-col items-center justify-end mt-4">
             <x-primary-button class="mb-3 w-full">
                 {{ __('Register') }}

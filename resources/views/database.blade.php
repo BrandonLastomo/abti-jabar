@@ -55,7 +55,7 @@
 
             <article class="bg-white/70 backdrop-blur-xl border border-white rounded-[2rem] p-6 md:p-8 shadow-xl shadow-gray-200/50 hover:-translate-y-2 transition-transform duration-500 flex flex-col justify-between group" data-rds-card>
                 <div class="flex justify-between items-start mb-6">
-                    <div class="text-sm font-bold text-gray-500 uppercase tracking-wider group-hover:text-primary transition-colors">Mgmt & Support</div>
+                    <div class="text-sm font-bold text-gray-500 uppercase tracking-wider group-hover:text-primary transition-colors">Management & Support</div>
                     <span class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-bold rounded-full">Ops</span>
                 </div>
                 <div class="text-5xl font-heading font-extrabold text-gray-900 mb-2" data-rds-count="60">0</div>

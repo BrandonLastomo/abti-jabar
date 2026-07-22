@@ -107,7 +107,7 @@ Route::middleware(['auth', 'role:admin|superadmin'])->prefix('admin')->name('adm
 // ======================== SUPERADMIN: CMS ROUTES (role: superadmin) ========================
 Route::middleware(['auth', 'role:superadmin'])->prefix('cms')->group(function () {
 
-    Route::get('/', [HeroController::class, 'index']);
+    Route::get('/', [\App\Http\Controllers\CMSController\SuperadminDashboardController::class, 'index'])->name('cms.dashboard');
 
     Route::resource('/hero', HeroController::class)->only(['index', 'store']);
 

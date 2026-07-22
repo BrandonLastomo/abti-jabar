@@ -32,7 +32,7 @@ class AuthenticatedSessionController extends Controller
 
         // Role-based redirect after login
         if ($user->hasRole('superadmin')) {
-            return redirect()->route('hero.index');
+            return redirect()->route('cms.dashboard');
         }
 
         if ($user->hasRole('admin')) {

@@ -97,8 +97,10 @@ Route::middleware(['auth', 'role:user'])->prefix('user')->name('user.')->group(f
 // ======================== ADMIN ROUTES (role: admin, superadmin) ========================
 Route::middleware(['auth', 'role:admin|superadmin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+    Route::get('/documents', [AdminDashboardController::class, 'documents'])->name('documents.index');
     Route::patch('/documents/{document}/verify', [AdminDashboardController::class, 'verify'])->name('documents.verify');
     Route::patch('/documents/{document}/reject', [AdminDashboardController::class, 'reject'])->name('documents.reject');
+    Route::get('/mutations', [AdminDashboardController::class, 'mutations'])->name('mutations.index');
     Route::patch('/mutations/{mutation}/verify', [AdminDashboardController::class, 'verifyMutation'])->name('mutations.verify');
     Route::patch('/mutations/{mutation}/reject', [AdminDashboardController::class, 'rejectMutation'])->name('mutations.reject');
 });

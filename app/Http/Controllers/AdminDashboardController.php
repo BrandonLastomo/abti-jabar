@@ -8,29 +8,42 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminDashboardController extends Controller
 {
-    /**
-     * Show admin dashboard with pending and all documents.
-     */
     public function index(Request $request)
     {
-        $filter = $request->get('filter', 'pending');
-        $tab = $request->get('tab', 'documents');
+        $stats = [
+            'total_documents' => UserDocument::count(),
+            'pending_documents' => UserDocument::where('status', 'pending')->count(),
+            'total_mutations' => \App\Models\MutationProposal::count(),
+            'pending_mutations' => \App\Models\MutationProposal::where('status', 'pending')->count(),
+        ];
+        
+        return view('admin.dashboard', compact('stats'));
+    }
 
-        // Documents Query
+    public function documents(Request $request)
+    {
+        $filter = $request->get('filter', 'pending');
+
         $docQuery = UserDocument::with('user', 'verifier');
         if ($filter !== 'all') {
             $docQuery->where('status', $filter);
         }
-        $documents = $docQuery->latest()->paginate(15, ['*'], 'doc_page');
+        $documents = $docQuery->latest()->paginate(15);
 
-        // Mutations Query
+        return view('admin.documents', compact('documents', 'filter'));
+    }
+
+    public function mutations(Request $request)
+    {
+        $filter = $request->get('filter', 'pending');
+
         $mutQuery = \App\Models\MutationProposal::with('user');
         if ($filter !== 'all') {
             $mutQuery->where('status', $filter);
         }
-        $mutations = $mutQuery->latest()->paginate(15, ['*'], 'mut_page');
+        $mutations = $mutQuery->latest()->paginate(15);
 
-        return view('admin.dashboard', compact('documents', 'mutations', 'filter', 'tab'));
+        return view('admin.mutations', compact('mutations', 'filter'));
     }
 
     public function verify(Request $request, UserDocument $document)

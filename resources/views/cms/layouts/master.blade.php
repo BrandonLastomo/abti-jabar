@@ -25,7 +25,7 @@
     <div class="app">
       <div class="overlay" style="display: none;" onclick="toggleSidebar()"></div>
 
-        @include('cms.layouts.sidebar', ['page' => $page])
+        @include('cms.layouts.sidebar', ['page' => $page ?? ''])
     
         <main class="main">
             

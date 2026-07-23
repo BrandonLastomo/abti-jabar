@@ -1,5 +1,5 @@
 <x-profile-layout title="Dokumen Identitas">
-    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+    <div class="bg-white/90 backdrop-blur-2xl border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] sm:rounded-3xl transition-all">
         <div class="p-6">
             <h3 class="text-lg font-bold text-gray-900 mb-1">Dokumen Identitas</h3>
             <p class="text-sm text-gray-500 mb-6">Upload dokumen identitas resmi Anda. File maksimal 2MB per dokumen (PDF/JPG/PNG).</p>
@@ -32,12 +32,12 @@
                     {{-- NIK / KTP --}}
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-white p-4 rounded-lg border border-gray-100 shadow-sm">
                         <div>
-                            <label for="national_id_number" class="block text-sm font-medium text-gray-700 mb-1">Nomor Induk Kependudukan (NIK)</label>
-                            <input type="text" name="national_id_number" id="national_id_number" value="{{ old('national_id_number', $identity->national_id_number) }}" class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 text-sm">
+                            <label for="national_id_number" class="block text-sm font-bold text-gray-700 mb-1">Nomor Induk Kependudukan (NIK)</label>
+                            <input type="text" name="national_id_number" id="national_id_number" value="{{ old('national_id_number', $identity->national_id_number) }}" class="w-full rounded-xl border-gray-200 bg-gray-50/50 shadow-sm focus:border-red-500 focus:ring-red-500 focus:bg-white transition-colors text-sm">
                             @error('national_id_number') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Upload KTP</label>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Upload KTP</label>
                             <input type="file" name="national_id" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200">
                             @if($identity->national_id_path)
                                 <a href="{{ asset('storage/' . $identity->national_id_path) }}" target="_blank" class="text-xs text-blue-600 hover:underline mt-1 inline-block">Lihat Dokumen Saat Ini</a>
@@ -49,12 +49,12 @@
                     {{-- KK --}}
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-white p-4 rounded-lg border border-gray-100 shadow-sm">
                         <div>
-                            <label for="family_card_number" class="block text-sm font-medium text-gray-700 mb-1">Nomor Kartu Keluarga (KK)</label>
-                            <input type="text" name="family_card_number" id="family_card_number" value="{{ old('family_card_number', $identity->family_card_number) }}" class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 text-sm">
+                            <label for="family_card_number" class="block text-sm font-bold text-gray-700 mb-1">Nomor Kartu Keluarga (KK)</label>
+                            <input type="text" name="family_card_number" id="family_card_number" value="{{ old('family_card_number', $identity->family_card_number) }}" class="w-full rounded-xl border-gray-200 bg-gray-50/50 shadow-sm focus:border-red-500 focus:ring-red-500 focus:bg-white transition-colors text-sm">
                             @error('family_card_number') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Upload Kartu Keluarga</label>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Upload Kartu Keluarga</label>
                             <input type="file" name="family_card" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200">
                             @if($identity->family_card_path)
                                 <a href="{{ asset('storage/' . $identity->family_card_path) }}" target="_blank" class="text-xs text-blue-600 hover:underline mt-1 inline-block">Lihat Dokumen Saat Ini</a>
@@ -66,12 +66,12 @@
                     {{-- Akta Kelahiran --}}
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-white p-4 rounded-lg border border-gray-100 shadow-sm">
                         <div>
-                            <label for="birth_certificate_number" class="block text-sm font-medium text-gray-700 mb-1">Nomor Akta Kelahiran</label>
-                            <input type="text" name="birth_certificate_number" id="birth_certificate_number" value="{{ old('birth_certificate_number', $identity->birth_certificate_number) }}" class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 text-sm">
+                            <label for="birth_certificate_number" class="block text-sm font-bold text-gray-700 mb-1">Nomor Akta Kelahiran</label>
+                            <input type="text" name="birth_certificate_number" id="birth_certificate_number" value="{{ old('birth_certificate_number', $identity->birth_certificate_number) }}" class="w-full rounded-xl border-gray-200 bg-gray-50/50 shadow-sm focus:border-red-500 focus:ring-red-500 focus:bg-white transition-colors text-sm">
                             @error('birth_certificate_number') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Upload Akta Kelahiran</label>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Upload Akta Kelahiran</label>
                             <input type="file" name="birth_certificate" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200">
                             @if($identity->birth_certificate_path)
                                 <a href="{{ asset('storage/' . $identity->birth_certificate_path) }}" target="_blank" class="text-xs text-blue-600 hover:underline mt-1 inline-block">Lihat Dokumen Saat Ini</a>
@@ -83,12 +83,12 @@
                     {{-- KIA --}}
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-white p-4 rounded-lg border border-gray-100 shadow-sm">
                         <div>
-                            <label for="child_identity_card_number" class="block text-sm font-medium text-gray-700 mb-1">Nomor Kartu Identitas Anak (KIA) <span class="text-gray-400 font-normal">(Opsional)</span></label>
-                            <input type="text" name="child_identity_card_number" id="child_identity_card_number" value="{{ old('child_identity_card_number', $identity->child_identity_card_number) }}" class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 text-sm">
+                            <label for="child_identity_card_number" class="block text-sm font-bold text-gray-700 mb-1">Nomor Kartu Identitas Anak (KIA) <span class="text-gray-400 font-normal">(Opsional)</span></label>
+                            <input type="text" name="child_identity_card_number" id="child_identity_card_number" value="{{ old('child_identity_card_number', $identity->child_identity_card_number) }}" class="w-full rounded-xl border-gray-200 bg-gray-50/50 shadow-sm focus:border-red-500 focus:ring-red-500 focus:bg-white transition-colors text-sm">
                             @error('child_identity_card_number') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Upload KIA</label>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Upload KIA</label>
                             <input type="file" name="child_identity" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200">
                             @if($identity->child_identity_path)
                                 <a href="{{ asset('storage/' . $identity->child_identity_path) }}" target="_blank" class="text-xs text-blue-600 hover:underline mt-1 inline-block">Lihat Dokumen Saat Ini</a>
@@ -100,12 +100,12 @@
                     {{-- BPJS --}}
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-white p-4 rounded-lg border border-gray-100 shadow-sm">
                         <div>
-                            <label for="bpjs_number" class="block text-sm font-medium text-gray-700 mb-1">Nomor BPJS</label>
-                            <input type="text" name="bpjs_number" id="bpjs_number" value="{{ old('bpjs_number', $identity->bpjs_number) }}" class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 text-sm">
+                            <label for="bpjs_number" class="block text-sm font-bold text-gray-700 mb-1">Nomor BPJS</label>
+                            <input type="text" name="bpjs_number" id="bpjs_number" value="{{ old('bpjs_number', $identity->bpjs_number) }}" class="w-full rounded-xl border-gray-200 bg-gray-50/50 shadow-sm focus:border-red-500 focus:ring-red-500 focus:bg-white transition-colors text-sm">
                             @error('bpjs_number') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Upload BPJS</label>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Upload BPJS</label>
                             <input type="file" name="bpjs" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200">
                             @if($identity->bpjs_path)
                                 <a href="{{ asset('storage/' . $identity->bpjs_path) }}" target="_blank" class="text-xs text-blue-600 hover:underline mt-1 inline-block">Lihat Dokumen Saat Ini</a>
@@ -117,12 +117,12 @@
                     {{-- Asuransi Pribadi --}}
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-white p-4 rounded-lg border border-gray-100 shadow-sm">
                         <div>
-                            <label for="private_insurance_number" class="block text-sm font-medium text-gray-700 mb-1">Nomor Asuransi Pribadi <span class="text-gray-400 font-normal">(Opsional)</span></label>
-                            <input type="text" name="private_insurance_number" id="private_insurance_number" value="{{ old('private_insurance_number', $identity->private_insurance_number) }}" class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 text-sm">
+                            <label for="private_insurance_number" class="block text-sm font-bold text-gray-700 mb-1">Nomor Asuransi Pribadi <span class="text-gray-400 font-normal">(Opsional)</span></label>
+                            <input type="text" name="private_insurance_number" id="private_insurance_number" value="{{ old('private_insurance_number', $identity->private_insurance_number) }}" class="w-full rounded-xl border-gray-200 bg-gray-50/50 shadow-sm focus:border-red-500 focus:ring-red-500 focus:bg-white transition-colors text-sm">
                             @error('private_insurance_number') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Upload Asuransi Pribadi</label>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Upload Asuransi Pribadi</label>
                             <input type="file" name="private_insurance" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200">
                             @if($identity->private_insurance_path)
                                 <a href="{{ asset('storage/' . $identity->private_insurance_path) }}" target="_blank" class="text-xs text-blue-600 hover:underline mt-1 inline-block">Lihat Dokumen Saat Ini</a>
@@ -134,12 +134,12 @@
                     {{-- Pakta Integritas U16 --}}
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-white p-4 rounded-lg border border-gray-100 shadow-sm">
                         <div>
-                            <label for="under_16_integrity_pact_name" class="block text-sm font-medium text-gray-700 mb-1">Nama Pakta Integritas U-16 <span class="text-gray-400 font-normal">(Opsional)</span></label>
-                            <input type="text" name="under_16_integrity_pact_name" id="under_16_integrity_pact_name" value="{{ old('under_16_integrity_pact_name', $identity->under_16_integrity_pact_name) }}" class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 text-sm">
+                            <label for="under_16_integrity_pact_name" class="block text-sm font-bold text-gray-700 mb-1">Nama Pakta Integritas U-16 <span class="text-gray-400 font-normal">(Opsional)</span></label>
+                            <input type="text" name="under_16_integrity_pact_name" id="under_16_integrity_pact_name" value="{{ old('under_16_integrity_pact_name', $identity->under_16_integrity_pact_name) }}" class="w-full rounded-xl border-gray-200 bg-gray-50/50 shadow-sm focus:border-red-500 focus:ring-red-500 focus:bg-white transition-colors text-sm">
                             @error('under_16_integrity_pact_name') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Upload Pakta Integritas U-16</label>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Upload Pakta Integritas U-16</label>
                             <input type="file" name="under_16_integrity_pact" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200">
                             @if($identity->under_16_integrity_pact_path)
                                 <a href="{{ asset('storage/' . $identity->under_16_integrity_pact_path) }}" target="_blank" class="text-xs text-blue-600 hover:underline mt-1 inline-block">Lihat Dokumen Saat Ini</a>

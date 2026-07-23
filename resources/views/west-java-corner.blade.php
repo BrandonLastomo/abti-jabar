@@ -53,16 +53,17 @@
                     <div class="p-8 border-b-4 border-black bg-white">
                         <h2 class="text-4xl md:text-5xl font-heading font-black uppercase tracking-tighter leading-none">Best Parts</h2>
                     </div>
-                    <div class="flex-grow overflow-y-auto h-[600px] lg:h-[75vh] hide-scrollbar snap-y snap-mandatory bg-black">
+                    <div class="flex-grow overflow-y-auto h-[600px] lg:h-[75vh] hide-scrollbar snap-y snap-mandatory bg-[#111] p-6 space-y-10">
                         @forelse($shorts as $short)
-                            <div class="w-full h-full snap-start shrink-0 relative border-b-4 border-gray-900 group flex justify-center items-center py-6 bg-black">
-                                <div class="relative h-full aspect-[9/16] max-w-full">
-                                    <iframe class="absolute inset-0 w-full h-full transition-opacity duration-300 opacity-90 group-hover:opacity-100" src="{{ $short->embed_link }}" frameborder="0" allowfullscreen></iframe>
+                            <div class="w-full snap-center shrink-0 flex justify-center items-center">
+                                <div class="relative w-full max-w-[260px] aspect-[9/16] bg-black rounded-[2rem] shadow-2xl overflow-hidden border-[8px] border-gray-900 group">
+                                    <iframe class="absolute inset-0 w-full h-full transition-transform duration-700 group-hover:scale-105" src="{{ $short->embed_link }}" frameborder="0" allowfullscreen></iframe>
+                                    <div class="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-3xl pointer-events-none"></div>
                                 </div>
                             </div>
                         @empty
                             <div class="p-12 text-center text-white h-full flex items-center justify-center">
-                                <h3 class="text-2xl font-black uppercase tracking-tighter">No Shorts</h3>
+                                <h3 class="text-2xl font-black uppercase tracking-tighter text-gray-500">No Shorts</h3>
                             </div>
                         @endforelse
                     </div>

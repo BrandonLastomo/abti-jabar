@@ -1,7 +1,7 @@
 <x-profile-layout title="Pengalaman Event / Kejuaraan">
     
     {{-- Form Tambah Pengalaman Event --}}
-    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6">
+    <div class="bg-white/90 backdrop-blur-2xl border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] sm:rounded-3xl transition-all mb-6">
         <div class="p-6">
             <h3 class="text-lg font-bold text-gray-900 mb-1">Tambah Pengalaman Kejuaraan</h3>
             <p class="text-sm text-gray-500 mb-4">Tambahkan riwayat kejuaraan atau event yang pernah Anda ikuti.</p>
@@ -10,21 +10,21 @@
                 @csrf
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
                     <div class="lg:col-span-2">
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Nama Kejuaraan / Event <span class="text-red-500">*</span></label>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Nama Kejuaraan / Event <span class="text-red-500">*</span></label>
                         <input type="text" name="event_name" required value="{{ old('event_name') }}"
-                               class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 text-sm">
+                               class="w-full rounded-xl border-gray-200 bg-gray-50/50 shadow-sm focus:border-red-500 focus:ring-red-500 focus:bg-white transition-colors text-sm">
                         @error('event_name') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Nama Tim (Yang Dibela) <span class="text-red-500">*</span></label>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Nama Tim (Yang Dibela) <span class="text-red-500">*</span></label>
                         <input type="text" name="team_name" required value="{{ old('team_name') }}"
-                               class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 text-sm">
+                               class="w-full rounded-xl border-gray-200 bg-gray-50/50 shadow-sm focus:border-red-500 focus:ring-red-500 focus:bg-white transition-colors text-sm">
                         @error('team_name') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Kab / Kota Penyelenggara <span class="text-red-500">*</span></label>
-                        <select name="event_regency" required class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 text-sm">
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Kab / Kota Penyelenggara <span class="text-red-500">*</span></label>
+                        <select name="event_regency" required class="w-full rounded-xl border-gray-200 bg-gray-50/50 shadow-sm focus:border-red-500 focus:ring-red-500 focus:bg-white transition-colors text-sm">
                             <option value="">Pilih Kab / Kota</option>
                             @foreach(config('dropdown.other_regencies') as $reg)
                                 <option value="{{ $reg }}" {{ old('event_regency') == $reg ? 'selected' : '' }}>{{ $reg }}</option>
@@ -33,8 +33,8 @@
                         @error('event_regency') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Provinsi Penyelenggara <span class="text-red-500">*</span></label>
-                        <select name="event_province" required class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 text-sm">
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Provinsi Penyelenggara <span class="text-red-500">*</span></label>
+                        <select name="event_province" required class="w-full rounded-xl border-gray-200 bg-gray-50/50 shadow-sm focus:border-red-500 focus:ring-red-500 focus:bg-white transition-colors text-sm">
                             <option value="">Pilih Provinsi</option>
                             @foreach(config('dropdown.provinces') as $prov)
                                 <option value="{{ $prov }}" {{ old('event_province') == $prov ? 'selected' : '' }}>{{ $prov }}</option>
@@ -43,8 +43,8 @@
                         @error('event_province') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Peran di Event <span class="text-red-500">*</span></label>
-                        <select name="event_role" required class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 text-sm">
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Peran di Event <span class="text-red-500">*</span></label>
+                        <select name="event_role" required class="w-full rounded-xl border-gray-200 bg-gray-50/50 shadow-sm focus:border-red-500 focus:ring-red-500 focus:bg-white transition-colors text-sm">
                             <option value="">Pilih Peran</option>
                             @foreach(config('dropdown.event_roles') as $opt)
                                 <option value="{{ $opt }}" {{ old('event_role') == $opt ? 'selected' : '' }}>{{ $opt }}</option>
@@ -53,8 +53,8 @@
                         @error('event_role') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Jenis Lapangan <span class="text-red-500">*</span></label>
-                        <select name="court_type" required class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 text-sm">
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Jenis Lapangan <span class="text-red-500">*</span></label>
+                        <select name="court_type" required class="w-full rounded-xl border-gray-200 bg-gray-50/50 shadow-sm focus:border-red-500 focus:ring-red-500 focus:bg-white transition-colors text-sm">
                             <option value="">Pilih Jenis</option>
                             @foreach(config('dropdown.court_types') as $opt)
                                 <option value="{{ $opt }}" {{ old('court_type') == $opt ? 'selected' : '' }}>{{ $opt }}</option>
@@ -64,8 +64,8 @@
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Format Event <span class="text-red-500">*</span></label>
-                        <select name="event_format" required class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 text-sm">
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Format Event <span class="text-red-500">*</span></label>
+                        <select name="event_format" required class="w-full rounded-xl border-gray-200 bg-gray-50/50 shadow-sm focus:border-red-500 focus:ring-red-500 focus:bg-white transition-colors text-sm">
                             <option value="">Pilih Format</option>
                             @foreach(config('dropdown.event_formats') as $opt)
                                 <option value="{{ $opt }}" {{ old('event_format') == $opt ? 'selected' : '' }}>{{ $opt }}</option>
@@ -74,8 +74,8 @@
                         @error('event_format') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Tingkat Kompetisi <span class="text-red-500">*</span></label>
-                        <select name="competition_level" required class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 text-sm">
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Tingkat Kompetisi <span class="text-red-500">*</span></label>
+                        <select name="competition_level" required class="w-full rounded-xl border-gray-200 bg-gray-50/50 shadow-sm focus:border-red-500 focus:ring-red-500 focus:bg-white transition-colors text-sm">
                             <option value="">Pilih Tingkat</option>
                             @foreach(config('dropdown.competition_levels') as $opt)
                                 <option value="{{ $opt }}" {{ old('competition_level') == $opt ? 'selected' : '' }}>{{ $opt }}</option>
@@ -84,8 +84,8 @@
                         @error('competition_level') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Lingkup Peserta <span class="text-red-500">*</span></label>
-                        <select name="participant_scope" required class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 text-sm">
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Lingkup Peserta <span class="text-red-500">*</span></label>
+                        <select name="participant_scope" required class="w-full rounded-xl border-gray-200 bg-gray-50/50 shadow-sm focus:border-red-500 focus:ring-red-500 focus:bg-white transition-colors text-sm">
                             <option value="">Pilih Lingkup</option>
                             @foreach(config('dropdown.participant_scopes') as $opt)
                                 <option value="{{ $opt }}" {{ old('participant_scope') == $opt ? 'selected' : '' }}>{{ $opt }}</option>
@@ -95,8 +95,8 @@
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Kategori Usia <span class="text-red-500">*</span></label>
-                        <select name="age_category" required class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 text-sm">
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Kategori Usia <span class="text-red-500">*</span></label>
+                        <select name="age_category" required class="w-full rounded-xl border-gray-200 bg-gray-50/50 shadow-sm focus:border-red-500 focus:ring-red-500 focus:bg-white transition-colors text-sm">
                             <option value="">Pilih Kategori</option>
                             @foreach(config('dropdown.age_categories') as $opt)
                                 <option value="{{ $opt }}" {{ old('age_category') == $opt ? 'selected' : '' }}>{{ $opt }}</option>
@@ -105,19 +105,19 @@
                         @error('age_category') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Mulai <span class="text-red-500">*</span></label>
-                        <input type="date" name="event_start_date" required value="{{ old('event_start_date') }}" class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 text-sm">
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Tanggal Mulai <span class="text-red-500">*</span></label>
+                        <input type="date" name="event_start_date" required value="{{ old('event_start_date') }}" class="w-full rounded-xl border-gray-200 bg-gray-50/50 shadow-sm focus:border-red-500 focus:ring-red-500 focus:bg-white transition-colors text-sm">
                         @error('event_start_date') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Selesai</label>
-                        <input type="date" name="event_end_date" value="{{ old('event_end_date') }}" class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 text-sm">
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Tanggal Selesai</label>
+                        <input type="date" name="event_end_date" value="{{ old('event_end_date') }}" class="w-full rounded-xl border-gray-200 bg-gray-50/50 shadow-sm focus:border-red-500 focus:ring-red-500 focus:bg-white transition-colors text-sm">
                         @error('event_end_date') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Hasil / Pencapaian <span class="text-red-500">*</span></label>
-                        <select name="result" required class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 text-sm">
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Hasil / Pencapaian <span class="text-red-500">*</span></label>
+                        <select name="result" required class="w-full rounded-xl border-gray-200 bg-gray-50/50 shadow-sm focus:border-red-500 focus:ring-red-500 focus:bg-white transition-colors text-sm">
                             <option value="">Pilih Hasil</option>
                             @foreach(config('dropdown.results') as $opt)
                                 <option value="{{ $opt }}" {{ old('result') == $opt ? 'selected' : '' }}>{{ $opt }}</option>
@@ -135,7 +135,7 @@
     </div>
 
     {{-- Daftar Pengalaman --}}
-    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+    <div class="bg-white/90 backdrop-blur-2xl border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] sm:rounded-3xl transition-all">
         <div class="p-6">
             <h3 class="text-lg font-bold text-gray-900 mb-4">Riwayat Event Saya</h3>
 

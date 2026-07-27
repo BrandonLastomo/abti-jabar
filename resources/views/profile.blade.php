@@ -91,88 +91,133 @@
             </div>
         </div>
 
-        <div class="flex flex-col lg:flex-row gap-10">
-            
-            <!-- Left: Team Photo (3D Hover Effect) -->
-            <div class="w-full lg:w-1/2 perspective-1000 group">
-                <div class="relative w-full aspect-[4/3] bg-white/70 backdrop-blur-xl border border-white rounded-[2.5rem] p-3 shadow-2xl shadow-gray-200/60 transition-transform duration-700 ease-out group-hover:rotate-y-2 group-hover:rotate-x-2 group-hover:-translate-y-2">
-                    <div class="w-full h-full rounded-[2rem] overflow-hidden relative bg-gray-100 flex items-center justify-center">
-                        @if($teamProfile && $teamProfile->picture)
-                            <img src="{{ asset('storage/'.$teamProfile->picture) }}" alt="Foto Tim {{ $subcategory }}" class="w-full h-full object-cover">
-                            <!-- Soft inner glow -->
-                            <div class="absolute inset-0 ring-1 ring-inset ring-white/20 rounded-[2rem]"></div>
-                        @else
-                            <div class="text-center p-8">
-                                <div class="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
-                                    <svg class="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                                </div>
-                                <h3 class="text-gray-500 font-bold text-lg mb-1">Foto Tim {{ $subcategory }}</h3>
-                                <p class="text-gray-400 text-sm">Menunggu update foto resmi</p>
-                            </div>
-                        @endif
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right: Aktivitas & Jadwal (Frosted Ledger Style) -->
-            <div class="w-full lg:w-1/2">
-                <div class="bg-white/80 backdrop-blur-xl border border-white rounded-[2.5rem] p-8 md:p-10 shadow-xl shadow-gray-200/50 h-full flex flex-col">
+        <!-- Grid of Clubs -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            @forelse($clubs as $club)
+                <div class="group bg-white/70 backdrop-blur-xl border border-white rounded-[2rem] p-6 shadow-lg shadow-gray-200/50 hover:shadow-2xl hover:shadow-gray-200/80 transition-all duration-500 hover:-translate-y-2 flex flex-col h-full relative overflow-hidden">
                     
-                    <div class="flex items-center gap-3 mb-8">
-                        <div class="w-10 h-10 bg-red-50 rounded-xl flex items-center justify-center text-red-500">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    <!-- Decorative blob for the card -->
+                    <div class="absolute -right-10 -top-10 w-32 h-32 bg-primary/5 rounded-full blur-2xl group-hover:bg-primary/10 transition-colors"></div>
+
+                    <!-- Club Identity -->
+                    <div class="flex items-center gap-4 mb-6 relative z-10">
+                        <div class="w-20 h-20 bg-gray-100 rounded-2xl flex items-center justify-center overflow-hidden border-2 border-white shadow-sm flex-shrink-0">
+                            @if($club->logo)
+                                <img src="{{ asset('storage/'.$club->logo) }}" alt="{{ $club->name }}" class="w-full h-full object-cover">
+                            @else
+                                <span class="text-3xl font-extrabold text-gray-400">{{ substr($club->name, 0, 1) }}</span>
+                            @endif
                         </div>
-                        <h3 class="text-2xl font-heading font-extrabold text-gray-900">Aktivitas & Jadwal</h3>
+                        <div>
+                            <h3 class="font-heading font-extrabold text-xl text-gray-900 leading-tight mb-1">{{ $club->name }}</h3>
+                            <span class="inline-block px-2.5 py-1 bg-gray-100 text-gray-600 text-xs font-bold rounded-full">
+                                {{ $club->club_status === 'profesional' ? 'Profesional' : 'Amatir' }}
+                            </span>
+                        </div>
                     </div>
 
-                    <div class="flex-1 space-y-8 overflow-y-auto pr-2 custom-scrollbar">
-                        @forelse($groupedEvents as $year => $eventsInYear)
-                            <div class="relative">
-                                <!-- Year sticky header -->
-                                <div class="sticky top-0 bg-white/90 backdrop-blur-md py-2 z-10 mb-4 border-b border-gray-100">
-                                    <span class="text-sm font-extrabold text-primary px-3 py-1 bg-red-50 rounded-full">{{ $year }}</span>
-                                </div>
-                                
-                                <div class="w-full overflow-hidden rounded-2xl border border-gray-100 bg-white/50">
-                                    <table class="w-full text-left text-sm">
-                                        <thead class="bg-gray-50/50 text-gray-500 border-b border-gray-100">
-                                            <tr>
-                                                <th scope="col" class="px-5 py-3 font-bold uppercase text-xs tracking-wider">Tanggal</th>
-                                                <th scope="col" class="px-5 py-3 font-bold uppercase text-xs tracking-wider">Kegiatan</th>
-                                                <th scope="col" class="px-5 py-3 font-bold uppercase text-xs tracking-wider hidden sm:table-cell">Lokasi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="divide-y divide-gray-50">
-                                            @foreach($eventsInYear as $event)
-                                                <tr class="hover:bg-white transition-colors group">
-                                                    <td class="px-5 py-4 whitespace-nowrap text-gray-500 font-medium group-hover:text-gray-900 transition-colors">
-                                                        {{ $event->event_date ? Carbon::parse($event->event_date)->translatedFormat('d M') : Carbon::parse($event->created_at)->translatedFormat('d M') }}
-                                                    </td>
-                                                    <td class="px-5 py-4 font-bold text-gray-900">
-                                                        {{ $event->name }}
-                                                        <div class="sm:hidden text-xs text-gray-500 mt-1 font-medium">{{ $event->loc ?? '-' }}</div>
-                                                    </td>
-                                                    <td class="px-5 py-4 text-gray-500 hidden sm:table-cell">
-                                                        {{ $event->loc ?? '-' }}
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
+                    <!-- Club Info (Direktur Utama) -->
+                    <div class="flex-grow space-y-3 mb-6 relative z-10">
+                        <div class="flex items-start gap-3">
+                            <div class="mt-0.5 text-primary">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                             </div>
-                        @empty
-                            <div class="flex flex-col items-center justify-center h-full py-12 text-center">
-                                <div class="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mb-4">
-                                    <svg class="w-8 h-8 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                </div>
-                                <h4 class="font-bold text-gray-900 mb-1">Belum Ada Jadwal</h4>
-                                <p class="text-sm text-gray-500">Jadwal aktivitas untuk tim ini belum ditambahkan.</p>
+                            <div>
+                                <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-0.5">Direktur Utama</p>
+                                @php
+                                    $direkturUtama = $club->staff->where('position', 'Direktur Utama')->first();
+                                @endphp
+                                <p class="text-sm font-medium text-gray-800">{{ $direkturUtama ? $direkturUtama->name : '-' }}</p>
                             </div>
-                        @endforelse
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="mt-0.5 text-primary">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-0.5">Alamat</p>
+                                <p class="text-sm font-medium text-gray-800 line-clamp-2">{{ $club->office_address ?? $club->pengcab_address ?? '-' }}</p>
+                            </div>
+                        </div>
                     </div>
 
+                    <!-- Action Button -->
+                    <div class="mt-auto relative z-10">
+                        <a href="{{ route('profile.club', $club->id) }}" class="w-full inline-flex justify-center items-center px-4 py-3 bg-gray-50 text-gray-900 font-bold rounded-xl hover:bg-primary hover:text-white transition-all duration-300 group/btn">
+                            Read More
+                            <svg class="w-4 h-4 ml-2 transform group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </a>
+                    </div>
                 </div>
+            @empty
+                <div class="col-span-1 md:col-span-2 lg:col-span-3 text-center py-16 bg-white/50 backdrop-blur-md rounded-[2rem] border border-white">
+                    <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Belum Ada Tim</h3>
+                    <p class="text-gray-500">Belum ada tim yang terdaftar di kategori ini.</p>
+                </div>
+            @endforelse
+        </div>
+
+        <!-- Section: Aktivitas & Jadwal (Full Width Layout) -->
+        <div class="w-full">
+            <div class="bg-white/80 backdrop-blur-xl border border-white rounded-[2.5rem] p-8 md:p-10 shadow-xl shadow-gray-200/50">
+                
+                <div class="flex items-center gap-3 mb-8">
+                    <div class="w-10 h-10 bg-red-50 rounded-xl flex items-center justify-center text-red-500">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-heading font-extrabold text-gray-900">Aktivitas & Jadwal ({{ ucfirst($category) }} - {{ $subcategory }})</h3>
+                </div>
+
+                <div class="space-y-8">
+                    @forelse($groupedEvents as $year => $eventsInYear)
+                        <div class="relative">
+                            <!-- Year sticky header -->
+                            <div class="sticky top-0 bg-white/90 backdrop-blur-md py-2 z-10 mb-4 border-b border-gray-100">
+                                <span class="text-sm font-extrabold text-primary px-3 py-1 bg-red-50 rounded-full">{{ $year }}</span>
+                            </div>
+                            
+                            <div class="w-full overflow-hidden rounded-2xl border border-gray-100 bg-white/50">
+                                <table class="w-full text-left text-sm">
+                                    <thead class="bg-gray-50/50 text-gray-500 border-b border-gray-100">
+                                        <tr>
+                                            <th scope="col" class="px-5 py-3 font-bold uppercase text-xs tracking-wider">Tanggal</th>
+                                            <th scope="col" class="px-5 py-3 font-bold uppercase text-xs tracking-wider">Kegiatan</th>
+                                            <th scope="col" class="px-5 py-3 font-bold uppercase text-xs tracking-wider hidden sm:table-cell">Lokasi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-50">
+                                        @foreach($eventsInYear as $event)
+                                            <tr class="hover:bg-white transition-colors group">
+                                                <td class="px-5 py-4 whitespace-nowrap text-gray-500 font-medium group-hover:text-gray-900 transition-colors w-32">
+                                                    {{ $event->event_date ? Carbon::parse($event->event_date)->translatedFormat('d M') : Carbon::parse($event->created_at)->translatedFormat('d M') }}
+                                                </td>
+                                                <td class="px-5 py-4 font-bold text-gray-900">
+                                                    {{ $event->name }}
+                                                    <div class="sm:hidden text-xs text-gray-500 mt-1 font-medium">{{ $event->loc ?? '-' }}</div>
+                                                </td>
+                                                <td class="px-5 py-4 text-gray-500 hidden sm:table-cell w-1/3">
+                                                    {{ $event->loc ?? '-' }}
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    @empty
+                        <div class="flex flex-col items-center justify-center py-12 text-center">
+                            <div class="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mb-4">
+                                <svg class="w-8 h-8 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <h4 class="font-bold text-gray-900 mb-1">Belum Ada Jadwal</h4>
+                            <p class="text-sm text-gray-500">Jadwal aktivitas untuk kategori ini belum ditambahkan.</p>
+                        </div>
+                    @endforelse
+                </div>
+
             </div>
 
         </div>

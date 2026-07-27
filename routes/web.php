@@ -43,6 +43,7 @@ Route::get('/database', function () {
     return view('database');
 })->name('database');
 Route::get('/profile-team', [ProfilePublicController::class, 'index'])->name('profile');
+Route::get('/profile-team/{club}', [ProfilePublicController::class, 'show'])->name('profile.club');
 Route::get('/gallery', [GalleryPublicController::class, 'index'])->name('gallery');
 Route::get('/archives', [ArchivePublicController::class, 'index'])->name('archives');
 Route::get('/news/{news:slug}', [\App\Http\Controllers\NewsPublicController::class, 'show'])->name('news.show');

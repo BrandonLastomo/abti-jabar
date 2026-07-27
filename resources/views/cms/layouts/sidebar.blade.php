@@ -104,6 +104,7 @@
         </div>
 
         <!-- Data & Media -->
+        @role('superadmin')
         @php $isDataMedia = in_array($page ?? '', ['profile', 'gallery', 'archive']); @endphp
         <div x-data="{ open: {{ $isDataMedia ? 'true' : 'false' }} }">
             <button @click="open = !open" class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl transition-colors text-gray-600 hover:bg-gray-50 hover:text-gray-900 font-medium">
@@ -119,6 +120,7 @@
                 <a href="{{ route('archive.index') }}" class="block px-3 py-2 text-sm rounded-lg transition-colors {{ ($page ?? '') === 'archive' ? 'text-primary font-bold bg-red-50' : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50' }}">Archives</a>
             </div>
         </div>
+        @endrole
         
         <!-- Global Components -->
         @php $isGlobal = in_array($page ?? '', ['footer']); @endphp

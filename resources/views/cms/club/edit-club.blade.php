@@ -23,6 +23,20 @@
                 </div>
             @endif
 
+            @role('superadmin')
+            <div class="field">
+                <label>Assign Admin (Club Manager)</label>
+                <select name="admin_id">
+                    <option value="">-- Tidak Ada Admin --</option>
+                    @foreach($admins as $admin)
+                        <option value="{{ $admin->id }}" {{ old('admin_id', $club->admin_id) == $admin->id ? 'selected' : '' }}>
+                            {{ $admin->name }} ({{ $admin->email }})
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            @endrole
+
             <div class="field">
                 <label>Category <span style="color:red;">*</span></label>
                 <select name="category" required>

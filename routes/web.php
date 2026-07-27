@@ -110,6 +110,13 @@ Route::middleware(['auth', 'role:superadmin'])->prefix('admin')->name('admin.')-
 });
 
 
+// ======================== ADMIN/SUPERADMIN: CMS ROUTES ========================
+Route::middleware(['auth', 'role:admin|superadmin'])->prefix('cms')->group(function () {
+    Route::resource('/club', \App\Http\Controllers\CMSController\ClubCMSController::class);
+    Route::resource('club.staff', \App\Http\Controllers\CMSController\ClubStaffController::class)->only(['index', 'store']);
+    Route::resource('club.documents', \App\Http\Controllers\CMSController\ClubDocumentController::class)->only(['index', 'store']);
+});
+
 // ======================== SUPERADMIN: CMS ROUTES (role: superadmin) ========================
 Route::middleware(['auth', 'role:superadmin'])->prefix('cms')->group(function () {
 
@@ -129,9 +136,6 @@ Route::middleware(['auth', 'role:superadmin'])->prefix('cms')->group(function ()
     Route::delete('/gallery-photo/{photo}', [GalleryController::class, 'deletePhoto'])
         ->name('gallery.photo.delete');
     Route::get('/hero', [HeroController::class, 'index'])->name('hero.index');
-    Route::resource('/club', ClubCMSController::class);
-    Route::resource('club.staff', \App\Http\Controllers\CMSController\ClubStaffController::class)->only(['index', 'store']);
-    Route::resource('club.documents', \App\Http\Controllers\CMSController\ClubDocumentController::class)->only(['index', 'store']);
     Route::resource('/program-kerja', ProgramKerjaController::class);
     Route::resource('/education', \App\Http\Controllers\CMSController\EducationController::class);
     Route::resource('/news-content', NewsContentController::class)

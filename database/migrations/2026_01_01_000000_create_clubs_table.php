@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('clubs', function (Blueprint $table) {
             $table->id();
-
+            $table->foreignId('admin_id')->nullable()->constrained('users')->nullOnDelete();
             $table->string('logo')->nullable();
             $table->string('name');
             $table->string('pengcab_address')->nullable();

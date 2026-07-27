@@ -12,6 +12,10 @@ class ClubDocumentController extends Controller
 {
     public function index(Club $club)
     {
+        if (auth()->user()->hasRole('admin') && $club->admin_id !== auth()->id()) {
+            abort(403, 'Unauthorized');
+        }
+
         $page = 'profile';
         $document = $club->documents()->first();
         
@@ -20,6 +24,10 @@ class ClubDocumentController extends Controller
 
     public function store(Request $request, Club $club)
     {
+        if (auth()->user()->hasRole('admin') && $club->admin_id !== auth()->id()) {
+            abort(403, 'Unauthorized');
+        }
+
         $request->validate([
             'akta_notaris' => 'nullable|string|max:255',
             'akta_notaris_file' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',

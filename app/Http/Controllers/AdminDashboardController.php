@@ -10,14 +10,9 @@ class AdminDashboardController extends Controller
 {
     public function index(Request $request)
     {
-        $stats = [
-            'total_documents' => UserDocument::count(),
-            'pending_documents' => UserDocument::where('status', 'pending')->count(),
-            'total_mutations' => \App\Models\MutationProposal::count(),
-            'pending_mutations' => \App\Models\MutationProposal::where('status', 'pending')->count(),
-        ];
+        $myClub = \App\Models\Club::where('admin_id', Auth::id())->first();
         
-        return view('admin.dashboard', compact('stats'));
+        return view('admin.dashboard', compact('myClub'));
     }
 
     public function documents(Request $request)

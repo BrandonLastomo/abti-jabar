@@ -11,6 +11,10 @@ class ClubStaffController extends Controller
 {
     public function index(Club $club)
     {
+        if (auth()->user()->hasRole('admin') && $club->admin_id !== auth()->id()) {
+            abort(403, 'Unauthorized');
+        }
+
         $page = 'profile';
         // Get existing staff grouped by position to make form pre-filling easier
         $staff = $club->staff()->get()->groupBy('position');
@@ -20,6 +24,10 @@ class ClubStaffController extends Controller
 
     public function store(Request $request, Club $club)
     {
+        if (auth()->user()->hasRole('admin') && $club->admin_id !== auth()->id()) {
+            abort(403, 'Unauthorized');
+        }
+
         $request->validate([
             'staff' => 'nullable|array',
             'staff.*.name' => 'nullable|string|max:255',

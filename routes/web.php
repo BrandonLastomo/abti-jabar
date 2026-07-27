@@ -130,6 +130,8 @@ Route::middleware(['auth', 'role:superadmin'])->prefix('cms')->group(function ()
         ->name('gallery.photo.delete');
     Route::get('/hero', [HeroController::class, 'index'])->name('hero.index');
     Route::resource('/club', ClubCMSController::class);
+    Route::resource('club.staff', \App\Http\Controllers\CMSController\ClubStaffController::class)->only(['index', 'store']);
+    Route::resource('club.documents', \App\Http\Controllers\CMSController\ClubDocumentController::class)->only(['index', 'store']);
     Route::resource('/program-kerja', ProgramKerjaController::class);
     Route::resource('/education', \App\Http\Controllers\CMSController\EducationController::class);
     Route::resource('/news-content', NewsContentController::class)

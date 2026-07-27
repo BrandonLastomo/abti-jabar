@@ -12,6 +12,7 @@ class Club extends Model
     use HasFactory;
     
     protected $fillable = [
+        'admin_id',
         'category',
         'subcategory',
         'logo',
@@ -36,5 +37,10 @@ class Club extends Model
     public function staff(): HasMany
     {
         return $this->hasMany(ClubStaff::class);
+    }
+
+    public function admin()
+    {
+        return $this->belongsTo(User::class, 'admin_id');
     }
 }

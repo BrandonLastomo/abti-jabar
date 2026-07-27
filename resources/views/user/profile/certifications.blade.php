@@ -1,7 +1,7 @@
 <x-profile-layout title="Sertifikasi & Lisensi">
     
     {{-- Form Tambah Sertifikasi --}}
-    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6">
+    <div class="bg-white/90 backdrop-blur-2xl border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] sm:rounded-3xl transition-all mb-6">
         <div class="p-6">
             <h3 class="text-lg font-bold text-gray-900 mb-1">Tambah Sertifikasi</h3>
             <p class="text-sm text-gray-500 mb-4">Tambahkan sertifikat/lisensi kepelatihan atau perwasitan yang Anda miliki.</p>
@@ -10,27 +10,27 @@
                 @csrf
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Nama Sertifikasi <span class="text-red-500">*</span></label>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Nama Sertifikasi <span class="text-red-500">*</span></label>
                         <input type="text" name="certification_name" required value="{{ old('certification_name') }}"
-                               class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 text-sm">
+                               class="w-full rounded-xl border-gray-200 bg-gray-50/50 shadow-sm focus:border-red-500 focus:ring-red-500 focus:bg-white transition-colors text-sm">
                         @error('certification_name') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Nomor Sertifikat / Lisensi <span class="text-red-500">*</span></label>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Nomor Sertifikat / Lisensi <span class="text-red-500">*</span></label>
                         <input type="text" name="certification_number" required value="{{ old('certification_number') }}"
-                               class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 text-sm">
+                               class="w-full rounded-xl border-gray-200 bg-gray-50/50 shadow-sm focus:border-red-500 focus:ring-red-500 focus:bg-white transition-colors text-sm">
                         @error('certification_number') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Penyelenggara / Organizer <span class="text-red-500">*</span></label>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Penyelenggara / Organizer <span class="text-red-500">*</span></label>
                         <input type="text" name="organizer" required value="{{ old('organizer') }}"
-                               class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 text-sm">
+                               class="w-full rounded-xl border-gray-200 bg-gray-50/50 shadow-sm focus:border-red-500 focus:ring-red-500 focus:bg-white transition-colors text-sm">
                         @error('organizer') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Kab / Kota Lokasi <span class="text-red-500">*</span></label>
-                        <select name="regency" required class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 text-sm">
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Kab / Kota Lokasi <span class="text-red-500">*</span></label>
+                        <select name="regency" required class="w-full rounded-xl border-gray-200 bg-gray-50/50 shadow-sm focus:border-red-500 focus:ring-red-500 focus:bg-white transition-colors text-sm">
                             <option value="">Pilih Kab / Kota</option>
                             @foreach(config('dropdown.other_regencies') as $reg)
                                 <option value="{{ $reg }}" {{ old('regency') == $reg ? 'selected' : '' }}>{{ $reg }}</option>
@@ -39,8 +39,8 @@
                         @error('regency') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Provinsi Lokasi <span class="text-red-500">*</span></label>
-                        <select name="province" required class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 text-sm">
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Provinsi Lokasi <span class="text-red-500">*</span></label>
+                        <select name="province" required class="w-full rounded-xl border-gray-200 bg-gray-50/50 shadow-sm focus:border-red-500 focus:ring-red-500 focus:bg-white transition-colors text-sm">
                             <option value="">Pilih Provinsi</option>
                             @foreach(config('dropdown.provinces') as $prov)
                                 <option value="{{ $prov }}" {{ old('province') == $prov ? 'selected' : '' }}>{{ $prov }}</option>
@@ -49,15 +49,15 @@
                         @error('province') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Diterbitkan <span class="text-red-500">*</span></label>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Tanggal Diterbitkan <span class="text-red-500">*</span></label>
                         <input type="date" name="date_of_issue" required value="{{ old('date_of_issue') }}"
-                               class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 text-sm">
+                               class="w-full rounded-xl border-gray-200 bg-gray-50/50 shadow-sm focus:border-red-500 focus:ring-red-500 focus:bg-white transition-colors text-sm">
                         @error('date_of_issue') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Tipe Sertifikasi <span class="text-red-500">*</span></label>
-                        <select name="type" required class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 text-sm">
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Tipe Sertifikasi <span class="text-red-500">*</span></label>
+                        <select name="type" required class="w-full rounded-xl border-gray-200 bg-gray-50/50 shadow-sm focus:border-red-500 focus:ring-red-500 focus:bg-white transition-colors text-sm">
                             <option value="">Pilih Tipe</option>
                             <option value="pelatih" {{ old('type') == 'pelatih' ? 'selected' : '' }}>Pelatih</option>
                             <option value="wasit" {{ old('type') == 'wasit' ? 'selected' : '' }}>Wasit</option>
@@ -65,8 +65,8 @@
                         @error('type') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Tingkatan Lisensi <span class="text-red-500">*</span></label>
-                        <select name="level" required class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 text-sm">
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Tingkatan Lisensi <span class="text-red-500">*</span></label>
+                        <select name="level" required class="w-full rounded-xl border-gray-200 bg-gray-50/50 shadow-sm focus:border-red-500 focus:ring-red-500 focus:bg-white transition-colors text-sm">
                             <option value="">Pilih Tingkat</option>
                             <option value="nasional" {{ old('level') == 'nasional' ? 'selected' : '' }}>Nasional</option>
                             <option value="provinsi" {{ old('level') == 'provinsi' ? 'selected' : '' }}>Provinsi</option>
@@ -77,7 +77,7 @@
                     </div>
                     
                     <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Upload Sertifikat <span class="text-red-500">*</span></label>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Upload Sertifikat <span class="text-red-500">*</span></label>
                         <input type="file" name="file" required class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200" accept=".pdf,.jpg,.jpeg,.png">
                         @error('file') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                     </div>
@@ -90,7 +90,7 @@
     </div>
 
     {{-- Daftar Sertifikasi --}}
-    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+    <div class="bg-white/90 backdrop-blur-2xl border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] sm:rounded-3xl transition-all">
         <div class="p-6">
             <h3 class="text-lg font-bold text-gray-900 mb-4">Sertifikasi & Lisensi Saya</h3>
 

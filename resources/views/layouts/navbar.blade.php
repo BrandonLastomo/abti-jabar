@@ -1,13 +1,15 @@
 <!-- ================= NAVBAR ================= -->
   <header class="navWrap" data-navbar>
-    <nav class="nav" aria-label="Primary">
-      <a class="brand" href="{{ route('home') }}">ABTI jawa Barat</a>
-      <ul class="menu" role="menubar">
+    <nav class="nav !max-w-full lg:!max-w-[95%] lg:!px-8" aria-label="Primary">
+      <a class="brand" href="{{ route('home') }}">
+        <img src="{{ asset('img/mainlogo.avif') }}" alt="ABTI JABAR" class="h-10 w-auto">
+      </a>
+      <ul class="menu font-heading" role="menubar">
         <li class="item">
-          <a class="link" href="{{ route('home') }}" data-scroll>Beranda</a>
+          <a class="link {{ request()->routeIs('home') ? '!text-primary font-bold' : '' }}" href="{{ route('home') }}" data-scroll>Beranda</a>
         </li>
         <li class="item dd" data-dd>
-          <button class="ddBtn" type="button" aria-expanded="false">
+          <button class="ddBtn {{ request()->routeIs('about-us*') ? '!text-primary font-bold' : '' }}" type="button" aria-expanded="false">
             Tentang Kami <span class="caret" aria-hidden="true"></span>
           </button>
           <div class="ddPanel" role="menu">
@@ -19,7 +21,7 @@
           </div>
         </li>
         <li class="item dd" data-dd>
-          <button class="ddBtn" type="button" aria-expanded="false">
+          <button class="ddBtn {{ request()->routeIs('west-java-corner*') ? '!text-primary font-bold' : '' }}" type="button" aria-expanded="false">
             West Java Corner <span class="caret" aria-hidden="true"></span>
           </button>
           <div class="ddPanel" role="menu">
@@ -29,16 +31,16 @@
           </div>
         </li>
         <li class="item">
-          <a class="link" href="{{ route('event') }}" data-scroll>Event</a>
+          <a class="link {{ request()->routeIs('event*') ? '!text-primary font-bold' : '' }}" href="{{ route('event') }}" data-scroll>Event</a>
         </li>
         <li class="item">
-          <a class="link" href="{{ route('database') }}" data-scroll>Database</a>
+          <a class="link {{ request()->routeIs('database*') ? '!text-primary font-bold' : '' }}" href="{{ route('database') }}" data-scroll>Database</a>
         </li>
         <li class="item">
-          <a class="link" href="{{ route('education') }}" data-scroll>Education</a>
+          <a class="link {{ request()->routeIs('education*') ? '!text-primary font-bold' : '' }}" href="{{ route('education') }}" data-scroll>Education</a>
         </li>
         <li class="item dd" data-dd>
-          <button class="ddBtn" type="button" aria-expanded="false">
+          <button class="ddBtn {{ request()->routeIs('profile*') ? '!text-primary font-bold' : '' }}" type="button" aria-expanded="false">
             Profile <span class="caret" aria-hidden="true"></span>
           </button>
           <div class="ddPanel" role="menu">
@@ -48,14 +50,14 @@
           </div>
         </li>
         <li class="item">
-          <a class="link" href="{{ route('gallery') }}" data-scroll>Gallery</a>
+          <a class="link {{ request()->routeIs('gallery*') ? '!text-primary font-bold' : '' }}" href="{{ route('gallery') }}" data-scroll>Gallery</a>
         </li>
         <li class="item">
-          <a class="link" href="{{ route('archives') }}" data-scroll>Archives</a>
+          <a class="link {{ request()->routeIs('archives*') ? '!text-primary font-bold' : '' }}" href="{{ route('archives') }}" data-scroll>Archives</a>
         </li>
         @guest
         <li class="item">
-          <a class="link" href="{{ route('login') }}" style="font-weight:bold; color: #d61f2c;">Login</a>
+          <a class="inline-flex items-center justify-center px-6 py-2 !bg-primary !text-on-primary font-bold rounded-full hover:!bg-danger transition-colors ml-4" href="{{ route('login') }}">Login</a>
         </li>
         @endguest
         @auth

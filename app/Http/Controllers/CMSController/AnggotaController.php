@@ -31,8 +31,8 @@ class AnggotaController extends Controller
     {
         $validated = $request->validate([
             'city'      => 'required|string|max:255',
-            'lead_name' => 'required|string|max:255',
-            'sec_name'  => 'required|string|max:255',
+            'secretariat_name' => 'required|string|max:255',
+            'phone_number'  => 'required|string|max:255',
             'email'     => 'nullable|email',
             'link'      => 'nullable|url',
             'logo'      => 'nullable|mimes:jpg,jpeg,png,webp,svg|max:2048',
@@ -85,8 +85,8 @@ class AnggotaController extends Controller
     {
         $validated = $request->validate([
             'city'      => 'required|string|max:255',
-            'lead_name' => 'required|string|max:255',
-            'sec_name'  => 'required|string|max:255',
+            'secretariat_name' => 'required|string|max:255',
+            'phone_number'  => 'required|string|max:255',
             'email'     => 'nullable|email',
             'link'      => 'nullable|url',
             'logo'      => 'nullable|mimes:jpg,jpeg,png,webp,svg|max:2048',

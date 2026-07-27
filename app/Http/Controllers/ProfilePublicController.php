@@ -16,9 +16,10 @@ class ProfilePublicController extends Controller
         $subcategory = $request->query('subcategory', 'Senior putra');
 
         // Fetch team profile from Clubs table
-        $teamProfile = \App\Models\Club::where('category', $category)
+        $clubs = \App\Models\Club::with('staff')
+            ->where('category', $category)
             ->where('subcategory', $subcategory)
-            ->first();
+            ->get();
 
         // Get events for the selected category and subcategory
         $events = Event::where('category', $category)
@@ -44,9 +45,15 @@ class ProfilePublicController extends Controller
         return view('profile', compact(
             'category',
             'subcategory',
-            'teamProfile',
+            'clubs',
             'groupedEvents',
             'subcategories'
         ));
+    }
+
+    public function show(\App\Models\Club $club)
+    {
+        $club->load('staff');
+        return view('profile-club-detail', compact('club'));
     }
 }

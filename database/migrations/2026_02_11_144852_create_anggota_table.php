@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('anggota', function (Blueprint $table) {
             $table->id();
             $table->string('city')->nullable();
-            $table->string('lead_name')->nullable();
-            $table->string('sec_name')->nullable();
+            $table->string('secretariat_name')->nullable();
+            $table->string('phone_number')->nullable();
             $table->string('email')->nullable();
             $table->string('link')->nullable();
             $table->string('logo')->nullable();

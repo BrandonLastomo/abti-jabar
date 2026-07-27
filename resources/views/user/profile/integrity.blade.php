@@ -1,7 +1,7 @@
 <x-profile-layout title="Dokumen Integritas">
     
     {{-- Form Tambah Dokumen --}}
-    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6">
+    <div class="bg-white/90 backdrop-blur-2xl border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] sm:rounded-3xl transition-all mb-6">
         <div class="p-6">
             <h3 class="text-lg font-bold text-gray-900 mb-1">Tambah Dokumen Integritas</h3>
             <p class="text-sm text-gray-500 mb-4">Upload dokumen pakta integritas, sertifikat anti doping, atau pernyataan anti perundungan.</p>
@@ -10,8 +10,8 @@
                 @csrf
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Jenis Dokumen <span class="text-red-500">*</span></label>
-                        <select name="type" required class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 text-sm">
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Jenis Dokumen <span class="text-red-500">*</span></label>
+                        <select name="type" required class="w-full rounded-xl border-gray-200 bg-gray-50/50 shadow-sm focus:border-red-500 focus:ring-red-500 focus:bg-white transition-colors text-sm">
                             <option value="">Pilih Jenis</option>
                             <option value="anti_doping" {{ old('type') == 'anti_doping' ? 'selected' : '' }}>Sertifikat Anti Doping</option>
                             <option value="pelecehan_seksual_dan_perundungan" {{ old('type') == 'pelecehan_seksual_dan_perundungan' ? 'selected' : '' }}>Pernyataan Anti Pelecehan & Perundungan</option>
@@ -20,13 +20,13 @@
                         @error('type') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Ditandatangani <span class="text-red-500">*</span></label>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Tanggal Ditandatangani <span class="text-red-500">*</span></label>
                         <input type="date" name="signed_date" required value="{{ old('signed_date') }}"
-                               class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 text-sm">
+                               class="w-full rounded-xl border-gray-200 bg-gray-50/50 shadow-sm focus:border-red-500 focus:ring-red-500 focus:bg-white transition-colors text-sm">
                         @error('signed_date') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                     </div>
                     <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Upload Dokumen <span class="text-red-500">*</span></label>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Upload Dokumen <span class="text-red-500">*</span></label>
                         <input type="file" name="file" required class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200" accept=".pdf,.jpg,.jpeg,.png">
                         @error('file') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                     </div>
@@ -39,7 +39,7 @@
     </div>
 
     {{-- Daftar Dokumen --}}
-    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+    <div class="bg-white/90 backdrop-blur-2xl border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] sm:rounded-3xl transition-all">
         <div class="p-6">
             <h3 class="text-lg font-bold text-gray-900 mb-4">Dokumen Integritas Saya</h3>
 

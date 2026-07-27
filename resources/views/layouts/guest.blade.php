@@ -15,15 +15,30 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans text-gray-900 antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
-            <div>
-                <a href="/">
-                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-                </a>
+        <div class="min-h-screen flex bg-white">
+            <!-- Left: Form Side -->
+            <div class="w-full lg:w-1/2 flex flex-col justify-center px-8 sm:px-16 lg:px-24 xl:px-32 pt-28 pb-12 relative min-h-screen">
+                <!-- Logo -->
+                <div class="absolute top-8 left-8 sm:top-10 sm:left-12 lg:left-16">
+                    <a href="/" class="flex items-center gap-2">
+                        <img src="{{ asset('img/mainlogo.avif') }}" alt="ABTI JABAR" class="h-8 w-auto">
+                        <span class="font-heading font-extrabold text-xl tracking-tight text-gray-900">ABTI JABAR</span>
+                    </a>
+                </div>
+
+                <div class="w-full max-w-sm mx-auto">
+                    {{ $slot }}
+                </div>
             </div>
 
-            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
-                {{ $slot }}
+            <!-- Right: Image Side -->
+            <div class="hidden lg:flex lg:w-1/2 p-4 sm:p-6">
+                <div class="w-full h-full relative rounded-[2rem] overflow-hidden bg-gray-100">
+                    <!-- Placeholder image matching the user's sports net picture aesthetic -->
+                    <img src={{ asset('storage/auth/handball-net.jpg') }} class="absolute inset-0 w-full h-full object-cover" alt="Handball Net" />
+                    <!-- Subtle overlay -->
+                    <div class="absolute inset-0 bg-gradient-to-tr from-gray-900/40 to-transparent"></div>
+                </div>
             </div>
         </div>
     </body>

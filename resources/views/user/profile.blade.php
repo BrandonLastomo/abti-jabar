@@ -1,6 +1,6 @@
 <x-profile-layout title="Profil & Dokumen Tambahan">
     {{-- ====== USER INFO CARD ====== --}}
-    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+    <div class="bg-white/90 backdrop-blur-2xl border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] sm:rounded-3xl transition-all">
         <div class="p-6">
             <div class="flex items-center gap-5">
                 <div class="w-16 h-16 rounded-full bg-red-700 flex items-center justify-center text-white font-bold text-2xl flex-shrink-0">
@@ -18,7 +18,7 @@
     </div>
 
     {{-- ====== UPLOAD DOCUMENT FORM ====== --}}
-    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+    <div class="bg-white/90 backdrop-blur-2xl border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] sm:rounded-3xl transition-all">
         <div class="p-6">
             <h3 class="text-lg font-bold text-gray-900 mb-1">Upload Dokumen Tambahan</h3>
             <p class="text-sm text-gray-500 mb-4">Upload dokumen tambahan (selain dokumen identitas & pendidikan) yang diperlukan. Maks 5MB per file.</p>
@@ -27,16 +27,16 @@
                 @csrf
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <div>
-                        <label for="file_name" class="block text-sm font-medium text-gray-700 mb-1">Nama Dokumen <span class="text-red-500">*</span></label>
+                        <label for="file_name" class="block text-sm font-bold text-gray-700 mb-1">Nama Dokumen <span class="text-red-500">*</span></label>
                         <input type="text" name="file_name" id="file_name" required
-                               class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 text-sm"
+                               class="w-full rounded-xl border-gray-200 bg-gray-50/50 shadow-sm focus:border-red-500 focus:ring-red-500 focus:bg-white transition-colors text-sm"
                                placeholder="Contoh: Sertifikat Penghargaan, dll">
                         @error('file_name')
                             <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
                     <div>
-                        <label for="document" class="block text-sm font-medium text-gray-700 mb-1">File <span class="text-red-500">*</span></label>
+                        <label for="document" class="block text-sm font-bold text-gray-700 mb-1">File <span class="text-red-500">*</span></label>
                         <input type="file" name="document" id="document" required
                                class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-100"
                                accept=".pdf,.jpg,.jpeg,.png,.webp,.doc,.docx">
@@ -46,7 +46,7 @@
                     </div>
                 </div>
                 <button type="submit"
-                        class="inline-flex items-center px-5 py-2.5 bg-red-700 text-white text-sm font-semibold rounded-lg hover:bg-red-800 transition shadow-sm">
+                        class="inline-flex items-center px-5 py-2.5 bg-primary text-white text-sm font-bold rounded-xl shadow-[0_4px_14px_0_rgba(220,38,38,0.39)] hover:shadow-[0_6px_20px_rgba(220,38,38,0.23)] hover:bg-red-700 hover:-translate-y-0.5 transition-all">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
                     </svg>
@@ -57,7 +57,7 @@
     </div>
 
     {{-- ====== DOCUMENTS LIST ====== --}}
-    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+    <div class="bg-white/90 backdrop-blur-2xl border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] sm:rounded-3xl transition-all">
         <div class="p-6">
             <h3 class="text-lg font-bold text-gray-900 mb-4">Dokumen Tambahan Saya</h3>
 

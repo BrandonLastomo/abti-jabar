@@ -84,6 +84,14 @@
                 <a href="{{ route('club.edit', $item->id) }}" class="btn btn-edit">
                     Edit
                 </a>
+                
+                <a href="{{ route('club.staff.index', $item->id) }}" class="btn primary" style="background:#1d4ed8; color:white;">
+                    Staff
+                </a>
+
+                <a href="{{ route('club.documents.index', $item->id) }}" class="btn primary" style="background:#047857; color:white;">
+                    Docs
+                </a>
 
                 <form id="deleteForm{{ $loop->index }}"
                       action="{{ route('club.destroy', $item->id) }}"

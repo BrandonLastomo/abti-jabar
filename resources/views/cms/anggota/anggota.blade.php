@@ -25,8 +25,8 @@
         <thead>
           <tr>
             <th>Kota/Kab</th>
-            <th>Ketua</th>
-            <th>Sekretaris</th>
+            <th>Sekretariat</th>
+            <th>No. Telp</th>
             <th>Email</th>
             <th>Link</th>
             <th>Logo</th>
@@ -48,8 +48,8 @@
           <tr>
 
            <td>{{ \Illuminate\Support\Str::limit($item->city, 25) }}</td>
-<td>{{ \Illuminate\Support\Str::limit($item->lead_name, 20) }}</td>
-<td>{{ \Illuminate\Support\Str::limit($item->sec_name, 20) }}</td>
+<td>{{ \Illuminate\Support\Str::limit($item->secretariat_name, 20) }}</td>
+<td>{{ \Illuminate\Support\Str::limit($item->phone_number, 20) }}</td>
             <td>{{ $item->email ?? '-' }}</td>
 
             <td>

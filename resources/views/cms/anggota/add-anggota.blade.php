@@ -62,18 +62,18 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Ketua <span>*</span></label>
+                        <label>Sekretariat <span>*</span></label>
                         <input type="text"
-                               name="lead_name"
-                               value="{{ old('lead_name') }}"
+                               name="secretariat_name"
+                               value="{{ old('secretariat_name') }}"
                                required>
                     </div>
 
                     <div class="form-group">
-                        <label>Sekretaris <span>*</span></label>
+                        <label>No. Telp <span>*</span></label>
                         <input type="text"
-                               name="sec_name"
-                               value="{{ old('sec_name') }}"
+                               name="phone_number"
+                               value="{{ old('phone_number') }}"
                                required>
                     </div>
 

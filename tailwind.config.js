@@ -12,8 +12,19 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['Inter', ...defaultTheme.fontFamily.sans],
+                heading: ['"Bricolage Grotesque"', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                primary: '#DC2626',
+                'on-primary': '#FFFFF0',
+                success: '#80ED99',
+                warning: '#FFEE32',
+                danger: '#EF233C',
+                // Additional background/surface colors from the design system
+                background: '#F8F9FA',
+                card: '#FFFFFF',
+            }
         },
     },
 

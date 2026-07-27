@@ -1,7 +1,7 @@
 <x-profile-layout title="Pengalaman Tim">
     
     {{-- Form Tambah Pengalaman --}}
-    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6">
+    <div class="bg-white/90 backdrop-blur-2xl border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] sm:rounded-3xl transition-all mb-6">
         <div class="p-6">
             <h3 class="text-lg font-bold text-gray-900 mb-1">Tambah Pengalaman Tim</h3>
             <p class="text-sm text-gray-500 mb-4">Tambahkan riwayat tim yang pernah Anda bela atau latih.</p>
@@ -10,14 +10,14 @@
                 @csrf
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <div>
-                        <label for="team_name" class="block text-sm font-medium text-gray-700 mb-1">Nama Tim <span class="text-red-500">*</span></label>
+                        <label for="team_name" class="block text-sm font-bold text-gray-700 mb-1">Nama Tim <span class="text-red-500">*</span></label>
                         <input type="text" name="team_name" id="team_name" required value="{{ old('team_name') }}"
-                               class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 text-sm">
+                               class="w-full rounded-xl border-gray-200 bg-gray-50/50 shadow-sm focus:border-red-500 focus:ring-red-500 focus:bg-white transition-colors text-sm">
                         @error('team_name') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                     </div>
                     <div>
-                        <label for="team_type" class="block text-sm font-medium text-gray-700 mb-1">Kategori Tim <span class="text-red-500">*</span></label>
-                        <select name="team_type" id="team_type" required class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 text-sm">
+                        <label for="team_type" class="block text-sm font-bold text-gray-700 mb-1">Kategori Tim <span class="text-red-500">*</span></label>
+                        <select name="team_type" id="team_type" required class="w-full rounded-xl border-gray-200 bg-gray-50/50 shadow-sm focus:border-red-500 focus:ring-red-500 focus:bg-white transition-colors text-sm">
                             <option value="">Pilih Kategori</option>
                             <option value="nasional" {{ old('team_type') == 'nasional' ? 'selected' : '' }}>Nasional (Timnas)</option>
                             <option value="provinsi" {{ old('team_type') == 'provinsi' ? 'selected' : '' }}>Provinsi</option>
@@ -27,15 +27,15 @@
                         @error('team_type') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                     </div>
                     <div>
-                        <label for="start_date" class="block text-sm font-medium text-gray-700 mb-1">Tanggal Mulai <span class="text-red-500">*</span></label>
+                        <label for="start_date" class="block text-sm font-bold text-gray-700 mb-1">Tanggal Mulai <span class="text-red-500">*</span></label>
                         <input type="date" name="start_date" id="start_date" required value="{{ old('start_date') }}"
-                               class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 text-sm">
+                               class="w-full rounded-xl border-gray-200 bg-gray-50/50 shadow-sm focus:border-red-500 focus:ring-red-500 focus:bg-white transition-colors text-sm">
                         @error('start_date') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                     </div>
                     <div>
-                        <label for="end_date" class="block text-sm font-medium text-gray-700 mb-1">Tanggal Selesai <span class="text-gray-400 font-normal">(Kosongkan jika masih aktif)</span></label>
+                        <label for="end_date" class="block text-sm font-bold text-gray-700 mb-1">Tanggal Selesai <span class="text-gray-400 font-normal">(Kosongkan jika masih aktif)</span></label>
                         <input type="date" name="end_date" id="end_date" value="{{ old('end_date') }}"
-                               class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 text-sm">
+                               class="w-full rounded-xl border-gray-200 bg-gray-50/50 shadow-sm focus:border-red-500 focus:ring-red-500 focus:bg-white transition-colors text-sm">
                         @error('end_date') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                     </div>
                 </div>
@@ -47,7 +47,7 @@
     </div>
 
     {{-- Daftar Pengalaman --}}
-    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+    <div class="bg-white/90 backdrop-blur-2xl border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] sm:rounded-3xl transition-all">
         <div class="p-6">
             <h3 class="text-lg font-bold text-gray-900 mb-4">Riwayat Tim Saya</h3>
 

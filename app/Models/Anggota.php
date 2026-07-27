@@ -12,8 +12,8 @@ class Anggota extends Model
     protected $fillable = [
         'city',
         'slug',
-        'lead_name',
-        'sec_name',
+        'secretariat_name',
+        'phone_number',
         'email',
         'link',
         'logo',

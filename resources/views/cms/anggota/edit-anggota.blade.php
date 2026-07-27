@@ -78,25 +78,25 @@
                 </div>
 
                 <div class="form-group">
-                    <label style="display: block; margin-bottom: 5px; font-weight: 600;">Ketua <span>*</span></label>
+                    <label style="display: block; margin-bottom: 5px; font-weight: 600;">Sekretariat <span>*</span></label>
                     <input type="text" 
-                           name="lead_name" 
-                           value="{{ old('lead_name', $anggota->lead_name) }}" 
+                           name="secretariat_name" 
+                           value="{{ old('secretariat_name', $anggota->secretariat_name) }}" 
                            required 
                            style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
-                    @error('lead_name')
+                    @error('secretariat_name')
                         <small style="color:red;">{{ $message }}</small>
                     @enderror
                 </div>
 
                 <div class="form-group">
-                    <label style="display: block; margin-bottom: 5px; font-weight: 600;">Sekretaris <span>*</span></label>
+                    <label style="display: block; margin-bottom: 5px; font-weight: 600;">No. Telp <span>*</span></label>
                     <input type="text" 
-                           name="sec_name" 
-                           value="{{ old('sec_name', $anggota->sec_name) }}" 
+                           name="phone_number" 
+                           value="{{ old('phone_number', $anggota->phone_number) }}" 
                            required 
                            style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
-                    @error('sec_name')
+                    @error('phone_number')
                         <small style="color:red;">{{ $message }}</small>
                     @enderror
                 </div>

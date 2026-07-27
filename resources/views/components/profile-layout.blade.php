@@ -1,19 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="py-8 bg-gray-50 min-h-screen">
+    <div class="py-12 bg-gray-50/50 min-h-screen">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="mb-6">
-                <h2 class="text-2xl font-bold text-gray-900">{{ $title ?? 'Profil Saya' }}</h2>
+            <div class="mb-8">
+                <h2 class="text-3xl md:text-4xl font-heading font-extrabold text-gray-900 tracking-tight">{{ $title ?? 'Profil Saya' }}</h2>
             </div>
             
-            <div class="flex flex-col md:flex-row gap-6">
+            <div class="flex flex-col md:flex-row gap-8">
                 
                 {{-- SIDEBAR --}}
                 <div class="w-full md:w-1/4">
-                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                        <div class="p-4">
-                            <nav class="space-y-1">
+                    <div class="bg-white/80 backdrop-blur-xl border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-3xl sticky top-6">
+                        <div class="p-6">
+                            <nav class="space-y-2">
                                 @php
                                     $navItems = [
                                         ['route' => 'user.profile', 'label' => 'Overview & Dokumen', 'icon' => 'M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z'],
@@ -33,8 +33,8 @@
                                         $isActive = request()->routeIs($item['route']);
                                     @endphp
                                     <a href="{{ route($item['route']) }}" 
-                                       class="group flex items-center px-3 py-2.5 text-sm font-medium rounded-md transition-colors {{ $isActive ? 'bg-red-50 text-red-700' : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900' }}">
-                                        <svg class="flex-shrink-0 -ml-1 mr-3 h-5 w-5 {{ $isActive ? 'text-red-700' : 'text-gray-400 group-hover:text-gray-500' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                       class="group flex items-center px-4 py-3 text-sm font-bold rounded-2xl transition-all duration-300 {{ $isActive ? 'bg-red-50 text-red-700 shadow-[0_4px_12px_rgba(220,38,38,0.15)] scale-[1.02]' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
+                                        <svg class="flex-shrink-0 -ml-1 mr-3 h-5 w-5 {{ $isActive ? 'text-red-700' : 'text-gray-400 group-hover:text-gray-600 transition-colors' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $item['icon'] }}"></path>
                                         </svg>
                                         <span class="truncate">
@@ -48,15 +48,17 @@
                 </div>
 
                 {{-- MAIN CONTENT --}}
-                <div class="w-full md:w-3/4 space-y-6">
+                <div class="w-full md:w-3/4 space-y-8">
                     {{-- Success / Error Messages --}}
                     @if(session('success'))
-                    <div class="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg text-sm font-medium">
+                    <div class="mb-6 bg-green-50/80 backdrop-blur-sm border border-green-200 text-green-700 px-5 py-4 rounded-2xl shadow-sm text-sm font-bold flex items-center gap-3 animate-[fade-in_0.3s_ease-out]">
+                        <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                         {{ session('success') }}
                     </div>
                     @endif
                     @if(session('error'))
-                    <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm font-medium">
+                    <div class="mb-6 bg-red-50/80 backdrop-blur-sm border border-red-200 text-red-700 px-5 py-4 rounded-2xl shadow-sm text-sm font-bold flex items-center gap-3 animate-[fade-in_0.3s_ease-out]">
+                        <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                         {{ session('error') }}
                     </div>
                     @endif

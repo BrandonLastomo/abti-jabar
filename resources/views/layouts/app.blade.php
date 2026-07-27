@@ -7,7 +7,11 @@
 
     @include('layouts/navbar')
 
-    <main class="page">
+    @php
+        $fullWidthPages = ['home', 'about-us', 'west-java-corner', 'event', 'database', 'education', 'profile', 'gallery', 'archives'];
+        $isFullWidth = in_array(request()->route()?->getName(), $fullWidthPages);
+    @endphp
+    <main class="{{ $isFullWidth ? '' : 'page' }}">
         @yield('content')
     </main>
 

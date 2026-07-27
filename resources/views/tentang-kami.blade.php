@@ -195,7 +195,7 @@
               <div id="abtiSortMenu" class="origin-top-right absolute right-0 mt-2 w-56 rounded-xl shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none hidden z-20">
                 <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                   <button class="abti-sort-item block w-full text-left px-4 py-2 text-sm text-primary font-bold bg-primary/5" data-sort="city_asc">Kota/Kab (A-Z)</button>
-                  <button class="abti-sort-item block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" data-sort="name_asc">Nama Ketua (A-Z)</button>
+                  <button class="abti-sort-item block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" data-sort="name_asc">Nama Sekretariat (A-Z)</button>
                 </div>
               </div>
             </div>
@@ -207,9 +207,9 @@
           @forelse($clubs as $club)
             <div class="anggota-card bg-white rounded-2xl shadow-sm hover:shadow-xl border border-gray-100 p-6 transition-all duration-300 hover:-translate-y-1 flex flex-col"
                 data-city="{{ strtolower($club->city) }}"
-                data-ketua="{{ strtolower($club->lead_name) }}"
-                data-sekretaris="{{ strtolower($club->sec_name) }}"
-                data-search="{{ strtolower($club->city . ' ' . $club->lead_name . ' ' . $club->sec_name . ' ' . $club->email) }}">
+                data-ketua="{{ strtolower($club->secretariat_name) }}"
+                data-sekretaris="{{ strtolower($club->phone_number) }}"
+                data-search="{{ strtolower($club->city . ' ' . $club->secretariat_name . ' ' . $club->phone_number . ' ' . $club->email) }}">
               
               <div class="flex items-center gap-4 mb-5 pb-5 border-b border-gray-100">
                 @if($club->logo)
@@ -227,12 +227,12 @@
 
               <div class="flex-grow space-y-4">
                 <div>
-                  <p class="text-[11px] text-gray-400 uppercase font-bold tracking-wider mb-1">Ketua</p>
-                  <p class="text-sm font-semibold text-gray-800">{{ $club->lead_name }}</p>
+                  <p class="text-[11px] text-gray-400 uppercase font-bold tracking-wider mb-1">Sekretariat</p>
+                  <p class="text-sm font-semibold text-gray-800">{{ $club->secretariat_name }}</p>
                 </div>
                 <div>
-                  <p class="text-[11px] text-gray-400 uppercase font-bold tracking-wider mb-1">Sekretaris</p>
-                  <p class="text-sm font-semibold text-gray-800">{{ $club->sec_name }}</p>
+                  <p class="text-[11px] text-gray-400 uppercase font-bold tracking-wider mb-1">No. Handphone</p>
+                  <p class="text-sm font-semibold text-gray-800">{{ $club->phone_number }}</p>
                 </div>
                 @if($club->email)
                 <div>

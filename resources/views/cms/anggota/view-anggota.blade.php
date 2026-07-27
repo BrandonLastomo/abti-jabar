@@ -33,13 +33,13 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Ketua</label>
-                        <input type="text" disabled value="{{ $anggota->lead_name }}">
+                        <label>Sekretariat</label>
+                        <input type="text" disabled value="{{ $anggota->secretariat_name }}">
                     </div>
 
                     <div class="form-group">
-                        <label>Sekretaris</label>
-                        <input type="text" disabled value="{{ $anggota->sec_name }}">
+                        <label>No. Telp</label>
+                        <input type="text" disabled value="{{ $anggota->phone_number }}">
                     </div>
 
                     <div class="form-group">

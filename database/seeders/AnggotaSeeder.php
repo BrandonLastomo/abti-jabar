@@ -26,12 +26,12 @@ class AnggotaSeeder extends Seeder
         foreach ($data as $city) {
             Anggota::create([
                 'city'      => $city,
-                'lead_name' => 'Ketua ' . $city,
-                'sec_name'  => 'Sekretaris ' . $city,
+                'secretariat_name' => 'Sekretariat ' . $city,
+                'phone_number'  => '08123456789',
                 'email'     => strtolower($city) . '@abti.or.id',
                 'link'      => 'https://abti.or.id/' . strtolower($city),
                 'logo'      => null,
-                'slug'      => Str::slug($city . '-ketua-' . $city),
+                'slug'      => Str::slug($city . '-sekretariat-' . $city),
             ]);
         }
     }

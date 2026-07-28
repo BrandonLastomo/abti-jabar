@@ -55,10 +55,14 @@ class UserEducationDocumentController extends Controller
 
         foreach ($fileFields as $input => $dbColumn) {
             if ($request->hasFile($input)) {
-                if ($education->$dbColumn) {
+                if ($education->$dbColumn && Storage::disk('public')->exists($education->$dbColumn)) {
                     Storage::disk('public')->delete($education->$dbColumn);
                 }
+                
                 $data[$dbColumn] = $request->file($input)->store($folder, 'public');
+                $education->$dbColumn = $data[$dbColumn];
+                
+                $education->recordDocumentUpload($dbColumn);
             }
         }
 

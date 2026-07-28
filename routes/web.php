@@ -148,6 +148,18 @@ Route::middleware(['auth', 'role:superadmin'])->prefix('cms')->group(function ()
         ]);
     Route::resource('/west-java-videos', WestJavaVideoController::class);
     Route::resource('/sponsor', SponsorController::class);
+    Route::prefix('superadmin')->middleware('role:superadmin')->group(function () {
+        Route::get('/dashboard', [SuperadminDashboardController::class, 'index'])->name('superadmin.dashboard');
+        Route::get('/clubs', [SuperadminClubController::class, 'index'])->name('superadmin.clubs.index');
+        
+        // --- Document Verifications ---
+        Route::get('/verifications', [\App\Http\Controllers\CMSController\VerificationController::class, 'index'])->name('superadmin.verifications.index');
+        Route::patch('/verifications/{verification}', [\App\Http\Controllers\CMSController\VerificationController::class, 'process'])->name('superadmin.verifications.process');
+
+        // Mutation Setup
+        Route::get('/mutation-settings', [MutationSettingController::class, 'index'])->name('superadmin.mutation-settings.index');
+        Route::post('/mutation-settings', [MutationSettingController::class, 'store'])->name('superadmin.mutation-settings.store');
+    });
     Route::resource('/kegiatan', KegiatanController::class);
     Route::get('/footer', [FooterContentController::class, 'index'])->name('footer.index');
     Route::put('/footer', [FooterContentController::class, 'update'])->name('footer.update');

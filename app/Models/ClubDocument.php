@@ -6,5 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ClubDocument extends Model
 {
+    use \App\Traits\HasDocumentVerifications;
+
     protected $guarded = [];
 }

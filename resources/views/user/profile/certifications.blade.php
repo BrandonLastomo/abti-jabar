@@ -132,13 +132,14 @@
                                     {{ \Carbon\Carbon::parse($cert->date_of_issue)->format('d M Y') }}
                                 </td>
                                 <td class="px-4 py-3">
-                                    <div class="flex items-center gap-2">
+                                    <div class="flex items-center gap-2 mb-1">
                                         <a href="{{ asset('storage/' . $cert->file_path) }}" target="_blank" class="text-blue-600 hover:text-blue-800 text-xs font-medium">Lihat Dokumen</a>
                                         <form action="{{ route('user.certifications.destroy', $cert) }}" method="POST" onsubmit="return confirm('Hapus sertifikasi ini?')">
                                             @csrf @method('DELETE')
                                             <button type="submit" class="text-red-600 hover:text-red-800 text-xs font-medium">Hapus</button>
                                         </form>
                                     </div>
+                                    <x-verification-badge :model="$cert" field="file_path" />
                                 </td>
                             </tr>
                             @endforeach

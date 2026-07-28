@@ -68,7 +68,10 @@
                         <input type="file" name="{{ $key }}_file" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 5px;">
                         @if(isset($document->{$key.'_path'}) && $document->{$key.'_path'})
                             <div style="margin-top: 5px; font-size: 12px;">
-                                <a href="{{ asset('storage/' . $document->{$key.'_path'}) }}" target="_blank" style="color: #3b82f6;">Lihat Dokumen Saat Ini</a>
+                                <a href="{{ asset('storage/' . $document->{$key.'_path'}) }}" target="_blank" style="color: #3b82f6; display: inline-block; margin-bottom: 5px;">Lihat Dokumen Saat Ini</a>
+                                <div>
+                                    <x-verification-badge :model="$document" :field="$key.'_path'" />
+                                </div>
                             </div>
                         @endif
                     </div>

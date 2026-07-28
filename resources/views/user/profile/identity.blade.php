@@ -40,7 +40,10 @@
                             <label class="block text-sm font-bold text-gray-700 mb-1">Upload KTP</label>
                             <input type="file" name="national_id" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200">
                             @if($identity->national_id_path)
-                                <a href="{{ asset('storage/' . $identity->national_id_path) }}" target="_blank" class="text-xs text-blue-600 hover:underline mt-1 inline-block">Lihat Dokumen Saat Ini</a>
+                                <div class="mt-1">
+                                    <a href="{{ asset('storage/' . $identity->national_id_path) }}" target="_blank" class="text-xs text-blue-600 hover:underline inline-block">Lihat Dokumen Saat Ini</a>
+                                    <x-verification-badge :model="$identity" field="national_id_path" />
+                                </div>
                             @endif
                             @error('national_id') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                         </div>
@@ -57,7 +60,10 @@
                             <label class="block text-sm font-bold text-gray-700 mb-1">Upload Kartu Keluarga</label>
                             <input type="file" name="family_card" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200">
                             @if($identity->family_card_path)
-                                <a href="{{ asset('storage/' . $identity->family_card_path) }}" target="_blank" class="text-xs text-blue-600 hover:underline mt-1 inline-block">Lihat Dokumen Saat Ini</a>
+                                <div class="mt-1">
+                                    <a href="{{ asset('storage/' . $identity->family_card_path) }}" target="_blank" class="text-xs text-blue-600 hover:underline inline-block">Lihat Dokumen Saat Ini</a>
+                                    <x-verification-badge :model="$identity" field="family_card_path" />
+                                </div>
                             @endif
                             @error('family_card') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                         </div>
@@ -74,7 +80,10 @@
                             <label class="block text-sm font-bold text-gray-700 mb-1">Upload Akta Kelahiran</label>
                             <input type="file" name="birth_certificate" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200">
                             @if($identity->birth_certificate_path)
-                                <a href="{{ asset('storage/' . $identity->birth_certificate_path) }}" target="_blank" class="text-xs text-blue-600 hover:underline mt-1 inline-block">Lihat Dokumen Saat Ini</a>
+                                <div class="mt-1">
+                                    <a href="{{ asset('storage/' . $identity->birth_certificate_path) }}" target="_blank" class="text-xs text-blue-600 hover:underline inline-block">Lihat Dokumen Saat Ini</a>
+                                    <x-verification-badge :model="$identity" field="birth_certificate_path" />
+                                </div>
                             @endif
                             @error('birth_certificate') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                         </div>
@@ -91,7 +100,10 @@
                             <label class="block text-sm font-bold text-gray-700 mb-1">Upload KIA</label>
                             <input type="file" name="child_identity" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200">
                             @if($identity->child_identity_path)
-                                <a href="{{ asset('storage/' . $identity->child_identity_path) }}" target="_blank" class="text-xs text-blue-600 hover:underline mt-1 inline-block">Lihat Dokumen Saat Ini</a>
+                                <div class="mt-1">
+                                    <a href="{{ asset('storage/' . $identity->child_identity_path) }}" target="_blank" class="text-xs text-blue-600 hover:underline inline-block">Lihat Dokumen Saat Ini</a>
+                                    <x-verification-badge :model="$identity" field="child_identity_path" />
+                                </div>
                             @endif
                             @error('child_identity') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                         </div>
@@ -108,7 +120,10 @@
                             <label class="block text-sm font-bold text-gray-700 mb-1">Upload BPJS</label>
                             <input type="file" name="bpjs" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200">
                             @if($identity->bpjs_path)
-                                <a href="{{ asset('storage/' . $identity->bpjs_path) }}" target="_blank" class="text-xs text-blue-600 hover:underline mt-1 inline-block">Lihat Dokumen Saat Ini</a>
+                                <div class="mt-1">
+                                    <a href="{{ asset('storage/' . $identity->bpjs_path) }}" target="_blank" class="text-xs text-blue-600 hover:underline inline-block">Lihat Dokumen Saat Ini</a>
+                                    <x-verification-badge :model="$identity" field="bpjs_path" />
+                                </div>
                             @endif
                             @error('bpjs') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                         </div>
@@ -125,7 +140,10 @@
                             <label class="block text-sm font-bold text-gray-700 mb-1">Upload Asuransi Pribadi</label>
                             <input type="file" name="private_insurance" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200">
                             @if($identity->private_insurance_path)
-                                <a href="{{ asset('storage/' . $identity->private_insurance_path) }}" target="_blank" class="text-xs text-blue-600 hover:underline mt-1 inline-block">Lihat Dokumen Saat Ini</a>
+                                <div class="mt-1">
+                                    <a href="{{ asset('storage/' . $identity->private_insurance_path) }}" target="_blank" class="text-xs text-blue-600 hover:underline inline-block">Lihat Dokumen Saat Ini</a>
+                                    <x-verification-badge :model="$identity" field="private_insurance_path" />
+                                </div>
                             @endif
                             @error('private_insurance') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                         </div>
@@ -142,7 +160,10 @@
                             <label class="block text-sm font-bold text-gray-700 mb-1">Upload Pakta Integritas U-16</label>
                             <input type="file" name="under_16_integrity_pact" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200">
                             @if($identity->under_16_integrity_pact_path)
-                                <a href="{{ asset('storage/' . $identity->under_16_integrity_pact_path) }}" target="_blank" class="text-xs text-blue-600 hover:underline mt-1 inline-block">Lihat Dokumen Saat Ini</a>
+                                <div class="mt-1">
+                                    <a href="{{ asset('storage/' . $identity->under_16_integrity_pact_path) }}" target="_blank" class="text-xs text-blue-600 hover:underline inline-block">Lihat Dokumen Saat Ini</a>
+                                    <x-verification-badge :model="$identity" field="under_16_integrity_pact_path" />
+                                </div>
                             @endif
                             @error('under_16_integrity_pact') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                         </div>

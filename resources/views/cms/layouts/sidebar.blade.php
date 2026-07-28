@@ -21,9 +21,9 @@
             <p class="px-3 text-xs font-extrabold uppercase tracking-widest text-gray-400">Verification</p>
         </div>
 
-        <a href="{{ route('admin.documents.index') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 {{ request()->routeIs('admin.documents.index') ? 'bg-primary text-white font-bold shadow-[0_4px_12px_rgba(220,38,38,0.2)] hover:-translate-y-0.5' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 font-medium' }}">
+        <a href="{{ route('superadmin.verifications.index') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 {{ request()->routeIs('superadmin.verifications.index') ? 'bg-primary text-white font-bold shadow-[0_4px_12px_rgba(220,38,38,0.2)] hover:-translate-y-0.5' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 font-medium' }}">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-            General Documents
+            Document Verifications
         </a>
 
         <a href="{{ route('admin.mutations.index') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 {{ request()->routeIs('admin.mutations.index') ? 'bg-primary text-white font-bold shadow-[0_4px_12px_rgba(220,38,38,0.2)] hover:-translate-y-0.5' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 font-medium' }}">

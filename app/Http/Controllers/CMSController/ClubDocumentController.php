@@ -81,6 +81,9 @@ class ClubDocumentController extends Controller
                     Storage::disk('public')->delete($document->{$field . '_path'});
                 }
                 $document->{$field . '_path'} = $request->file($field . '_file')->store('club_documents', 'public');
+                
+                // Temporarily set so trait can use the updated path
+                $document->recordDocumentUpload($field . '_path');
             }
         }
 

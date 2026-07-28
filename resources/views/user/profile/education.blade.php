@@ -35,7 +35,10 @@
                                 <label class="block text-sm font-bold text-gray-700 mb-1">Upload Ijazah {{ $level['label'] }}</label>
                                 <input type="file" name="{{ $fileField }}" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200">
                                 @if($education->$pathField)
-                                    <a href="{{ asset('storage/' . $education->$pathField) }}" target="_blank" class="text-xs text-blue-600 hover:underline mt-1 inline-block">Lihat Ijazah Saat Ini</a>
+                                    <div class="mt-1">
+                                        <a href="{{ asset('storage/' . $education->$pathField) }}" target="_blank" class="text-xs text-blue-600 hover:underline inline-block">Lihat Ijazah Saat Ini</a>
+                                        <x-verification-badge :model="$education" :field="$pathField" />
+                                    </div>
                                 @endif
                                 @error($fileField) <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                             </div>

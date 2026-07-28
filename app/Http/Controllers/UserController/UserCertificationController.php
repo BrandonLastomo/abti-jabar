@@ -33,7 +33,7 @@ class UserCertificationController extends Controller
         $folder = 'certifications/' . Auth::id();
         $filePath = $request->file('file')->store($folder, 'public');
 
-        UserCertification::create([
+        $cert = UserCertification::create([
             'user_id' => Auth::id(),
             'certification_name' => $request->certification_name,
             'certification_number' => $request->certification_number,
@@ -45,6 +45,8 @@ class UserCertificationController extends Controller
             'level' => $request->level,
             'file_path' => $filePath,
         ]);
+        
+        $cert->recordDocumentUpload('file_path');
 
         return back()->with('success', 'Sertifikasi berhasil ditambahkan.');
     }

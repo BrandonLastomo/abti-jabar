@@ -29,12 +29,14 @@ class UserIntegrityDocumentController extends Controller
 
         // Allow multiple or one of each type? The requirements did not specify it must be unique,
         // But usually it's one per type. Let's just create it.
-        IntegrityDocument::create([
+        $document = IntegrityDocument::create([
             'user_id' => Auth::id(),
             'type' => $request->type,
             'signed_date' => $request->signed_date,
             'file_path' => $filePath,
         ]);
+        
+        $document->recordDocumentUpload('file_path');
 
         return back()->with('success', 'Dokumen Integritas berhasil ditambahkan.');
     }

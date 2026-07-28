@@ -70,13 +70,14 @@
                                     {{ \Carbon\Carbon::parse($doc->signed_date)->format('d M Y') }}
                                 </td>
                                 <td class="px-4 py-3">
-                                    <div class="flex items-center gap-2">
+                                    <div class="flex items-center gap-2 mb-1">
                                         <a href="{{ asset('storage/' . $doc->file_path) }}" target="_blank" class="text-blue-600 hover:text-blue-800 text-xs font-medium">Lihat</a>
                                         <form action="{{ route('user.integrity-documents.destroy', $doc) }}" method="POST" onsubmit="return confirm('Hapus dokumen ini?')">
                                             @csrf @method('DELETE')
                                             <button type="submit" class="text-red-600 hover:text-red-800 text-xs font-medium">Hapus</button>
                                         </form>
                                     </div>
+                                    <x-verification-badge :model="$doc" field="file_path" />
                                 </td>
                             </tr>
                             @endforeach

@@ -62,10 +62,18 @@ class UserIdentityDocumentController extends Controller
         foreach ($fileFields as $input => $dbColumn) {
             if ($request->hasFile($input)) {
                 // Delete old file if exists
-                if ($identity->$dbColumn) {
+                if ($identity->$dbColumn && Storage::disk('public')->exists($identity->$dbColumn)) {
                     Storage::disk('public')->delete($identity->$dbColumn);
                 }
+                
+                // Store new file
                 $data[$dbColumn] = $request->file($input)->store($folder, 'public');
+                
+                // Temporarily assign so the trait can pick up the model's state if needed
+                $identity->$dbColumn = $data[$dbColumn];
+                
+                // Record verification status
+                $identity->recordDocumentUpload($dbColumn);
             }
         }
 

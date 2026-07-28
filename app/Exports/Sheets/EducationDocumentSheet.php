@@ -24,12 +24,12 @@ class EducationDocumentSheet implements FromCollection, WithTitle, WithHeadings
         
         return new Collection([
             [
-                $edu->elementary_school_name ?? '-',
-                $edu->junior_high_school_name ?? '-',
-                $edu->senior_high_school_name ?? '-',
-                $edu->bachelor_university_name ?? '-',
-                $edu->masters_university_name ?? '-',
-                $edu->doctoral_university_name ?? '-',
+                optional($edu)->elementary_school_name ?? '-',
+                optional($edu)->junior_high_school_name ?? '-',
+                optional($edu)->senior_high_school_name ?? '-',
+                optional($edu)->bachelor_university_name ?? '-',
+                optional($edu)->masters_university_name ?? '-',
+                optional($edu)->doctoral_university_name ?? '-',
             ]
         ]);
     }

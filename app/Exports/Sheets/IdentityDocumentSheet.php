@@ -24,13 +24,13 @@ class IdentityDocumentSheet implements FromCollection, WithTitle, WithHeadings
         
         return new Collection([
             [
-                $doc->national_id_number ?? '-',
-                $doc->family_card_number ?? '-',
-                $doc->birth_certificate_number ?? '-',
-                $doc->child_identity_card_number ?? '-',
-                $doc->bpjs_number ?? '-',
-                $doc->private_insurance_number ?? '-',
-                $doc->under_16_integrity_pact_name ?? '-',
+                optional($doc)->national_id_number ?? '-',
+                optional($doc)->family_card_number ?? '-',
+                optional($doc)->birth_certificate_number ?? '-',
+                optional($doc)->child_identity_card_number ?? '-',
+                optional($doc)->bpjs_number ?? '-',
+                optional($doc)->private_insurance_number ?? '-',
+                optional($doc)->under_16_integrity_pact_name ?? '-',
             ]
         ]);
     }

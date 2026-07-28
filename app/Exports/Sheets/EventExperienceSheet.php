@@ -24,18 +24,19 @@ class EventExperienceSheet implements FromCollection, WithTitle, WithHeadings
         
         return $experiences->map(function ($exp) {
             return [
-                $exp->event_name,
-                $exp->event_city,
-                $exp->team_name,
-                $exp->event_role,
-                $exp->court_type,
-                $exp->event_format,
-                $exp->competition_level,
-                $exp->participant_scope,
-                $exp->age_category,
-                $exp->result,
-                $exp->event_start_date,
-                $exp->event_end_date,
+                $exp->event_name ?? '-',
+                $exp->event_regency ?? '-',
+                $exp->event_province ?? '-',
+                $exp->team_name ?? '-',
+                $exp->event_role ?? '-',
+                $exp->court_type ?? '-',
+                $exp->event_format ?? '-',
+                $exp->competition_level ?? '-',
+                $exp->participant_scope ?? '-',
+                $exp->age_category ?? '-',
+                $exp->result ?? '-',
+                $exp->event_start_date ?? '-',
+                $exp->event_end_date ?? '-',
             ];
         });
     }
@@ -44,7 +45,8 @@ class EventExperienceSheet implements FromCollection, WithTitle, WithHeadings
     {
         return [
             'Nama Event',
-            'Kota Event',
+            'Kab/Kota Event',
+            'Provinsi Event',
             'Nama Tim',
             'Peran di Event',
             'Jenis Lapangan',

@@ -26,12 +26,13 @@ class GeneralProfileSheet implements FromCollection, WithTitle, WithHeadings
             [
                 $this->user->name,
                 $this->user->email,
-                $profile->gender ?? '-',
-                $profile->birth_place ?? '-',
-                $profile->birth_date ?? '-',
-                $profile->phone ?? '-',
-                $profile->address_by_id ?? '-',
-                $profile->current_address ?? '-',
+                optional($profile)->gender ?? '-',
+                optional($profile)->birth_regency ?? '-',
+                optional($profile)->birth_province ?? '-',
+                optional($profile)->birth_date ?? '-',
+                optional($profile)->phone ?? '-',
+                optional($profile)->address_by_id ?? '-',
+                optional($profile)->current_address ?? '-',
             ]
         ]);
     }
@@ -42,7 +43,8 @@ class GeneralProfileSheet implements FromCollection, WithTitle, WithHeadings
             'Nama Lengkap',
             'Email',
             'Jenis Kelamin',
-            'Tempat Lahir',
+            'Tempat Lahir (Kab/Kota)',
+            'Tempat Lahir (Provinsi)',
             'Tanggal Lahir',
             'No. Telepon',
             'Alamat Sesuai KTP',

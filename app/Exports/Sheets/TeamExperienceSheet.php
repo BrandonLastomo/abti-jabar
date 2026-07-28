@@ -24,10 +24,10 @@ class TeamExperienceSheet implements FromCollection, WithTitle, WithHeadings
         
         return $experiences->map(function ($exp) {
             return [
-                $exp->team_name,
-                $exp->team_type,
-                $exp->start_date,
-                $exp->end_date,
+                $exp->team_name ?? '-',
+                $exp->team_type ?? '-',
+                $exp->start_date ?? '-',
+                $exp->end_date ?? '-',
             ];
         });
     }

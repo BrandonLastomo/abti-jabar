@@ -24,14 +24,14 @@ class CertificationsSheet implements FromCollection, WithTitle, WithHeadings
         
         return $certs->map(function ($cert) {
             return [
-                $cert->certification_name,
-                $cert->certification_type,
-                $cert->certification_grade,
-                $cert->court_type,
-                $cert->competition_level,
-                $cert->event_role,
-                $cert->location,
-                $cert->issued_date,
+                $cert->certification_name ?? '-',
+                $cert->certification_number ?? '-',
+                $cert->organizer ?? '-',
+                $cert->date_of_issue ?? '-',
+                $cert->type ?? '-',
+                $cert->level ?? '-',
+                $cert->regency ?? '-',
+                $cert->province ?? '-',
             ];
         });
     }
@@ -40,13 +40,13 @@ class CertificationsSheet implements FromCollection, WithTitle, WithHeadings
     {
         return [
             'Nama Sertifikasi',
+            'Nomor Sertifikasi',
+            'Penyelenggara',
+            'Tanggal Terbit',
             'Jenis Sertifikasi',
             'Tingkat / Grade',
-            'Jenis Lapangan',
-            'Tingkat Kompetisi',
-            'Peran (Role)',
-            'Lokasi Penerbitan',
-            'Tanggal Terbit'
+            'Kabupaten / Kota',
+            'Provinsi'
         ];
     }
 

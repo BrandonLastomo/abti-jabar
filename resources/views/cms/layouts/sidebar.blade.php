@@ -158,9 +158,14 @@
         </a>
         @endrole
 
-        <!-- Logout button -->
+        <!-- Export Button -->
         <div class="pt-4 mt-4 border-t border-gray-200/50">
-            <form method="POST" action="{{ route('logout') }}">
+            <button x-data type="button" @click="$dispatch('open-export-modal')" class="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-green-600 font-bold hover:bg-green-50 transition-colors mb-2 border border-green-200">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+            Export My Datas
+        </button>
+
+        <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button type="submit" class="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl transition-colors text-red-500 hover:bg-red-50 font-bold text-sm">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>

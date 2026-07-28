@@ -55,6 +55,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/account', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/account', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/account', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    
+    // Export Data (Shared across all roles)
+    Route::post('/export-my-data', [\App\Http\Controllers\DataExportController::class, 'export'])->name('export.mydata');
 });
 
 

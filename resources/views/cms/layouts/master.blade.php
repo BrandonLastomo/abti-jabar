@@ -68,5 +68,9 @@
 
     </div>
 
+    @auth
+        @include('components.export-modal')
+    @endauth
+    
 </body>
 </html>

@@ -13,9 +13,14 @@
     @endphp
     <main class="{{ $isFullWidth ? '' : 'page' }}">
         @yield('content')
+        {{ $slot ?? '' }}
     </main>
 
     @include('layouts/footer')
+
+    @auth
+        @include('components.export-modal')
+    @endauth
 
     @stack('scripts')
 </body>

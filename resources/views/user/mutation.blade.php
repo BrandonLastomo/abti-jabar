@@ -4,7 +4,24 @@
             <h3 class="text-lg font-bold text-gray-900 mb-1">Transfer/Mutation Proposal</h3>
             <p class="text-sm text-gray-500 mb-4">Pengajuan mutasi atau transfer atlet yang hanya dapat dilakukan 4 tahun sekali.</p>
 
-            @if($mutation_open !== '1')
+            @if(!($isAthlete ?? true))
+                <div class="bg-amber-50/80 backdrop-blur-sm border border-amber-200 text-amber-900 p-6 rounded-2xl mb-4">
+                    <div class="flex items-start gap-4">
+                        <div class="p-2.5 rounded-xl bg-amber-100 text-amber-700 flex-shrink-0">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-base text-gray-900">Pengajuan Mutasi Khusus Atlet</h4>
+                            <p class="text-sm text-gray-600 mt-1 leading-relaxed">
+                                Pengajuan transfer dan mutasi antar-klub/kabupaten diperuntukkan khusus bagi anggota dengan peran <strong>Atlet</strong>.
+                            </p>
+                            <p class="text-xs text-gray-500 mt-3">
+                                Klasifikasi akun Anda saat ini terdaftar sebagai <strong>{{ ucfirst($memberType ?? 'Non-Atlet') }}</strong>. Jika Anda adalah atlet aktif yang ingin mengajukan mutasi, silakan ubah klasifikasi peran Anda di halaman <a href="{{ route('user.profile.general') }}" class="text-red-600 underline font-semibold hover:text-red-700">Profil Umum</a>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            @elseif($mutation_open !== '1')
                 <div class="bg-gray-50 border border-gray-200 text-gray-600 px-4 py-4 rounded-lg text-sm text-center">
                     Pendaftaran Transfer/Mutation Proposal saat ini <strong>ditutup</strong> oleh Administrator.
                 </div>

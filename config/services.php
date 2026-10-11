@@ -35,4 +35,10 @@ return [
         ],
     ],
 
+    'google_sheet_sdm' => [
+        'id' => env('GOOGLE_SHEET_SDM_ID', '1wxzvEAs1LhDr-lMGu34M8l3r-xBZzTLxVq4vyqPeDBA'),
+        'gid_ringkasan' => env('GOOGLE_SHEET_SDM_GID_RINGKASAN', '0'),
+        'gid_detail' => env('GOOGLE_SHEET_SDM_GID_DETAIL', '1402167587'),
+    ],
+
 ];

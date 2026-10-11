@@ -84,9 +84,9 @@
                         @error('competition_level') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                     </div>
                     <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-1">Lingkup Peserta <span class="text-red-500">*</span></label>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Nomor <span class="text-red-500">*</span></label>
                         <select name="participant_scope" required class="w-full rounded-xl border-gray-200 bg-gray-50/50 shadow-sm focus:border-red-500 focus:ring-red-500 focus:bg-white transition-colors text-sm">
-                            <option value="">Pilih Lingkup</option>
+                            <option value="">Pilih Nomor</option>
                             @foreach(config('dropdown.participant_scopes') as $opt)
                                 <option value="{{ $opt }}" {{ old('participant_scope') == $opt ? 'selected' : '' }}>{{ $opt }}</option>
                             @endforeach

@@ -25,43 +25,16 @@
     <!-- ===================== OVERVIEW CARDS ===================== -->
     <section class="relative z-20 max-w-7xl mx-auto px-6 lg:px-8 pb-12 -mt-6">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            
+            @foreach($overviewCards as $card)
             <article class="bg-white/70 backdrop-blur-xl border border-white rounded-[2rem] p-6 md:p-8 shadow-xl shadow-gray-200/50 hover:-translate-y-2 transition-transform duration-500 flex flex-col justify-between group" data-rds-card>
                 <div class="flex justify-between items-start mb-6">
-                    <div class="text-sm font-bold text-gray-500 uppercase tracking-wider group-hover:text-primary transition-colors">Atlet</div>
-                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-bold rounded-full">Core</span>
+                    <div class="text-sm font-bold text-gray-500 uppercase tracking-wider group-hover:text-primary transition-colors">{{ $card['title'] }}</div>
+                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-bold rounded-full">{{ $card['type'] }}</span>
                 </div>
-                <div class="text-5xl font-heading font-extrabold text-gray-900 mb-2" data-rds-count="128">0</div>
-                <div class="text-sm text-gray-500 font-medium">Atlet terdaftar aktif</div>
+                <div class="text-5xl font-heading font-extrabold text-gray-900 mb-2" data-rds-count="{{ $card['count'] }}">{{ $card['count'] }}</div>
+                <div class="text-sm text-gray-500 font-medium">{{ $card['description'] }}</div>
             </article>
-
-            <article class="bg-white/70 backdrop-blur-xl border border-white rounded-[2rem] p-6 md:p-8 shadow-xl shadow-gray-200/50 hover:-translate-y-2 transition-transform duration-500 flex flex-col justify-between group" data-rds-card>
-                <div class="flex justify-between items-start mb-6">
-                    <div class="text-sm font-bold text-gray-500 uppercase tracking-wider group-hover:text-primary transition-colors">Coaching & Tech</div>
-                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-bold rounded-full">Teknis</span>
-                </div>
-                <div class="text-5xl font-heading font-extrabold text-gray-900 mb-2" data-rds-count="34">0</div>
-                <div class="text-sm text-gray-500 font-medium">Pelatih + Pelatih GK + TD</div>
-            </article>
-
-            <article class="bg-white/70 backdrop-blur-xl border border-white rounded-[2rem] p-6 md:p-8 shadow-xl shadow-gray-200/50 hover:-translate-y-2 transition-transform duration-500 flex flex-col justify-between group" data-rds-card>
-                <div class="flex justify-between items-start mb-6">
-                    <div class="text-sm font-bold text-gray-500 uppercase tracking-wider group-hover:text-primary transition-colors">Match Officials</div>
-                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-bold rounded-full">Regulasi</span>
-                </div>
-                <div class="text-5xl font-heading font-extrabold text-gray-900 mb-2" data-rds-count="22">0</div>
-                <div class="text-sm text-gray-500 font-medium">Wasit + Delegates</div>
-            </article>
-
-            <article class="bg-white/70 backdrop-blur-xl border border-white rounded-[2rem] p-6 md:p-8 shadow-xl shadow-gray-200/50 hover:-translate-y-2 transition-transform duration-500 flex flex-col justify-between group" data-rds-card>
-                <div class="flex justify-between items-start mb-6">
-                    <div class="text-sm font-bold text-gray-500 uppercase tracking-wider group-hover:text-primary transition-colors">Management & Support</div>
-                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-bold rounded-full">Ops</span>
-                </div>
-                <div class="text-5xl font-heading font-extrabold text-gray-900 mb-2" data-rds-count="60">0</div>
-                <div class="text-sm text-gray-500 font-medium">Manajemen + Volunteer</div>
-            </article>
-
+            @endforeach
         </div>
     </section>
 
@@ -72,52 +45,37 @@
             <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
                 <div>
                     <h3 class="text-2xl md:text-3xl font-heading font-extrabold text-gray-900 mb-2">Detail Resources</h3>
-                    <p class="text-gray-500">8 tabel detail. UI ini tinggal diisi data spreadsheet nanti.</p>
+                    <p class="text-gray-500">{{ count($titles) }} kategori data terintegrasi spreadsheet live.</p>
                 </div>
-                <div class="flex items-center gap-2 px-4 py-2 bg-green-50 text-green-700 rounded-full text-sm font-bold border border-green-100">
-                    <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                    Realtime-update
+                <div class="flex items-center gap-3">
+                    <a href="{{ route('database', ['refresh' => 1]) }}" title="Sinkronkan ulang dari Google Spreadsheet" class="inline-flex items-center gap-1.5 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-full text-xs font-bold transition-all shadow-sm hover:shadow">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                        Sync Sheet
+                    </a>
+                    <div class="flex items-center gap-2 px-4 py-2 bg-green-50 text-green-700 rounded-full text-sm font-bold border border-green-100 shadow-sm">
+                        <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                        Realtime-update
+                    </div>
                 </div>
             </div>
 
             <!-- Tabs -->
             <div class="rdsTabs flex flex-nowrap overflow-x-auto pb-4 -mx-6 px-6 md:mx-0 md:px-0 gap-3 scroll-smooth custom-scrollbar" role="tablist" aria-label="Resources tabs">
-                <button class="rdsTab flex-shrink-0 px-6 py-3 rounded-full font-bold text-sm transition-all duration-300 shadow-sm border border-transparent bg-gray-50 text-gray-500 hover:bg-gray-100 [&.is-active]:bg-primary [&.is-active]:text-white [&.is-active]:shadow-md is-active" data-rds-tab="atlet" role="tab" aria-selected="true">Atlet</button>
-                <button class="rdsTab flex-shrink-0 px-6 py-3 rounded-full font-bold text-sm transition-all duration-300 shadow-sm border border-transparent bg-gray-50 text-gray-500 hover:bg-gray-100 [&.is-active]:bg-primary [&.is-active]:text-white [&.is-active]:shadow-md" data-rds-tab="pelatih" role="tab" aria-selected="false">Pelatih</button>
-                <button class="rdsTab flex-shrink-0 px-6 py-3 rounded-full font-bold text-sm transition-all duration-300 shadow-sm border border-transparent bg-gray-50 text-gray-500 hover:bg-gray-100 [&.is-active]:bg-primary [&.is-active]:text-white [&.is-active]:shadow-md" data-rds-tab="pelatihgk" role="tab" aria-selected="false">Pelatih GK</button>
-                <button class="rdsTab flex-shrink-0 px-6 py-3 rounded-full font-bold text-sm transition-all duration-300 shadow-sm border border-transparent bg-gray-50 text-gray-500 hover:bg-gray-100 [&.is-active]:bg-primary [&.is-active]:text-white [&.is-active]:shadow-md" data-rds-tab="td" role="tab" aria-selected="false">Tech. Director</button>
-                <button class="rdsTab flex-shrink-0 px-6 py-3 rounded-full font-bold text-sm transition-all duration-300 shadow-sm border border-transparent bg-gray-50 text-gray-500 hover:bg-gray-100 [&.is-active]:bg-primary [&.is-active]:text-white [&.is-active]:shadow-md" data-rds-tab="manajemen" role="tab" aria-selected="false">Tim Manajemen</button>
-                <button class="rdsTab flex-shrink-0 px-6 py-3 rounded-full font-bold text-sm transition-all duration-300 shadow-sm border border-transparent bg-gray-50 text-gray-500 hover:bg-gray-100 [&.is-active]:bg-primary [&.is-active]:text-white [&.is-active]:shadow-md" data-rds-tab="wasit" role="tab" aria-selected="false">Wasit</button>
-                <button class="rdsTab flex-shrink-0 px-6 py-3 rounded-full font-bold text-sm transition-all duration-300 shadow-sm border border-transparent bg-gray-50 text-gray-500 hover:bg-gray-100 [&.is-active]:bg-primary [&.is-active]:text-white [&.is-active]:shadow-md" data-rds-tab="delegates" role="tab" aria-selected="false">Tech. Delegates</button>
-                <button class="rdsTab flex-shrink-0 px-6 py-3 rounded-full font-bold text-sm transition-all duration-300 shadow-sm border border-transparent bg-gray-50 text-gray-500 hover:bg-gray-100 [&.is-active]:bg-primary [&.is-active]:text-white [&.is-active]:shadow-md" data-rds-tab="volunteer" role="tab" aria-selected="false">Volunteer</button>
+                @foreach($titles as $key => $title)
+                <button class="rdsTab flex-shrink-0 px-6 py-3 rounded-full font-bold text-sm transition-all duration-300 shadow-sm border border-transparent bg-gray-50 text-gray-500 hover:bg-gray-100 [&.is-active]:bg-primary [&.is-active]:text-white [&.is-active]:shadow-md {{ $loop->first ? 'is-active' : '' }}" data-rds-tab="{{ $key }}" role="tab" aria-selected="{{ $loop->first ? 'true' : 'false' }}">
+                    {{ $title }}
+                </button>
+                @endforeach
             </div>
 
             <!-- Tab Content (Tables) -->
             <div class="rdsStage mt-4">
-                @php
-                $panes = [
-                    'atlet' => [['Bandung', 42, 'ok', 'Aktif'], ['Bekasi', 31, 'ok', 'Aktif'], ['Bogor', 9, 'warn', 'Perlu Verifikasi']],
-                    'pelatih' => [['Bandung', 12, 'ok', 'Aktif'], ['Depok', 7, 'warn', 'Perlu Update']],
-                    'pelatihgk' => [['Bandung', 3, 'ok', 'Aktif']],
-                    'td' => [['Jawa Barat', 1, 'ok', 'Aktif']],
-                    'manajemen' => [['Bandung', 10, 'ok', 'Aktif']],
-                    'wasit' => [['Bandung', 6, 'ok', 'Aktif']],
-                    'delegates' => [['West', 4, 'ok', 'Aktif']],
-                    'volunteer' => [['Event 01', 18, 'ok', 'Aktif']],
-                ];
-                $titles = [
-                    'atlet' => 'Atlet', 'pelatih' => 'Pelatih', 'pelatihgk' => 'Pelatih GK', 
-                    'td' => 'Technical Director', 'manajemen' => 'Tim Manajemen', 
-                    'wasit' => 'Wasit', 'delegates' => 'Technical Delegates', 'volunteer' => 'Volunteer'
-                ];
-                @endphp
-
                 @foreach($panes as $key => $data)
                 <section class="rdsPane {{ $loop->first ? 'is-active' : '' }}" data-rds-pane="{{ $key }}">
                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
                         <div>
-                            <div class="text-xl font-bold text-gray-900 mb-1">{{ $titles[$key] }}</div>
-                            <div class="text-sm text-gray-500">Tabel terintegrasi spreadsheet</div>
+                            <div class="rdsPane__title text-xl font-bold text-gray-900 mb-1">{{ $titles[$key] ?? ucfirst($key) }}</div>
+                            <div class="rdsPane__meta text-sm text-gray-500">Tabel terintegrasi spreadsheet</div>
                         </div>
                         <!-- Provide standard unstyled classes since JS strips contents and styles the popup modal from the table directly -->
                         <button class="rdsOpenMobile md:hidden w-full md:w-auto px-6 py-3 bg-gray-100 text-gray-700 font-bold rounded-xl hover:bg-gray-200 transition-colors" type="button" data-rds-open-table>
@@ -135,7 +93,7 @@
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-50">
-                                @foreach($data as $row)
+                                @forelse($data as $row)
                                 <tr class="hover:bg-gray-50/50 transition-colors">
                                     <td class="py-4 px-6 font-bold text-gray-900">{{ $row[0] }}</td>
                                     <td class="py-4 px-6 font-medium text-gray-600">{{ $row[1] }}</td>
@@ -145,7 +103,11 @@
                                         </span>
                                     </td>
                                 </tr>
-                                @endforeach
+                                @empty
+                                <tr>
+                                    <td colspan="3" class="py-8 text-center text-gray-400 font-medium">Tidak ada data untuk kategori ini.</td>
+                                </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>

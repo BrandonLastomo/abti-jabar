@@ -58,6 +58,16 @@
                             <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
+                    <div>
+                        <label for="member_type" class="block text-sm font-bold text-gray-700 mb-1">Klasifikasi Peran / Anggota <span class="text-red-500">*</span></label>
+                        <select name="member_type" id="member_type" required class="w-full rounded-xl border-gray-200 bg-gray-50/50 shadow-sm focus:border-red-500 focus:ring-red-500 focus:bg-white transition-colors text-sm">
+                            <option value="atlet" {{ old('member_type', $profile->member_type ?? 'atlet') == 'atlet' ? 'selected' : '' }}>Atlet</option>
+                            <option value="sdm" {{ in_array(old('member_type', $profile->member_type), ['sdm', 'pelatih', 'wasit', 'official']) ? 'selected' : '' }}>SDM</option>
+                        </select>
+                        @error('member_type')
+                            <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
                     <div class="md:col-span-2">
                         <label for="address_by_id" class="block text-sm font-bold text-gray-700 mb-1">Alamat Sesuai KTP</label>
                         <textarea name="address_by_id" id="address_by_id" rows="3"
@@ -75,7 +85,7 @@
                         @enderror
                     </div>
                     <div>
-                        <label for="branch_board_regency" class="block text-sm font-bold text-gray-700 mb-1">Pengurus Cabang (Pengcab) / Kab / Kota</label>
+                        <label for="branch_board_regency" class="block text-sm font-bold text-gray-700 mb-1">Asal Pengurus Cabang (Pengcab) / Kab / Kota</label>
                         <select name="branch_board_regency" id="branch_board_regency" class="w-full rounded-xl border-gray-200 bg-gray-50/50 shadow-sm focus:border-red-500 focus:ring-red-500 focus:bg-white transition-colors text-sm">
                             <option value="">Pilih Kab / Kota</option>
                             @foreach(config('dropdown.other_regencies') as $reg)
@@ -87,7 +97,7 @@
                         @enderror
                     </div>
                     <div>
-                        <label for="branch_board_province" class="block text-sm font-bold text-gray-700 mb-1">Pengurus Provinsi (Pengprov)</label>
+                        <label for="branch_board_province" class="block text-sm font-bold text-gray-700 mb-1">Asal Pengurus Provinsi (Pengprov)</label>
                         <select name="branch_board_province" id="branch_board_province" class="w-full rounded-xl border-gray-200 bg-gray-50/50 shadow-sm focus:border-red-500 focus:ring-red-500 focus:bg-white transition-colors text-sm">
                             <option value="">Pilih Provinsi</option>
                             @foreach(config('dropdown.provinces') as $prov)

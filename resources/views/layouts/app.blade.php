@@ -12,8 +12,11 @@
         $isFullWidth = in_array(request()->route()?->getName(), $fullWidthPages);
     @endphp
     <main class="{{ $isFullWidth ? '' : 'page' }}">
-        @yield('content')
-        {{ $slot ?? '' }}
+        @hasSection('content')
+            @yield('content')
+        @else
+            {{ $slot ?? '' }}
+        @endif
     </main>
 
     @include('layouts/footer')

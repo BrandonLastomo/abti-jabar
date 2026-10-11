@@ -20,6 +20,7 @@ class UserGeneralProfileController extends Controller
     public function update(Request $request)
     {
         $request->validate([
+            'member_type' => 'required|in:atlet,sdm,pelatih,wasit,official',
             'gender' => 'nullable|in:laki-laki,perempuan',
             'birth_regency' => 'nullable|string|max:255',
             'birth_province' => 'nullable|string|max:255',
@@ -35,7 +36,7 @@ class UserGeneralProfileController extends Controller
         $profile = GeneralProfile::firstOrCreate(['user_id' => $user->id]);
 
         $profile->update($request->only([
-            'gender', 'birth_regency', 'birth_province', 'birth_date', 'address_by_id', 'current_address', 'phone', 'branch_board_regency', 'branch_board_province'
+            'member_type', 'gender', 'birth_regency', 'birth_province', 'birth_date', 'address_by_id', 'current_address', 'phone', 'branch_board_regency', 'branch_board_province'
         ]));
 
         return back()->with('success', 'Profil Umum berhasil diperbarui.');

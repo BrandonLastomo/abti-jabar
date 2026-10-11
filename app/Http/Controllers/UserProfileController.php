@@ -26,6 +26,10 @@ class UserProfileController extends Controller
     public function mutationForm()
     {
         $user = Auth::user();
+        $rawMemberType = $user->generalProfile?->member_type ?? 'atlet';
+        $isAthlete = ($rawMemberType === 'atlet');
+        $memberType = $isAthlete ? 'Atlet' : 'SDM';
+
         $mutation_open = \App\Models\MutationSetting::where('key', 'mutation_open')->value('value') ?? '0';
         $mutation_proposal = \App\Models\MutationProposal::where('user_id', $user->id)->latest()->first();
 
@@ -34,11 +38,18 @@ class UserProfileController extends Controller
             $can_propose_mutation = false;
         }
 
-        return view('user.mutation', compact('mutation_open', 'mutation_proposal', 'can_propose_mutation'));
+        return view('user.mutation', compact('mutation_open', 'mutation_proposal', 'can_propose_mutation', 'isAthlete', 'memberType'));
     }
 
     public function submitMutation(Request $request)
     {
+        $user = Auth::user();
+        $memberType = $user->generalProfile?->member_type ?? 'atlet';
+
+        if ($memberType !== 'atlet') {
+            return back()->with('error', 'Pengajuan mutasi hanya diperuntukkan bagi anggota dengan peran Atlet.');
+        }
+
         $request->validate([
             'parental_consent' => 'required|file|mimes:pdf,jpg,jpeg,png|max:5120',
             'withdrawal_letter' => 'required|file|mimes:pdf,jpg,jpeg,png|max:5120',
@@ -49,8 +60,6 @@ class UserProfileController extends Controller
         if (\App\Models\MutationSetting::where('key', 'mutation_open')->value('value') !== '1') {
             return back()->with('error', 'Pendaftaran mutasi sedang ditutup.');
         }
-
-        $user = Auth::user();
 
         // Check 4 year rule
         $last_proposal = \App\Models\MutationProposal::where('user_id', $user->id)->latest()->first();

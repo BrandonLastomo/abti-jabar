@@ -26,6 +26,7 @@ class GeneralProfileSheet implements FromCollection, WithTitle, WithHeadings
             [
                 $this->user->name,
                 $this->user->email,
+                (optional($profile)->member_type === 'atlet' ? 'Atlet' : 'SDM'),
                 optional($profile)->gender ?? '-',
                 optional($profile)->birth_regency ?? '-',
                 optional($profile)->birth_province ?? '-',
@@ -42,6 +43,7 @@ class GeneralProfileSheet implements FromCollection, WithTitle, WithHeadings
         return [
             'Nama Lengkap',
             'Email',
+            'Klasifikasi Peran',
             'Jenis Kelamin',
             'Tempat Lahir (Kab/Kota)',
             'Tempat Lahir (Provinsi)',

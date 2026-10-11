@@ -23,6 +23,7 @@ use App\Http\Controllers\CMSController\UserManagementController;
 use App\Http\Controllers\CMSController\MutationSettingController;
 use App\Http\Controllers\CMSController\ClubCMSController;
 
+use App\Http\Controllers\DatabasePublicController;
 use App\Http\Controllers\EventPublicController;
 use App\Http\Controllers\GalleryPublicController;
 use App\Http\Controllers\HomeController;
@@ -39,9 +40,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/about-us', [AboutPublicController::class, 'index'])->name('about-us');
 Route::get('/west-java-corner', [WestJavaCornerController::class, 'index'])->name('west-java-corner');
 Route::get('/event', [EventPublicController::class, 'index'])->name('event');
-Route::get('/database', function () {
-    return view('database');
-})->name('database');
+Route::get('/database', [DatabasePublicController::class, 'index'])->name('database');
 Route::get('/profile-team', [ProfilePublicController::class, 'index'])->name('profile');
 Route::get('/profile-team/{club}', [ProfilePublicController::class, 'show'])->name('profile.club');
 Route::get('/gallery', [GalleryPublicController::class, 'index'])->name('gallery');
@@ -149,8 +148,8 @@ Route::middleware(['auth', 'role:superadmin'])->prefix('cms')->group(function ()
     Route::resource('/west-java-videos', WestJavaVideoController::class);
     Route::resource('/sponsor', SponsorController::class);
     Route::prefix('superadmin')->middleware('role:superadmin')->group(function () {
-        Route::get('/dashboard', [SuperadminDashboardController::class, 'index'])->name('superadmin.dashboard');
-        Route::get('/clubs', [SuperadminClubController::class, 'index'])->name('superadmin.clubs.index');
+        Route::get('/dashboard', [\App\Http\Controllers\CMSController\SuperadminDashboardController::class, 'index'])->name('superadmin.dashboard');
+        Route::get('/clubs', [\App\Http\Controllers\CMSController\ClubCMSController::class, 'index'])->name('superadmin.clubs.index');
         
         // --- Document Verifications ---
         Route::get('/verifications', [\App\Http\Controllers\CMSController\VerificationController::class, 'index'])->name('superadmin.verifications.index');

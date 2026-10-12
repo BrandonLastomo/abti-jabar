@@ -18,12 +18,17 @@ class UserEventExperienceController extends Controller
 
     public function store(Request $request)
     {
+        $isAthlete = (Auth::user()->generalProfile?->member_type ?? 'atlet') === 'atlet';
+        $allowedRoles = $isAthlete
+            ? ['Athlete']
+            : array_values(array_filter(config('dropdown.event_roles'), fn($r) => $r !== 'Athlete'));
+
         $request->validate([
             'event_name' => 'required|string|max:255',
             'team_name' => 'required|string|max:255',
             'event_regency' => 'required|string|max:255',
             'event_province' => 'required|string|max:255',
-            'event_role' => ['required', Rule::in(config('dropdown.event_roles'))],
+            'event_role' => ['required', Rule::in($allowedRoles)],
             'court_type' => ['required', Rule::in(config('dropdown.court_types'))],
             'event_format' => ['required', Rule::in(config('dropdown.event_formats'))],
             'competition_level' => ['required', Rule::in(config('dropdown.competition_levels'))],

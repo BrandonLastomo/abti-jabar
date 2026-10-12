@@ -26,10 +26,13 @@ class CertificationsSheet implements FromCollection, WithTitle, WithHeadings
             return [
                 $cert->certification_name ?? '-',
                 $cert->certification_number ?? '-',
+                $cert->category ?? 'Handball',
+                $cert->role ?? $cert->type ?? '-',
+                $cert->course ?? '-',
+                $cert->level ?? '-',
+                $cert->number ?? '-',
                 $cert->organizer ?? '-',
                 $cert->date_of_issue ?? '-',
-                $cert->type ?? '-',
-                $cert->level ?? '-',
                 $cert->regency ?? '-',
                 $cert->province ?? '-',
             ];
@@ -40,11 +43,14 @@ class CertificationsSheet implements FromCollection, WithTitle, WithHeadings
     {
         return [
             'Nama Sertifikasi',
-            'Nomor Sertifikasi',
+            'Nomor Sertifikat / Lisensi',
+            'Kategori',
+            'Role',
+            'Course / Detail',
+            'Level',
+            'Nomor (Disiplin)',
             'Penyelenggara',
             'Tanggal Terbit',
-            'Jenis Sertifikasi',
-            'Tingkat / Grade',
             'Kabupaten / Kota',
             'Provinsi'
         ];

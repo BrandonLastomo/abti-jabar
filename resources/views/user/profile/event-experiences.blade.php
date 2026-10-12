@@ -42,12 +42,20 @@
                         </select>
                         @error('event_province') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                     </div>
+                    @php
+                        $isAthlete = (auth()->user()->generalProfile?->member_type ?? 'atlet') === 'atlet';
+                        $eventRoles = $isAthlete 
+                            ? ['Athlete'] 
+                            : array_values(array_filter(config('dropdown.event_roles'), fn($r) => $r !== 'Athlete'));
+                    @endphp
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-1">Peran di Event <span class="text-red-500">*</span></label>
                         <select name="event_role" required class="w-full rounded-xl border-gray-200 bg-gray-50/50 shadow-sm focus:border-red-500 focus:ring-red-500 focus:bg-white transition-colors text-sm">
-                            <option value="">Pilih Peran</option>
-                            @foreach(config('dropdown.event_roles') as $opt)
-                                <option value="{{ $opt }}" {{ old('event_role') == $opt ? 'selected' : '' }}>{{ $opt }}</option>
+                            @if(!$isAthlete)
+                                <option value="">Pilih Peran</option>
+                            @endif
+                            @foreach($eventRoles as $opt)
+                                <option value="{{ $opt }}" {{ old('event_role', $isAthlete ? 'Athlete' : '') == $opt ? 'selected' : '' }}>{{ $opt }}</option>
                             @endforeach
                         </select>
                         @error('event_role') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror

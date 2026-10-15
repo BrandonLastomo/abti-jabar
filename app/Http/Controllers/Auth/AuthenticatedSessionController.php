@@ -30,17 +30,18 @@ class AuthenticatedSessionController extends Controller
 
         $user = $request->user();
 
-        // Role-based redirect after login
-        if ($user->hasRole('superadmin')) {
-            return redirect()->route('cms.dashboard');
+        // Clear any intended URL that points to verification pages to prevent loops
+        $intended = session()->get('url.intended');
+        if ($intended && str_contains($intended, 'verify-email')) {
+            session()->forget('url.intended');
         }
 
-        if ($user->hasRole('admin')) {
-            return redirect()->route('admin.dashboard');
-        }
+        // Role-based dashboard route
+        $targetRoute = $user->hasRole('superadmin') 
+            ? 'cms.dashboard' 
+            : ($user->hasRole('admin') ? 'admin.dashboard' : 'user.profile');
 
-        // Default: user role
-        return redirect()->route('user.profile');
+        return redirect()->intended(route($targetRoute));
     }
 
     /**

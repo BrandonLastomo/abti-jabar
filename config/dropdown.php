@@ -1340,4 +1340,41 @@ return [
         'Tim Medis',
         'Volunteer Medis'
     ],
+
+    'reaccreditation_roles' => [
+        'Coach',
+        'Competition Manager',
+        'Event Manager',
+        'Fitness Coach',
+        'Goalkeeper Coach',
+        'Inspection Delegates',
+        'lecturers',
+        'Match Analysts',
+        'Multiplier',
+        'Referee',
+        'Referee Observers',
+        'Scorekeeper',
+        'Team Manager',
+        'Technical Delegates - Match',
+        'Technical Delegates - Official',
+        'Technical Director',
+        'Timekeeper',
+        'Venue Manager',
+        'Wheelchair Handball Classifier'
+    ],
+
+    'reaccreditation_licenses' => [
+        'A',
+        'B',
+        'C',
+        'D',
+        'Level 1',
+        'Level 2'
+    ],
+
+    'reaccreditation_tracks' => [
+        'Reguler / Pendaftaran Baru',
+        'Rekognisi',
+        'Perpanjangan'
+    ],
 ];

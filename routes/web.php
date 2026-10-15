@@ -68,8 +68,9 @@ use App\Http\Controllers\UserController\UserTeamExperienceController;
 use App\Http\Controllers\UserController\UserEventExperienceController;
 use App\Http\Controllers\UserController\UserCertificationController;
 use App\Http\Controllers\UserController\UserIntegrityDocumentController;
+use App\Http\Controllers\UserController\UserReaccreditationController;
 
-Route::middleware(['auth', 'role:user'])->prefix('user')->name('user.')->group(function () {
+Route::middleware(['auth', 'verified', 'role:user'])->prefix('user')->name('user.')->group(function () {
     // Overview & General Documents
     Route::get('/profile', [UserProfileController::class, 'index'])->name('profile');
     Route::post('/documents', [UserProfileController::class, 'uploadDocument'])->name('documents.store');
@@ -94,6 +95,7 @@ Route::middleware(['auth', 'role:user'])->prefix('user')->name('user.')->group(f
     Route::resource('event-experiences', UserEventExperienceController::class)->except(['show', 'edit', 'update']);
     Route::resource('certifications', UserCertificationController::class)->except(['show', 'edit', 'update']);
     Route::resource('integrity-documents', UserIntegrityDocumentController::class)->except(['show', 'edit', 'update']);
+    Route::resource('reaccreditations', UserReaccreditationController::class)->except(['show', 'edit', 'update']);
 });
 
 

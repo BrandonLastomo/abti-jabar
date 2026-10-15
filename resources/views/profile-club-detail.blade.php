@@ -120,6 +120,15 @@
                     @else
                         @php
                             // Group staff by their general categories to make it structured
+                            $academyRoles = config('dropdown.club_academy_roles', [
+                                'Direktur Teknik', 'Manajer', 'Coach', 'Fitness Coach', 'Goalkeeper Coach', 'Analis Performa'
+                            ]);
+                            $medicalPositions = config('dropdown.club_medical_sports_positions', [
+                                'Dokter Olahraga', 'Doping Control Officer', 'Fisiolog Olahraga', 'Fisioterapis', 
+                                'Medis Pertandingan', 'Medis Tim', 'Nutrisionis Olahraga', 'Perawat', 
+                                'Psikolog Olahraga', 'Sport Masseur', 'Tenaga Kesehatan', 'Tim Medis', 'Volunteer Medis'
+                            ]);
+
                             $groupedStaff = [
                                 'Manajemen Utama' => $club->staff->whereIn('position', ['Direktur Utama', 'Administrator', 'Bendahara']),
                                 'Manajemen Operasional' => $club->staff->whereIn('position', [
@@ -128,15 +137,17 @@
                                     'Manajemen Pemasaran dan Branding',
                                     'Manajemen Pemasalan, Pembinaan dan Event'
                                 ]),
-                                'Tim Kepelatihan' => $club->staff->whereIn('position', ['Direktur Teknik', 'Manajer', 'Coach', 'Fitness Coach', 'Goalkeeper Coach', 'Pelatih Mental']),
-                                'Tim Medis' => $club->staff->whereNotIn('position', [
-                                    'Direktur Utama', 'Administrator', 'Bendahara', 
-                                    'Manajemen Kerjasama, Pendidikan, Hukum, Riset dan Pengembangan',
-                                    'Manajemen Media Sosial dan Relasi Publik',
-                                    'Manajemen Pemasaran dan Branding',
-                                    'Manajemen Pemasalan, Pembinaan dan Event',
-                                    'Direktur Teknik', 'Manajer', 'Coach', 'Fitness Coach', 'Goalkeeper Coach', 'Pelatih Mental'
-                                ])
+                                'Tim Kepelatihan & Akademi' => $club->staff->whereIn('position', $academyRoles),
+                                'Tenaga Keolahragaan: Umum' => $club->staff->whereNotIn('position', array_merge(
+                                    ['Direktur Utama', 'Administrator', 'Bendahara', 
+                                     'Manajemen Kerjasama, Pendidikan, Hukum, Riset dan Pengembangan',
+                                     'Manajemen Media Sosial dan Relasi Publik',
+                                     'Manajemen Pemasaran dan Branding',
+                                     'Manajemen Pemasalan, Pembinaan dan Event'],
+                                    $academyRoles,
+                                    $medicalPositions
+                                )),
+                                'Tenaga Keolahragaan: Kesehatan' => $club->staff->whereIn('position', $medicalPositions),
                             ];
                         @endphp
 
@@ -155,7 +166,12 @@
                                                     </div>
                                                     <div>
                                                         <p class="font-bold text-gray-900 mb-0.5">{{ $staff->name }}</p>
-                                                        <p class="text-xs font-medium text-gray-500">{{ $staff->position }}</p>
+                                                        <p class="text-xs font-medium text-gray-500 flex items-center gap-1.5 flex-wrap">
+                                                            <span>{{ $staff->position }}</span>
+                                                            @if($staff->category)
+                                                                <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-primary/10 text-primary border border-primary/20">{{ $staff->category }}</span>
+                                                            @endif
+                                                        </p>
                                                     </div>
                                                 </div>
                                             @endforeach

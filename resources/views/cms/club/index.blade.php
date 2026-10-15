@@ -13,15 +13,22 @@
       </div>
 
       <div class="actions" style="margin-top:-20px; justify-content:flex-end;">
+        @if(auth()->user()->hasRole('superadmin') || $clubs->count() == 0)
         <a href="{{ route('club.create') }}" class="btn primary">
             Add Club
         </a>
+        @endif
       </div>
     </div>
 
     @if (session('success'))
         <div style="color:green; margin-bottom:15px; margin-top:15px; background: #e6ffed; padding: 10px; border: 1px solid green; border-radius: 5px;">
             {{ session('success') }}
+        </div>
+    @endif
+    @if (session('error'))
+        <div style="color:red; margin-bottom:15px; margin-top:15px; background: #ffe6e6; padding: 10px; border: 1px solid red; border-radius: 5px;">
+            {{ session('error') }}
         </div>
     @endif
 
@@ -93,6 +100,7 @@
                     Docs
                 </a>
 
+                @role('superadmin')
                 <form id="deleteForm{{ $loop->index }}"
                       action="{{ route('club.destroy', $item->id) }}"
                       method="POST"
@@ -112,6 +120,7 @@
                         Delete
                     </button>
                 </form>
+                @endrole
             </td>
           </tr>
         @endforeach
@@ -123,6 +132,7 @@
   </div>
 </div>
 
+@role('superadmin')
 {{-- ALERT MODAL --}}
 <div id="customAlert" class="alert-overlay">
   <div class="alert-box">
@@ -152,18 +162,23 @@ function showAlert(title, message, callback = null) {
     alertBox.style.display = 'flex';
 }
 
-cancelBtn.onclick = function () {
-    alertBox.style.display = 'none';
-};
+if (cancelBtn) {
+    cancelBtn.onclick = function () {
+        alertBox.style.display = 'none';
+    };
+}
 
-confirmBtn.onclick = function () {
-    confirmBtn.innerText = 'Menghapus...';
-    setTimeout(() => {
-        if (typeof confirmCallback === "function") {
-            confirmCallback();
-        }
-    }, 500);
-};
+if (confirmBtn) {
+    confirmBtn.onclick = function () {
+        confirmBtn.innerText = 'Menghapus...';
+        setTimeout(() => {
+            if (typeof confirmCallback === "function") {
+                confirmCallback();
+            }
+        }, 500);
+    };
+}
 </script>
+@endrole
 
 @endsection

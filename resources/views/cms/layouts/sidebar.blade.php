@@ -104,7 +104,6 @@
         </div>
 
         <!-- Data & Media -->
-        @role('superadmin')
         @php $isDataMedia = in_array($page ?? '', ['profile', 'gallery', 'archive']); @endphp
         <div x-data="{ open: {{ $isDataMedia ? 'true' : 'false' }} }">
             <button @click="open = !open" class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl transition-colors text-gray-600 hover:bg-gray-50 hover:text-gray-900 font-medium">
@@ -120,8 +119,7 @@
                 <a href="{{ route('archive.index') }}" class="block px-3 py-2 text-sm rounded-lg transition-colors {{ ($page ?? '') === 'archive' ? 'text-primary font-bold bg-red-50' : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50' }}">Archives</a>
             </div>
         </div>
-        @endrole
-        
+
         <!-- Global Components -->
         @php $isGlobal = in_array($page ?? '', ['footer']); @endphp
         <div x-data="{ open: {{ $isGlobal ? 'true' : 'false' }} }">
@@ -136,6 +134,16 @@
                 <a href="{{ route('footer.index') }}" class="block px-3 py-2 text-sm rounded-lg transition-colors {{ ($page ?? '') === 'footer' ? 'text-primary font-bold bg-red-50' : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50' }}">Footer</a>
             </div>
         </div>
+        @endrole
+
+        @role('admin')
+        <div class="pt-5 pb-2">
+            <p class="px-3 text-xs font-extrabold uppercase tracking-widest text-gray-400">Club Management</p>
+        </div>
+        <a href="{{ route('club.index') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 {{ request()->routeIs('club.*') || request()->routeIs('admin.dashboard') ? 'bg-primary text-white font-bold shadow-[0_4px_12px_rgba(220,38,38,0.2)] hover:-translate-y-0.5' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 font-medium' }}">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+            Profile (Clubs)
+        </a>
         @endrole
 
     </div>

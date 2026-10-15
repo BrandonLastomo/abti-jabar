@@ -24,18 +24,27 @@ class ClubCMSController extends Controller
     {
         // Admins can only create a club if they don't have one already
         if (auth()->user()->hasRole('admin') && \App\Models\Club::where('admin_id', auth()->id())->exists()) {
-            return redirect()->route('admin.dashboard')->with('error', 'You already have a club assigned.');
+            return redirect()->route('admin.dashboard')->with('error', 'Setiap admin hanya dapat mengelola 1 klub.');
         }
 
         $page = 'profile';
-        $admins = \App\Models\User::role('admin')->get();
+        // Only admins who do not already have a club assigned
+        $assignedAdminIds = \App\Models\Club::whereNotNull('admin_id')->pluck('admin_id')->toArray();
+        $admins = \App\Models\User::role('admin')->whereNotIn('id', $assignedAdminIds)->get();
         return view('cms.club.add-club', compact('page', 'admins'));
     }
 
     public function store(Request $request)
     {
         if (auth()->user()->hasRole('admin') && \App\Models\Club::where('admin_id', auth()->id())->exists()) {
-            return redirect()->route('admin.dashboard')->with('error', 'You already have a club assigned.');
+            return redirect()->route('admin.dashboard')->with('error', 'Setiap admin hanya dapat mengelola 1 klub.');
+        }
+
+        if (!empty($request->admin_id)) {
+            $alreadyAssigned = \App\Models\Club::where('admin_id', $request->admin_id)->exists();
+            if ($alreadyAssigned) {
+                return back()->withInput()->withErrors(['admin_id' => 'Admin yang dipilih sudah mengelola klub lain. Setiap admin hanya dapat mengelola 1 klub.']);
+            }
         }
         
         $data = $request->validate([
@@ -84,7 +93,12 @@ class ClubCMSController extends Controller
         }
         
         $page = 'profile';
-        $admins = \App\Models\User::role('admin')->get();
+        // Only admins who do not already have another club assigned (plus current club's admin)
+        $assignedAdminIds = \App\Models\Club::whereNotNull('admin_id')
+            ->where('id', '!=', $club->id)
+            ->pluck('admin_id')
+            ->toArray();
+        $admins = \App\Models\User::role('admin')->whereNotIn('id', $assignedAdminIds)->get();
         return view('cms.club.edit-club', compact('club', 'page', 'admins'));
     }
 
@@ -92,6 +106,15 @@ class ClubCMSController extends Controller
     {
         if (auth()->user()->hasRole('admin') && $club->admin_id !== auth()->id()) {
             abort(403, 'Unauthorized');
+        }
+
+        if (!empty($request->admin_id) && $request->admin_id != $club->admin_id) {
+            $alreadyAssigned = \App\Models\Club::where('admin_id', $request->admin_id)
+                ->where('id', '!=', $club->id)
+                ->exists();
+            if ($alreadyAssigned) {
+                return back()->withInput()->withErrors(['admin_id' => 'Admin yang dipilih sudah mengelola klub lain. Setiap admin hanya dapat mengelola 1 klub.']);
+            }
         }
 
         $validationRules = [

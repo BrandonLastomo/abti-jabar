@@ -10,9 +10,14 @@ class AdminDashboardController extends Controller
 {
     public function index(Request $request)
     {
-        $myClub = \App\Models\Club::where('admin_id', Auth::id())->first();
+        if (auth()->user()->hasRole('admin')) {
+            $clubs = \App\Models\Club::where('admin_id', Auth::id())->latest()->get();
+        } else {
+            $clubs = \App\Models\Club::latest()->get();
+        }
+        $page = 'profile';
         
-        return view('admin.dashboard', compact('myClub'));
+        return view('admin.dashboard', compact('clubs', 'page'));
     }
 
     public function documents(Request $request)

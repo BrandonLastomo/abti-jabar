@@ -32,6 +32,7 @@ class ClubStaffController extends Controller
             'staff' => 'nullable|array',
             'staff.*.name' => 'nullable|string|max:255',
             'staff.*.position' => 'nullable|string|max:255',
+            'staff.*.category' => 'nullable|string|max:255',
         ]);
 
         // Delete all existing staff for this club
@@ -45,6 +46,7 @@ class ClubStaffController extends Controller
                         'club_id' => $club->id,
                         'name' => $staffItem['name'],
                         'position' => $staffItem['position'],
+                        'category' => !empty($staffItem['category']) ? $staffItem['category'] : null,
                         'created_at' => now(),
                         'updated_at' => now(),
                     ];
